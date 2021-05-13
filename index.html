@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+	<meta name="description" content="Custom web components, simple widgets for later reusage" />
+	<meta name="keywords" content="button, buttons, spinning circle, gauge, sliders, switches, modal" />
+	<meta name="author" content="Marek Gudalewicz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Widgets</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="Buttons/buttonCUstomWebComponent.css">
+
+    <script src="CommonJS/niceLogger.js" defer></script>
+    <script src="CommonJS/abstractWebComponent.js" defer></script>
+    <script src="CommonJS/HeadlineLogo.js" defer></script>
+
+    <script src = "Modal/modal.js" defer></script>
+    <script src = "CommonJS/codeSnippetLoader.js" defer></script>
+    <script src = "Buttons/codeSnippets.js" defer></script>
+    <script src = "Buttons/buttonCustomWebComponent.js" defer></script>
+</head>
+    <body class = "center">
+
+        <div class="wrapper column">
+            <div class="headline center column">
+                <head-line>Widgets</head-line>
+                <div class="inline">
+                    <div class="h3">Inspired by</div>
+                    <a href="https://ianlunn.github.io/Hover" class="links"><i>https://ianlunn.github.io/Hover/</i></a>
+                </div>
+            </div>
+            <div class="content column">
+                <div class="h2 center">Buttons</div>
+                <div class="widget-container">
+                    <custom-button></custom-button>
+                </div>
+
+            </div>
+        </div>
+    
+    </body>
+</html>
