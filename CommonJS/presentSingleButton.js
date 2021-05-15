@@ -1,5 +1,5 @@
 class SingleButtonPresenter extends AbstractComponent {
-    constructor(){
+    constructor() {
         super();
         this.content = this.shadowRoot.querySelector('content')
         this.acitivatingSwitch = this.shadowRoot.querySelector('#acitveButtonSwitchId')
@@ -7,39 +7,62 @@ class SingleButtonPresenter extends AbstractComponent {
         this.buttonType = this.getAttribute('data-button-type');
         this.labelInput = this.shadowRoot.querySelector('input')
         this.button = this.shadowRoot.querySelector('custom-button')
+        this.updatePresentedButtonType();
     }
 
-    connectedCallback(){
+    connectedCallback() {
         this.setEventsOnWrappedButton();
+        this.button.setAttribute('onclick', `SingleButtonPresenter.openModalOnButtonClick("${this.buttonType}")`)
+        console.log(this.buttonType)
     }
 
-    wrapButton(buttonAsElement){
+    updatePresentedButtonType(){
+        this.buttonType = this.getAttribute('data-button-type')
+        this.buttonType = this.buttonType == undefined || this.buttonType == null ? 'sample-button' : this.buttonType;
+        this.button.setAttribute('data-button-type', this.buttonType) 
+    }
+
+    wrapButton(buttonAsElement) {
         this.content.innerHTML = '';
         this.content.appendChild(buttonAsElement);
         this.setEventsOnWrappedButton();
     }
-    setEventsOnWrappedButton(){
+    setEventsOnWrappedButton() {
         this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
         this.colorChoser.addEventListener('click', this.setButtonColorTheme.bind(this))
         this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
     }
-    activateDisactivateButton(){
+    activateDisactivateButton() {
         let isActivatingSwitchOn = this._stringOrBooleanToBoolean(this.acitivatingSwitch.getAttribute('data-is-on'))
-        let getActivationSwitchLabel = function() {return isActivatingSwitchOn? 'disactivate' : 'activate'}
+        let getActivationSwitchLabel = function () { return isActivatingSwitchOn ? 'disactivate' : 'activate' }
         this.button.setAttribute('data-is-active', isActivatingSwitchOn)
         this.acitivatingSwitch.setAttribute('data-label', getActivationSwitchLabel())
     }
-    setButtonColorTheme(){
+    setButtonColorTheme() {
         let colorTheme = this.colorChoser.getAttribute('data-position');
         this.button.setAttribute('data-color-theme', colorTheme)
     }
-    setLabelChange(){
+    setLabelChange() {
         console.log('changed')
         this.button.setAttribute('data-label', this.labelInput.value)
     }
 
-    _getTemplate(){
-        return `
+    static openModalOnButtonClick(contentDescriptor) {
+            console.log(contentDescriptor)
+            let modalContent = WidgetDetailsDB.getDetailsAbout(contentDescriptor)
+            SingleButtonPresenter.openModalWithContent(modalContent)
+    }
+
+    static openModalWithContent(buttonType) {
+        let modal = document.createElement('killable-modal');
+        // modal.innerHTML = contentAsString;
+        let content = new CodePresentationCustomWebElement(buttonType)
+        modal.insertElementToKillableModal(content)
+        document.querySelector('body').appendChild(modal)
+    }
+
+_getTemplate(){
+    return `
         <style>
             .center{
                 display: flex;
@@ -72,11 +95,11 @@ class SingleButtonPresenter extends AbstractComponent {
                 <input type = "text" placeholder = "Button caption..." value = ''></input>
             </div>
             <div class = "content center">
-                <custom-button onclick = "openModalOnButtonClick('${this.button}')"></custom-button>
+                <custom-button></custom-button>
             </div>
         </div>
         `
-        // sampleButton
-    }
+    // sampleButton
+}
 }
 window.customElements.define('single-button-presenter', SingleButtonPresenter)
