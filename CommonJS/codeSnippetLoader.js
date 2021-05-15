@@ -5,7 +5,7 @@ class WidgetDetailsDB{
 
 
     static getDetailsAbout(widgetDescriptor){
-        {if(widgetDescriptor == 'sampleButton') return `
+        {if(widgetDescriptor == 'sample-button') return `
         <pre>
             &lt;style>
             *{

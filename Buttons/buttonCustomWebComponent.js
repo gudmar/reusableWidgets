@@ -7,7 +7,8 @@ class CustomButton extends AbstractComponent{
         this.state = {
             label: 'Button',
             colorTheme: 'blue',
-            isActive: true
+            isActive: true,
+            onclick: ()=>{}
         }
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.setInitialState();
@@ -23,6 +24,7 @@ class CustomButton extends AbstractComponent{
                 }
                 if (prop == 'isActive') {this.setButtonToActiveUnactiveState(value);}
                 if (prop == 'label') {this.setButtonLabel(value);}
+                if (prop == 'onclick') {this.changeOnclickFunction(value)}
                 obj[prop] = value;
                 return true;
             }.bind(this),
@@ -31,14 +33,27 @@ class CustomButton extends AbstractComponent{
             }
         }
     }
+
+    changeOnclickFunction(newFunction){
+        this.removeEventListener('click', this.state['onclick'])
+        this.addEventListener('click', eval(this.state['onclick']))
+    }
+
     checkIfColorThemeIsSupported(colorThemeName){
         let supportedThemes = ['green', 'blue'];
         return supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
     }
 
     setButtonToActiveUnactiveState(value){
-        if (!value) {this.changeButtonColorThemeClass('inactive')}
-        else {this.changeButtonColorThemeClass(this.state['colorTheme'])}
+        if (!value) {
+            {this.changeButtonColorThemeClass('inactive')}
+            this.onclickMemory = this.onclick;
+            this.onclick = ''
+        }
+        else {
+            this.changeButtonColorThemeClass(this.state['colorTheme'])
+            this.onclick = this.onclickMemory;
+        }
     }
 
     changeButtonColorThemeClass(colorThemeName){
@@ -90,6 +105,7 @@ class CustomButton extends AbstractComponent{
         }
         if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal); console.log('attrig')}
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
+        if (attrName == 'data-onclick') {this.stateProxy.onclick = newVal}
     }
 
 
@@ -98,14 +114,22 @@ class CustomButton extends AbstractComponent{
         //     this.innerHTML = "Content"
         // }.bind(this)
         // setTimeout(cb, 700)
+        this.setInitialOnclick();
     }
+
+    setInitialOnclick(){
+        let onclickFunction = this.getAttribute('data-onclick')
+        console.log(onclickFunction)
+        this.stateProxy['onclick'] = onclickFunction != undefined ? onclickFunction : ()=>{}
+    }
+
     _changeButtonToBig() {
         this.shadowRoot.querySelector('.button').classList.remove('button-min')
     }
 
 
     static get observedAttributes() {
-        return ['data-label', 'data-color-theme', 'data-is-active']
+        return ['data-label', 'data-color-theme', 'data-is-active', 'data-onclick']
     }
 
     _getTemplate(){
