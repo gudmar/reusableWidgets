@@ -1,6 +1,6 @@
 
 
-class Slider extends AbstractElement{
+class Slider extends AbstractComponent{
     constructor(initialStateOn, label) {
         super()
         this.stateOn = this._setAttribute(initialStateOn, 'data-is-on', false);

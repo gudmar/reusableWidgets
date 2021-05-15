@@ -6,40 +6,16 @@ class KillableModal extends AbstractComponent{
     constructor(){
         super()
 
-
-        // this.state = new Proxy(this._state, this._getStateProxyHandler())
-        // this.setInitialState();
         this.content = this.shadowRoot.querySelector('.modal-content')
 
         
     }
 
-    // _getStateProxyHandler() {
-    //     return {
-    //         set: function (obj, key, val) {
-    //             switch (key) {
-    //                 case 'visible':
-    //                     if (!val) {
-    //                         obj[key] = val;
-    //                         this.setAttribute('data-visible', false)
-    //                         this._hide()
-    //                     } else {
-    //                         obj[key] = val;
-    //                         this.setAttribute('data-visible', true)
-    //                         this.show()
-    //                     }
-    //                     break;
-    //                 default:
-    //                         obj[key] = val;
-    //             }
-    //             return true;
-    //         }.bind(this)
-    //     }
-    // }
-
-    // setInitialState(){
-    //     this.setStateIfNoAttrDefined.call(this, 'data-visible', 'visible', this._shouldBeVisible.bind(this))
-    // }
+    insertElementToKillableModal(element){
+        let contentHolder = this.shadowRoot.querySelector('.modal-content')
+        contentHolder.innerHTML = '';
+        contentHolder.appendChild(element)
+    }
 
     nestChidElement(element){
         this.content.appendChild(element);
@@ -59,52 +35,22 @@ class KillableModal extends AbstractComponent{
         this._removeElement(this)
     }
 
-    _initialShowHide(){
-        if (this._state.visible) {
-            this.show()
-        } else {
-            this._hide()
-        }
-    }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
-        if (attrName == 'data-visible'){
-            newVal = this._stringOrBooleanToBoolean(newVal)
-            if (this.state.visible != newVal){
-                this.state.visible = newVal
-            }
-        }
+
     }
 
-    _stringOrBooleanToBoolean(val) {
-        let output = val
-        if (typeof(val) == 'string') {
-            output = val == "false"?false:true;
-        }  
-        return output
-    }
-
-    _shouldBeVisible(shouldBeVisible){
-        this.state.visible = this._stringOrBooleanToBoolean(shouldBeVisible)
-    }
-
-    show(){
-        this.shadowRoot.querySelector('.modal-cover').classList.remove('hidden')
-        this._disableScroll();
-    }
-    _hide(){
-        this.shadowRoot.querySelector('.modal-cover').classList.add('hidden')
-        this._enableScroll();
-    }
 
     _disableScroll(){
         window.addEventListener('touchmove', this._stopScroll);
         window.addEventListener('scroll', this._stopScroll);   
     }
+
     _enableScroll(scrollStopperFunction) {
         window.removeEventListener('touchmove', scrollStopperFunction);
         window.removeEventListener('scroll', scrollStopperFunction);
     }
+
     _stopScroll(){
         let x = window.scrollX;
         let y = window.scrollY;
@@ -115,12 +61,7 @@ class KillableModal extends AbstractComponent{
         }
     }
     _onInnerHTMLChange() {
-        // try {
             this.content.innerHTML = this.innerHTML
-            
-        // } catch (e) {
-        //     // expected - at this moment modalMessageHolder is null;
-        // }
     }
 
     _getTemplate(){
@@ -244,4 +185,4 @@ class KillableModal extends AbstractComponent{
     }
 }
 
-window.customElements.define('hidable-modal', HidableModal)
+window.customElements.define('killable-modal', KillableModal)
