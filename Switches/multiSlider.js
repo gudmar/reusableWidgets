@@ -1,6 +1,6 @@
 
 
-class MultipositionalSlider extends AbstractElement{
+class MultipositionalSlider extends AbstractComponent{
     constructor(label, labelSet, initialPosition) {
         super()
         this.label = this._setAttribute(label, 'data-label', 'slider');
@@ -75,10 +75,11 @@ class MultipositionalSlider extends AbstractElement{
                     border-radius: 50%;
                     border: none;
                     padding: 0;
-                    background-color: var(--background-gray);
+                    background-color: var(--movable-slider-color);
                     top: -0%;
                     left: -2px;
-                    box-shadow: inset 0 0 5px #777;
+                    box-shadow: inset 0 0 15px #455;
+                    z-index: 50;
                 }
                 ${this._getCSSDefinitionsForEachPositionClass()}
                 ${this._getSetOfPositionHoverCSSDefinitions()}
@@ -105,6 +106,7 @@ class MultipositionalSlider extends AbstractElement{
                     --slider-height: 20px;
                     --slider-movable-size: ${this._get_PLECEHOLDER_SIZE()}px;
                     --background-gray: rgb(220, 220, 220);
+                    --movable-slider-color: rgb(220, 220, 220);
                     --color-on: rgb(100, 180, 100);
                     --color-off: rgb(180, 100, 100);
                     --color-on-hover: rgb(10, 250, 10);

@@ -5,9 +5,54 @@ class CustomButton extends AbstractComponent{
     constructor(){
         super();
         this.state = {
-            label: 'Button'
+            label: 'Button',
+            colorTheme: 'blue',
+            isActive: true
         }
+        this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.setInitialState();
+    }
+    stateProxyHandler(){
+        return {
+            set: function(obj, prop, value){
+                if (prop == 'colorTheme'){
+                    if (!this.checkIfColorThemeIsSupported(value)) {
+                        throw new Error(`${this.constructor.name}: Color theme ${value} not supported.`)
+                    }
+                    this.changeButtonColorThemeClass(value);
+                }
+                if (prop == 'isActive') {this.setButtonToActiveUnactiveState(value);}
+                if (prop == 'label') {this.setButtonLabel(value);}
+                obj[prop] = value;
+                return true;
+            }.bind(this),
+            get: function(obj, prop, receiver){
+                return obj[prop]
+            }
+        }
+    }
+    checkIfColorThemeIsSupported(colorThemeName){
+        let supportedThemes = ['green', 'blue'];
+        return supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
+    }
+
+    setButtonToActiveUnactiveState(value){
+        if (!value) {this.changeButtonColorThemeClass('inactive')}
+        else {this.changeButtonColorThemeClass(this.state['colorTheme'])}
+    }
+
+    changeButtonColorThemeClass(colorThemeName){
+        let targetElement = this.shadowRoot.querySelector('.button')
+        // let findColorThemeRelatedClass = function() {
+            let colorClassPattern = 'color-theme-'
+            let oldThemeClass = '';
+            Array.from(targetElement.classList).forEach((item, index) => {                
+                if (item.indexOf(colorClassPattern) != -1){oldThemeClass = item}
+            })
+            console.log(oldThemeClass)
+        // }
+        if (oldThemeClass != '') {targetElement.classList.remove(oldThemeClass)}
+        targetElement.classList.add(colorClassPattern + colorThemeName)
     }
 
     _onInnerHTMLChange(){
@@ -40,8 +85,11 @@ class CustomButton extends AbstractComponent{
     attributeChangedCallback(attrName, oldVal, newVal) {
 
         if (attrName == 'data-label'){
-            this.setButtonLabel(newVal)
+            // this.setButtonLabel(newVal)
+            this.stateProxy.label = newVal
         }
+        if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal); console.log('attrig')}
+        if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
     }
 
 
@@ -57,7 +105,7 @@ class CustomButton extends AbstractComponent{
 
 
     static get observedAttributes() {
-        return ['data-label']
+        return ['data-label', 'data-color-theme', 'data-is-active']
     }
 
     _getTemplate(){
@@ -69,21 +117,53 @@ class CustomButton extends AbstractComponent{
             .button-wrapper{
                 display: inline-block
             }
+            .button-big{
+                --button-font-size: 1.5rem;
+                --button-padding: 10px;
+            }
+            .button-small{
+                --button-font-size: 1rem;
+                --button-padding: 5px;
+            }
+
+            .color-theme-blue{
+                --button-bg: blue;
+                --button-fg: white;
+                --button-hover-bg: rgb(120, 120, 255);
+                --button-hover-fg: white;
+                --button-active-bg: rgb(200, 200, 255);
+                --button-active-fg: black;
+            }
+
+            .color-theme-green{
+                --button-bg: GreenYellow;
+                --button-fg: DarkGreen;
+                --button-hover-bg: DarkGreen;
+                --button-hover-fg: GreenYellow;
+                --button-active-bg: rgb(200, 200, 255);
+                --button-active-fg: black;
+            }
+            .color-theme-inactive{
+                --button-bg: gray;
+                --button-fg: DarkGray;
+                --button-hover-bg: gray;
+                --button-hover-fg: DarkGray;
+                --button-active-bg: gray;
+                --button-active-fg: DarkGray; 
+            }
+
             .button{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                // position: relative;
-                // height: 1.2rem;
-                // max-width: 100px;
                 display: flex;
                 
                 text-align: center;
-                color: white;
-                background-color: blue;
+                color: var(--button-fg);
+                background-color: var(--button-bg);
                 font-family: Arial;
                 border-radius: 5px;
-                padding: 5px;
+                padding: var(--button-padding);
                 transition: 0.2s;
             }
             .button-min{
@@ -93,17 +173,25 @@ class CustomButton extends AbstractComponent{
             }
             .button:hover {
                 cursor: pointer;
-                background-color: rgb(120, 120, 255);
+                background-color: var(--button-hover-bg);
                 transition: 0.2s;
             }
             .button:active {
-                background-color: rgb(200, 200, 255);
-                color: black;
+                background-color: var(--button-active-bg);
+                color: var(--button-active-fg);
             }
+            ${this.additionalStyling}
             </style>
             <div class = "button-wrapper">
-                <div class="button position-right-top" ></div>
+                <div class="button color-theme-blue position-right-top button-big" ></div>
             </div>
+        `
+    }
+
+    additionalStyling() {
+        return `
+
+        
         `
     }
 }

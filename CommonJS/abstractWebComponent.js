@@ -61,4 +61,12 @@ class AbstractComponent extends HTMLElement{
     _removeElement(element){
         element.parentNode.removeChild(element);
     }
+
+    _stringOrBooleanToBoolean(val) {
+        let output = val
+        if (typeof(val) == 'string') {
+            output = val == "false"?false:true;
+        }  
+        return output
+    }
 }
