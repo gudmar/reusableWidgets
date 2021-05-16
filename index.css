@@ -60,9 +60,15 @@ a:active{
     border-bottom: solid black thin;
 }
 .content{
-    
 
 }
+.widget-container{
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    /* justify-content: flex-start; */
+}
+
 .widget-container{
     width: 100%;
 }
