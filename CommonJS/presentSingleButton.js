@@ -82,14 +82,52 @@ _getTemplate(){
                 position: relative;
                 // width: 30%;
             }
+            .options > *{
+                margin-bottom:20px;
+                margin-top:20px;
+            }
             .content{
                 position: relative;
                 width: 60%;
+            }
+            input{
+                height: 1.5rem;
+                border-radius: 0.75rem;
+                background: white;
+                padding: 5px;
+            }
+            input:focus{
+                outline: none;
+                background-color: rgb(200, 250, 200);
+            }
+            .close-button{
+                align-self: flex-end;
+                margin: 0;
+                margin-top: 0.5rem;
+                cursor: pointer;
+                width: 1rem;
+                height: 1rem;
+                color: white;
+                background-color: rgb(220, 0, 0);
+                border-radius: 50%;
+                font-weight: bold;
+                transition: 200ms;
+            }
+            .close-button:hover{
+                transform: scale(1.5);
+                transition: 200ms;
+            }
+            .close-button:active{
+                transition: 200ms;
+                transform: rotate(180deg);
+                background-color: rgba(100, 100, 100);
+                background-color: green;
             }
         </style>
 
         <div class = "wrapper center">
             <div class = "options center">
+                <div class = "close-button center">&times;</div>
                 <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
                 <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
                 <input type = "text" placeholder = "Button caption..." value = ''></input>

@@ -28,7 +28,6 @@ class KillableModal extends AbstractComponent{
     connectedCallback(){
         this.closeButton = this.shadowRoot.querySelector('.modal-shut-button');
         this.closeButton.addEventListener('click', this._killMe.bind(this))
-        this._initialShowHide();
     }
 
     _killMe(){

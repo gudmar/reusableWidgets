@@ -136,7 +136,7 @@ class MultipositionalSlider extends AbstractComponent{
 
             </style>
             <div>
-            <div class = 'slider-wrapper center'>
+            <div class = 'slider-wrapper '>
                 <div class="slider-label">
                     ${this.label}
                 </div>
