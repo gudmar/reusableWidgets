@@ -65,7 +65,6 @@ class SingleButtonPresenter extends AbstractComponent {
 
     static openModalWithContent(buttonType) {
         let modal = document.createElement('killable-modal');
-        // modal.innerHTML = contentAsString;
         let content = new CodePresentationCustomWebElement(buttonType)
         modal.insertElementToKillableModal(content)
         document.querySelector('body').appendChild(modal)
