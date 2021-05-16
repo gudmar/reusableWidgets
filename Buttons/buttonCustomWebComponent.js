@@ -6,6 +6,7 @@ class CustomButton extends AbstractComponent{
         super();
         this.maxLabelLenght = 10;
         this.state = {
+            buttonType: 'sample-button',
             labelFromAttrib: 'Button',
             displayedLabel: 'Button',
             colorTheme: 'blue',
@@ -13,6 +14,7 @@ class CustomButton extends AbstractComponent{
             isLabelTooBid: false,
             onclick: ()=>{}
         }
+        this.button = this.shadowRoot.querySelector('.button')
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.setInitialState();
     }
@@ -28,6 +30,7 @@ class CustomButton extends AbstractComponent{
                 if (prop == 'isActive') {this.setButtonToActiveUnactiveState(value);}
                 if (prop == 'displayedLabel') {this.value = this.getShorterLabelIfLabelTooLong(value)}
                 if (prop == 'labelFromAttrib') {this.setButtonLabel(value);}
+                if (prop == 'buttonType') {this.setButtonType(value)}
                 if (prop == 'onclick') {this.changeOnclickFunction(value)}
                 obj[prop] = value;
                 return true;
@@ -51,11 +54,13 @@ class CustomButton extends AbstractComponent{
     setButtonToActiveUnactiveState(value){
         if (!value) {
             {this.changeButtonColorThemeClass('inactive')}
+            this.button.classList.remove(this.state.buttonType)
             this.onclickMemory = this.onclick;
             this.onclick = ''
         }
         else {
             this.changeButtonColorThemeClass(this.state['colorTheme'])
+            this.button.classList.add(this.state.buttonType)
             this.onclick = this.onclickMemory;
         }
     }
@@ -94,6 +99,8 @@ class CustomButton extends AbstractComponent{
 
     setInitialState(){
         this.setStateIfNoAttrDefined('label', 'labelFromAttrib', this.setButtonLabel.bind(this))
+        this.setStateIfNoAttrDefined('data-button-type', 'buttonType', (value)=> {this.stateProxy['buttonType'] = value})
+        console.log(this.state)
     }
 
     setButtonLabel(label) {
@@ -101,6 +108,12 @@ class CustomButton extends AbstractComponent{
         let newLabel = this.getShorterLabelIfLabelTooLong(label)
         this.stateProxy['displayedLabel'] = newLabel;
         this.shadowRoot.querySelector('.button').innerHTML = newLabel;
+    }
+
+    setButtonType(buttonType) {
+        let oldButtonType = this.stateProxy['buttonType'];
+        this.button.classList.remove(oldButtonType);
+        this.button.classList.add(buttonType)
     }
 
     getShorterLabelIfLabelTooLong(labelToShorten){
@@ -119,6 +132,7 @@ class CustomButton extends AbstractComponent{
         if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal); console.log('attrig')}
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
         if (attrName == 'data-onclick') {this.stateProxy.onclick = newVal}
+        if (attrName == 'data-button-type') {this.stateProxy.buttonType = newVal}
     }
 
 
@@ -231,24 +245,16 @@ class CustomButton extends AbstractComponent{
                 padding: var(--button-padding);
                 transition: 0.2s;
             }
-            .button-min{
-                border-radius: 50%;
-                width: 0.7rem;
-                height: 0.7rem;
-            }
-            .button:hover {
-                cursor: pointer;
-                background-color: var(--button-hover-bg);
-                color: var(--button-hover-fg);
-                transition: 0.2s;
-            }
+            // .button-min{
+            //     border-radius: 50%;
+            //     width: 0.7rem;
+            //     height: 0.7rem;
+            // }
+
             .color-theme-inactive:hover{
                 cursor: not-allowed;
             }
-            .button:active {
-                background-color: var(--button-active-bg);
-                color: var(--button-active-fg);
-            }
+
             .tooltip {
                 position: absolute;
                 background: white;
@@ -257,7 +263,38 @@ class CustomButton extends AbstractComponent{
                 padding: 5px;
                 max-width: 100px;
                 line-break: anywhere;
+                z-index: 70;
             }
+
+
+
+            .sample-button:hover {
+                cursor: pointer;
+                background-color: var(--button-hover-bg);
+                color: var(--button-hover-fg);
+                transition: 0.2s;
+            }
+
+            .sample-button:active {
+                background-color: var(--button-active-bg);
+                color: var(--button-active-fg);
+            }
+
+            .grow-button:hover {
+                cursor: pointer;
+                transform: scale(1.2);
+                transition: 0.2s;
+            }
+
+            .grow-button:active {
+                background-color: var(--button-active-bg);
+                transform: scale(0.8);
+                transition: 0.2s;
+            }
+            
+
+            .
+
             ${this.additionalStyling}
             </style>
             <div class = "button-wrapper">

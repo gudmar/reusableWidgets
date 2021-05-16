@@ -84,6 +84,10 @@ _getTemplate(){
                 align-items: center;
                 justify-content: center;
             }
+            :host{
+                display: inline-block;
+                margin: 20px;
+            }
             .wrapper{
                 display: flex;
                 flex-direction: column;
@@ -192,9 +196,7 @@ _getTemplate(){
         </style>
 
         <div class = "wrapper">
-                <!--<div class="menu-oppener-placeholder">-->
-                    <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
-                <!--</div>-->
+            <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
             <div class = "options center do-not-display">
                 <div class = "close-button center">&times;</div>
                 <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
@@ -204,8 +206,7 @@ _getTemplate(){
             <div class = "content center">
                 <custom-button></custom-button>
             </div>
-
-                <div class = "button-type-label"></div>
+            <div class = "button-type-label"></div>
 
 
         </div>
