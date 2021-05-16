@@ -75,11 +75,6 @@ class CustomButton extends AbstractButton{
                 padding: var(--button-padding);
                 transition: 0.2s;
             }
-            // .button-min{
-            //     border-radius: 50%;
-            //     width: 0.7rem;
-            //     height: 0.7rem;
-            // }
 
             .color-theme-inactive:hover{
                 cursor: not-allowed;
