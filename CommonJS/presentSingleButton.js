@@ -5,15 +5,25 @@ class SingleButtonPresenter extends AbstractComponent {
         this.acitivatingSwitch = this.shadowRoot.querySelector('#acitveButtonSwitchId')
         this.colorChoser = this.shadowRoot.querySelector('#colorChoserId')
         this.buttonType = this.getAttribute('data-button-type');
-        this.labelInput = this.shadowRoot.querySelector('input')
-        this.button = this.shadowRoot.querySelector('custom-button')
+        this.labelInput = this.shadowRoot.querySelector('input');
+        this.button = this.shadowRoot.querySelector('custom-button');
+        this.optionsMenuCloseButton = this.shadowRoot.querySelector('.close-button');
+        this.optionsMenu = this.shadowRoot.querySelector('.options')
+        this.optionsMenuOpenButton = this.shadowRoot.querySelector('.menu-oppener-button')
         this.updatePresentedButtonType();
     }
 
     connectedCallback() {
         this.setEventsOnWrappedButton();
         this.button.setAttribute('onclick', `SingleButtonPresenter.openModalOnButtonClick("${this.buttonType}")`)
-        console.log(this.buttonType)
+        this.addCloseButtonAction();
+    }
+
+    addCloseButtonAction(){
+        let hideOptionsMenu = function(){this.optionsMenu.classList.add('do-not-display')}.bind(this)
+        let showOptionsMenu = function(){this.optionsMenu.classList.remove('do-not-display')}.bind(this)
+        this.optionsMenuCloseButton.addEventListener('click', hideOptionsMenu);
+        this.optionsMenuOpenButton.addEventListener('click', showOptionsMenu);
     }
 
     updatePresentedButtonType(){
@@ -72,19 +82,24 @@ _getTemplate(){
             .wrapper{
                 flex-direction: row;
                 postion: relative;
+                
                 width: 300px;
-                // height: rem;
-                border: solid thin black;
+                height: 100px;
                 border-radius: 5px;
             }
             .options{
                 flex-direction: column;
-                position: relative;
-                // width: 30%;
+                position: absolute;
+                background-color: rgb(240, 240, 240);
+                padding: 1rem;
+                border-radius: 5px;
+                box-shadow: 7px 10px 6px 0px rgba(0,0,0,0.71);             
+                z-index: 100;
             }
             .options > *{
                 margin-bottom:20px;
                 margin-top:20px;
+                
             }
             .content{
                 position: relative;
@@ -123,10 +138,43 @@ _getTemplate(){
                 background-color: rgba(100, 100, 100);
                 background-color: green;
             }
+            .do-not-display{
+                display: none;
+            }
+            .menu-oppener-button {
+                width: 1rem;
+                height: 1rem;
+                position: absolute;
+                font-size: 1.5rem;
+            }
+            .menu-oppener-placeholder {
+                position: relative;
+                align-self: flex-start;
+            }
+            .endless-rotate{
+                align-self: flex-start;
+                left: 0px;
+                top: 0px;
+                animation: infinite-rotation 1.5s linear infinite;
+                transition: 200ms;
+            }
+            .endless-rotate:hover{
+                cursor: pointer;
+                font-size: 2.3rem;
+                transform: scale(2);
+                transition: 200ms;
+            }
+            @keyframes infinite-rotation{
+                0% {transform: rotate(0);}
+                100% {transform: rotate(360deg);}
+            }
         </style>
 
         <div class = "wrapper center">
-            <div class = "options center">
+            <div class="menu-oppener-placeholder">
+                <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
+            </div>
+            <div class = "options center do-not-display">
                 <div class = "close-button center">&times;</div>
                 <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
                 <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
