@@ -10,6 +10,7 @@ class SingleButtonPresenter extends AbstractComponent {
         this.optionsMenuCloseButton = this.shadowRoot.querySelector('.close-button');
         this.optionsMenu = this.shadowRoot.querySelector('.options')
         this.optionsMenuOpenButton = this.shadowRoot.querySelector('.menu-oppener-button')
+        this.buttonTitleHolder = this.shadowRoot.querySelector('.button-type-label')
         this.updatePresentedButtonType();
     }
 
@@ -17,6 +18,11 @@ class SingleButtonPresenter extends AbstractComponent {
         this.setEventsOnWrappedButton();
         this.button.setAttribute('onclick', `SingleButtonPresenter.openModalOnButtonClick("${this.buttonType}")`)
         this.addCloseButtonAction();
+        this.addButtonTitle();
+    }
+
+    addButtonTitle() {
+        this.buttonTitleHolder.innerHTML = this.buttonType;
     }
 
     addCloseButtonAction(){
@@ -79,12 +85,14 @@ _getTemplate(){
                 justify-content: center;
             }
             .wrapper{
-                flex-direction: row;
-                postion: relative;
-                
-                width: 300px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: white;
+                width: 200px;
                 height: 100px;
                 border-radius: 5px;
+                align-items: center;
             }
             .options{
                 flex-direction: column;
@@ -102,7 +110,8 @@ _getTemplate(){
             }
             .content{
                 position: relative;
-                width: 60%;
+                width: 100%;
+                height: 100%;
             }
             input{
                 height: 1.5rem;
@@ -141,23 +150,29 @@ _getTemplate(){
                 display: none;
             }
             .menu-oppener-button {
-                width: 1rem;
-                height: 1rem;
+                width: 1.5rem;
+                height: 1.5rem;
                 position: absolute;
+                line-height: 1.5rem;
                 font-size: 1.5rem;
+                z-index: 50;
             }
             .menu-oppener-placeholder {
                 position: relative;
                 align-self: flex-start;
+                // width: 1.5rem;
+                // height: 1.5rem;
+                border-radius: 50%;
             }
             .endless-rotate{
                 align-self: flex-start;
                 left: 0px;
                 top: 0px;
+                border-radius: 50%;
                 animation: infinite-rotation 1.5s linear infinite;
                 transition: 200ms;
             }
-            .endless-rotate:hover{
+            .menu-oppener-button:hover{
                 cursor: pointer;
                 font-size: 2.3rem;
                 transform: scale(2);
@@ -167,12 +182,19 @@ _getTemplate(){
                 0% {transform: rotate(0);}
                 100% {transform: rotate(360deg);}
             }
+
+            .button-type-label{
+                position: absolute;
+                font-style: italic;
+                font-family: Arial;
+                bottom: 5px;
+            }
         </style>
 
-        <div class = "wrapper center">
-            <div class="menu-oppener-placeholder">
-                <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
-            </div>
+        <div class = "wrapper">
+                <!--<div class="menu-oppener-placeholder">-->
+                    <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
+                <!--</div>-->
             <div class = "options center do-not-display">
                 <div class = "close-button center">&times;</div>
                 <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
@@ -182,6 +204,10 @@ _getTemplate(){
             <div class = "content center">
                 <custom-button></custom-button>
             </div>
+
+                <div class = "button-type-label"></div>
+
+
         </div>
         `
     // sampleButton
