@@ -185,6 +185,7 @@ class CustomButton extends AbstractComponent{
                 --button-hover-fg: white;
                 --button-active-bg: rgb(200, 200, 255);
                 --button-active-fg: black;
+                --button-border-color: rgba(0, 0, 0, 0);
             }
 
             .color-theme-green{
@@ -194,6 +195,7 @@ class CustomButton extends AbstractComponent{
                 --button-hover-fg: GreenYellow;
                 --button-active-bg: rgb(200, 200, 255);
                 --button-active-fg: black;
+                --button-border-color: DarkGreen;
             }
             .color-theme-red{
                 --button-bg: rgb(220, 0, 0);
@@ -202,6 +204,7 @@ class CustomButton extends AbstractComponent{
                 --button-hover-fg: white;
                 --button-active-bg: rgb(200, 200, 255);
                 --button-active-fg: black;
+                --button-border-color: rgba(0, 0, 0, 0);
             }
             .color-theme-inactive{
                 --button-bg: gray;
@@ -210,6 +213,7 @@ class CustomButton extends AbstractComponent{
                 --button-hover-fg: DarkGray;
                 --button-active-bg: gray;
                 --button-active-fg: DarkGray; 
+                --button-border-color: rgba(0, 0, 0, 0);
             }
 
             .button{
@@ -222,6 +226,7 @@ class CustomButton extends AbstractComponent{
                 color: var(--button-fg);
                 background-color: var(--button-bg);
                 font-family: Arial;
+                border: solid thin var(--button-border-color);
                 border-radius: 5px;
                 padding: var(--button-padding);
                 transition: 0.2s;
@@ -236,6 +241,9 @@ class CustomButton extends AbstractComponent{
                 background-color: var(--button-hover-bg);
                 color: var(--button-hover-fg);
                 transition: 0.2s;
+            }
+            .color-theme-inactive:hover{
+                cursor: not-allowed;
             }
             .button:active {
                 background-color: var(--button-active-bg);
