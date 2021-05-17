@@ -106,6 +106,8 @@ class CustomButton extends AbstractButton{
                 color: var(--button-active-fg);
             }
 
+
+
             .grow-button:hover {
                 cursor: pointer;
                 transform: scale(1.2);
@@ -114,9 +116,22 @@ class CustomButton extends AbstractButton{
 
             .grow-button:active {
                 background-color: var(--button-active-bg);
+                transform: scale(1);
+                transition: 0.2s;
+            }
+
+
+            .shrink-button:hover {
+                cursor: pointer;
                 transform: scale(0.8);
                 transition: 0.2s;
             }
+
+            .shrink-button:active {
+                background-color: var(--button-active-bg);
+                transform: scale(1);
+                transition: 0.2s;
+            }   
             
             </style>
             <div class = "button-wrapper">
