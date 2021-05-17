@@ -42,6 +42,26 @@ class WidgetDetailsDB{
                 ${WidgetDetailsDB.getEndingMessage_buttons()}
             `}
         }
+
+
+        {if(widgetDescriptor == 'shrink-button') {
+            let differentCodePart = `
+            &:hover {
+                cursor: pointer;
+                transform: scale(0.8);
+                transition: 0.2s;
+            }
+            &:active{
+                background-color: var(--button-active-bg);
+                transform: scale(1);
+                transition: 0.2s;
+            }
+            `
+        return `
+            ${WidgetDetailsDB.getDescriptorWithCommonCode_buttons(differentCodePart)}
+            ${WidgetDetailsDB.getEndingMessage_buttons()}
+        `}
+    }
     }
 
         static getDescriptorWithCommonCode_buttons(differentCodePart){
