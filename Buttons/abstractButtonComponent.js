@@ -1,7 +1,5 @@
 class AbstractButton extends AbstractComponent{
 
-    // Here some button effects could be added - like wobbling button etc
-
     constructor(){
         super();
         this.maxLabelLenght = 10;
@@ -175,3 +173,4 @@ class AbstractButton extends AbstractComponent{
     }
 
 }
+

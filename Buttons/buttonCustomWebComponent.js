@@ -1,12 +1,9 @@
 class CustomButton extends AbstractButton{
 
-    // Here some button effects could be added - like wobbling button etc
-
     constructor(){
         super();
         this.supportedButtonTypes = ['sample-button', 'growth-button', 'shrink-button']
     }
-
 
     _getTemplate(){
         return `
