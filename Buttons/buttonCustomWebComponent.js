@@ -2,6 +2,7 @@ class CustomButton extends AbstractButton{
 
     constructor(){
         super();
+        this.supportedButtonTypes = ['sample-button', 'growth-button', 'shrink-button']
     }
 
     _getTemplate(){
@@ -117,10 +118,6 @@ class CustomButton extends AbstractButton{
                 transition: 0.2s;
             }
             
-
-            .
-
-            ${this.additionalStyling}
             </style>
             <div class = "button-wrapper">
                 <div class="button color-theme-blue position-right-top button-big" ></div>
