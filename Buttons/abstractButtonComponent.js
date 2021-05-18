@@ -105,7 +105,7 @@ class AbstractButton extends AbstractComponent{
         // this.shadowRoot.querySelector('.button').innerHTML = label
         let newLabel = this.getShorterLabelIfLabelTooLong(label)
         this.stateProxy['displayedLabel'] = newLabel;
-        this.shadowRoot.querySelector('.button').innerHTML = newLabel;
+        this.shadowRoot.querySelector('.button>span').innerHTML = newLabel;
     }
 
     setButtonType(buttonType) {

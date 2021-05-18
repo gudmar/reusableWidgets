@@ -135,7 +135,9 @@ class CustomButton extends AbstractButton{
             
             </style>
             <div class = "button-wrapper">
-                <div class="button color-theme-blue position-right-top button-big" ></div>
+                <div class="button color-theme-blue position-right-top button-big" >
+                    <span></span>
+                </div>
             </div>
         `
     }
