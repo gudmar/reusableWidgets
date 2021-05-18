@@ -1,8 +1,8 @@
-class CustomButton extends AbstractButton{
+class CustomButton extends CircleWhereClickedButton{
 
     constructor(){
         super();
-        this.supportedButtonTypes = ['sample-button', 'growth-button', 'shrink-button']
+        this.supportedButtonTypes = ['sample-button', 'growth-button', 'shrink-button', 'circle-where-clicked']
     }
 
     _getTemplate(){
@@ -132,6 +132,26 @@ class CustomButton extends AbstractButton{
                 transform: scale(1);
                 transition: 0.2s;
             }   
+
+            .circle-where-clicked-button {
+
+            }
+
+            .circle{
+                position: absolute;
+                border-radius: 50%;
+                width: 0;
+                height: 0;
+                background-color: var(--button-fg);
+                transform: translate(-50%, -50%);
+                overflow: hidden;
+            }
+            
+            .circle>span{
+                color: var(--button-bg);
+                position: absolute;
+            }
+
             
             </style>
             <div class = "button-wrapper">

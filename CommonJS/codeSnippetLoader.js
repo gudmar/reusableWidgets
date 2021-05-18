@@ -69,7 +69,7 @@ class WidgetDetailsDB{
 
 
     { if(widgetDescriptor == 'circle-where-clicked-button') {
-        differentCodePart = `
+        let differentCodePart = `
         .circle {
             position: absolute;
             border-radius: 50%;
