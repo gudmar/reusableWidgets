@@ -23,6 +23,11 @@ class AbstractButton extends AbstractComponent{
                     if (!this.checkIfColorThemeIsSupported(value)) {
                         throw new Error(`${this.constructor.name}: Color theme ${value} not supported.`)
                     }
+                    if (!this.state.isActive){
+                        this.state.colorTheme = value;
+                        // this.setAttribute(`data-color-theme`, value)
+                        return true;
+                    }
                     this.changeButtonColorThemeClass(value);
                 }
                 if (prop == 'isActive') {this.setButtonToActiveUnactiveState(value);}
@@ -71,7 +76,6 @@ class AbstractButton extends AbstractComponent{
             Array.from(targetElement.classList).forEach((item, index) => {                
                 if (item.indexOf(colorClassPattern) != -1){oldThemeClass = item}
             })
-            console.log(oldThemeClass)
         // }
         if (oldThemeClass != '') {targetElement.classList.remove(oldThemeClass)}
         targetElement.classList.add(colorClassPattern + colorThemeName)
@@ -135,8 +139,7 @@ class AbstractButton extends AbstractComponent{
 
 
     connectedCallback() {
-        this.setInitialOnclick();
-        this.displayTooltipIfNeeded();
+        // In abstract component - without window.cusotmElements.define... this will never launch.
     }
 
     displayTooltipIfNeeded(){

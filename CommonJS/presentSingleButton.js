@@ -66,7 +66,12 @@ class SingleButtonPresenter extends AbstractComponent {
     static openModalOnButtonClick(contentDescriptor) {
             console.log(contentDescriptor)
             let modalContent = WidgetDetailsDB.getDetailsAbout(contentDescriptor)
-            SingleButtonPresenter.openModalWithContent(modalContent)
+            let openModalAfterDelay = function(){
+                setTimeout(()=>{
+                    SingleButtonPresenter.openModalWithContent(modalContent)
+                }, 300);
+            }
+            openModalAfterDelay();
     }
 
     static openModalWithContent(buttonType) {

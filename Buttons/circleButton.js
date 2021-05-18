@@ -8,9 +8,14 @@ class CircleWhereClickedButton extends AbstractButton{
 
     connectedCallback(){
         this.button.addEventListener('click', this.animateOnClick.bind(this))
+        this.CIRCLE_CLASS = 'circle'
+        this.setInitialOnclick();
+        this.displayTooltipIfNeeded();
     }
 
     animateOnClick(event){
+        if (this.state.isActive === false) return false;
+        if (this.state.buttonType != 'circle-where-clicked-button') return false;
         if (this.wasClickEventTriggered) return false;
         this.wasClickEventTriggered = true;
         this.drawACircleInsideElement(event)
@@ -20,7 +25,7 @@ class CircleWhereClickedButton extends AbstractButton{
         let mouseCords = this.getClickPointInElementRelativeToButton(event)
         let createAndPlaceCircleInsideButton_returnCircle = function(){
             let circle = document.createElement('div');
-            circle.classList.add('circle');
+            circle.classList.add(this.CIRCLE_CLASS);
             this.button.appendChild(circle);
             circle.style.left = mouseCords.x + 'px';
             circle.style.top = mouseCords.y + 'px';    
@@ -163,6 +168,7 @@ class CircleWhereClickedButton extends AbstractButton{
                 --button-font-size: 1rem;
                 --button-padding: 5px;
             }
+
             .circle {
                 position: absolute;
                 border-radius: 50%;
