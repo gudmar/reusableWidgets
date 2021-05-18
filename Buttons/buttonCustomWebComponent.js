@@ -2,7 +2,10 @@ class CustomButton extends CircleWhereClickedButton{
 
     constructor(){
         super();
-        this.supportedButtonTypes = ['sample-button', 'growth-button', 'shrink-button', 'circle-where-clicked']
+        this.supportedButtonTypes = [
+            'sample-button', 'growth-button', 'shrink-button', 'circle-where-clicked',
+            'pulse-button'
+        ]
     }
 
     _getTemplate(){
@@ -133,8 +136,8 @@ class CustomButton extends CircleWhereClickedButton{
                 transition: 0.2s;
             }   
 
-            .circle-where-clicked-button {
-
+            .circle-where-clicked-button:hover {
+                cursor: pointer;
             }
 
             .circle{
@@ -146,10 +149,34 @@ class CustomButton extends CircleWhereClickedButton{
                 transform: translate(-50%, -50%);
                 overflow: hidden;
             }
-            
+
             .circle>span{
                 color: var(--button-bg);
                 position: absolute;
+            }
+
+
+            #pulse:after {   /* ANTIJITTER !!!! */
+                position: absolute;
+                content: "";
+                width: 120px;
+                height: 70px;
+                top: -5px;
+                left: -10px;
+                z-index: -1;
+            }
+
+            .pulse-button:hover{
+                cursor: pointer;
+                animation: pulse 1s infinite ease-in;
+            }
+
+            @keyframes pulse {
+                0%     { transform: scale(1);}
+                25%     { transform: scale(0.9);}
+                50%   { transform: scale(1);}
+                75%   { transform: scale(1.1);}
+                100%   { transform: scale(1);}
             }
 
             
