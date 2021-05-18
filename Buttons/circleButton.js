@@ -1,4 +1,4 @@
-class CircleButton extends AbstractButton{
+class CircleWhereClickedButton extends AbstractButton{
 
     constructor(){
         super();
@@ -11,94 +11,40 @@ class CircleButton extends AbstractButton{
     }
 
     animateOnClick(event){
-
         if (this.wasClickEventTriggered) return false;
         this.wasClickEventTriggered = true;
         this.drawACircleInsideElement(event)
     }
 
-    getElementsPositionRelativeToPage(element){
-        let elementRelatedValues = element.getBoundingClientRect();
-        let _x = parseFloat(window.scrollX) + parseFloat(elementRelatedValues.left);
-        let _y = parseFloat(window.scrollY) + parseFloat(elementRelatedValues.top);
-        return {x: _x, y: _y}
-    }
-
-    substractCord(a, b) {
-        return {x: a.x-b.x, y: a.y - b.y}
-    }
-
-
-    getClickPointInElementRelativeToButton(event){
-        let hostingElementsCoords = this.getElementPosition(this.button)
-        return {x: event.pageX - hostingElementsCoords.x, y: event.pageY - hostingElementsCoords.y}
-    }
-
-    getElementPositionRelativeToTargetElement(srcElement, targetElement){
-        let targetElementCords = this.substractCord(this.getElementsPositionRelativeToPage(srcElement), this.getElementsPositionRelativeToPage(targetElement));
-        let srcElementChords = this.substractCord(this.getElementsPositionRelativeToPage(srcElement), this.getElementsPositionRelativeToPage(targetElement));
-        return {x: srcElementChords.x - targetElementCords.x, y: srcElementChords.y - targetElementCords.y}       
-    }
-
-
-    getElementPosition(element) {
-        let descriptor = element.getBoundingClientRect();
-        return {x: descriptor.left, y: descriptor.top}
-    }
-
-    setElementPosition(element, {x, y}) {
-        element.style.left = parseFloat(x) + 'px';
-        element.style.top = parseFloat(y) + 'px';
-    }
-
     drawACircleInsideElement(event){
-        let targetElement = this.button;
-        let circle = document.createElement('div');
-        let label = document.createElement('span');
-        
-        label.innerText = targetElement.querySelector('span').innerText;
-        circle.appendChild(label);
         let mouseCords = this.getClickPointInElementRelativeToButton(event)
-        let calculateCircleRadius = function(){
-            let circleParentDescriptor = targetElement.getBoundingClientRect();
-            let width = parseFloat(circleParentDescriptor.width);
-            let height = parseFloat(circleParentDescriptor.height);
-            let maxWidthHeight = Math.max(width, height)
-            let sumOfPowers = 2* Math.pow(maxWidthHeight, 2);
-            return width + height;
-            return Math.sqrt(sumOfPowers)
-        }
-        let parentLabelCords = targetElement.tex
-        circle.classList = 'circle'
-        targetElement.appendChild(circle);
-        circle.style.left = mouseCords.x + 'px';
-        circle.style.top = mouseCords.y + 'px';
-        this.growCircleAndDestroyIt(circle, calculateCircleRadius(), this.getElementPosition(label));
-    }
+        let createAndPlaceCircleInsideButton_returnCircle = function(){
+            let circle = document.createElement('div');
+            circle.classList.add('circle');
+            this.button.appendChild(circle);
+            circle.style.left = mouseCords.x + 'px';
+            circle.style.top = mouseCords.y + 'px';    
+            return circle;
+        }.bind(this)
+        let createPlaceLabelToCircle_returnLabel = function (){
+            let label = document.createElement('span');
+            label.innerText = this.button.querySelector('span').innerText;
+            circle.appendChild(label);    
+            return label
+        }.bind(this)
+        let calculateMaxCircleRadius = function(){
+            let {width, height} = this.getElementsSize(this.button)
+            let sumOfPowers = Math.pow(width, 2) + Math.pow(height, 2);
+            return 2 * Math.sqrt(sumOfPowers)
+        }.bind(this)
 
-    getClickPointInElementRelativeToButton(event){
-        let clickedPositionRelativePage =  {x: event.pageX, y: event.pageY}
-        let buttonPositionRelativePage = {x: this.button.getBoundingClientRect().left, y: this.button.getBoundingClientRect().top}
-        return this.substractCord(clickedPositionRelativePage, buttonPositionRelativePage)
-    }
-
-    claculateLabelPositionInCircleElement(circleMiddlePosition){
-        let positionOfMouseClick = circleMiddlePosition
-        let parentLabelCords = this.getLabelPositionRelativeToParent()
-        let circleLabelPosition = this.substractCord( parentLabelCords, positionOfMouseClick);
-        return circleLabelPosition
-    }
-    getLabelPositionRelativeToParent(){
-        let labelDimentions = this.button.querySelector('span').getBoundingClientRect();
-        let labelPosition = {x: labelDimentions.left, y: labelDimentions.top}
-        let buttonDimention = this.button.getBoundingClientRect();
-        let buttonPosition = {x: buttonDimention.left, y: buttonDimention.top}
-        return this.substractCord(labelPosition, buttonPosition)
+        let circle = createAndPlaceCircleInsideButton_returnCircle();
+        let label = createPlaceLabelToCircle_returnLabel();
+        this.growCircleAndDestroyIt(circle, calculateMaxCircleRadius(), this.getElementPosition(label));
     }
 
     growCircleAndDestroyIt(circleElement, maxRadius){
-        circleElement.style.width = 0;
-        circleElement.style.height = 0;
+        this.setElementInlineSize(circleElement, {width: 0, height: 0})
         let circleInnerText = circleElement.querySelector('span');
         let clickPoint = this.getElementPositionRelativeToTargetElement(circleElement, this.button)
         let circleMiddlePosition = {
@@ -106,22 +52,96 @@ class CircleButton extends AbstractButton{
             y: parseFloat(circleElement.style.top)
         }
         let labelPosition = this.claculateLabelPositionInCircleElement(circleMiddlePosition);
-        circleInnerText.style.left = labelPosition.x + 'px';
-        circleInnerText.style.top = labelPosition.y + 'px';       
+        this.setElementPosition(circleInnerText, labelPosition) 
 
         let interval = setInterval(() => {
-            
-            circleElement.style.width = parseFloat(circleElement.style.width) + 1 + 'px';
-            circleElement.style.height = parseFloat(circleElement.style.height) + 1 + 'px';
-            circleInnerText.style.left = parseFloat(circleInnerText.style.left) + 0.5 + 'px';
-            circleInnerText.style.top = parseFloat(circleInnerText.style.top) + 0.5 + 'px';
+            this.setElementInlineSize(circleElement, {
+                width: parseFloat(circleElement.style.width) + 2, 
+                height: parseFloat(circleElement.style.height) + 2
+            })
+            this.setElementPosition(circleInnerText, {
+                x: parseFloat(circleInnerText.style.left) + 1 + 'px',
+                y: parseFloat(circleInnerText.style.top) + 1 + 'px'
+            })
             if (parseFloat(circleElement.style.width) > maxRadius) {
                 clearInterval(interval);
                 circleElement.remove();
                 this.wasClickEventTriggered = false;
             }
         }, 5)
+    }
 
+    getElementPositionRelativeToTargetElement(queredElement, referenceElement){
+        let referenceElementCords = this.substractCordinates(
+            this.getElementsPositionRelativeToPage(queredElement), 
+            this.getElementsPositionRelativeToPage(referenceElement)
+        );
+        let queredElementChords = this.substractCordinates(
+            this.getElementsPositionRelativeToPage(queredElement), 
+            this.getElementsPositionRelativeToPage(referenceElement)
+        );
+        return {x: queredElementChords.x - referenceElementCords.x, y: queredElementChords.y - referenceElementCords.y}       
+    }
+
+    getElementsPositionRelativeToPage(element){
+        let {left, top} = this.getElementPosition(element)
+        return {
+            x: parseFloat(window.scrollX) + left,
+            y: parseFloat(window.scrollY) + top
+        }
+    }
+
+
+    getClickPointInElementRelativeToButton(event){
+        let clickedPositionRelativePage =  {x: event.pageX, y: event.pageY}
+        let buttonPositionRelativePage = this.getElementPosition(this.button)
+        return this.substractCordinates(clickedPositionRelativePage, buttonPositionRelativePage)
+    }
+
+    claculateLabelPositionInCircleElement(circleMiddlePosition){
+        let positionOfMouseClick = circleMiddlePosition
+        let parentLabelCords = this.getLabelPositionRelativeToParent()
+        let circleLabelPosition = this.substractCordinates( parentLabelCords, positionOfMouseClick);
+        return circleLabelPosition
+    }
+
+    getLabelPositionRelativeToParent(){
+        let labelPosition = this.getElementPosition(this.button.querySelector('span'));
+        let buttonPosition = this.getElementPosition(this.button)
+        return this.substractCordinates(labelPosition, buttonPosition)
+    }
+
+    substractCordinates(a, b) {
+        return {
+            x: a.x - b.x,
+            y: a.y - b.y
+        }
+    }
+
+    getElementPosition(element) {
+        let descriptor = element.getBoundingClientRect();
+        return {
+            x: parseFloat(descriptor.left),
+            y: parseFloat(descriptor.top)
+        }
+    }
+
+    getElementsSize(element) {
+        let {width: widthAsString, height: heightAsString} = element.getBoundingClientRect();
+        return {
+            width: parseFloat(widthAsString),
+            height: parseFloat(heightAsString)
+        }
+    }
+
+    setElementInlineSize(element, {width, height}){
+        element.style.width = parseFloat(width) + 'px';
+        element.style.height = parseFloat(height) + 'px';
+    }
+
+    setElementPosition(element, {x, y}) {
+        element.style.left = parseFloat(x) + 'px';
+        element.style.top = parseFloat(y) + 'px';
     }
 
 
@@ -240,21 +260,6 @@ class CircleButton extends AbstractButton{
                 color: var(--button-active-fg);
             }
 
-
-            .circle-button{
-
-            }
-
-            .circle-button:hover{
-                
-            }
-            .circle-button:active{
-                
-            }
-            .circle>span {
-                position: absolute;
-            }
-
             
             </style>
             <div class = "button-wrapper">
@@ -268,4 +273,4 @@ class CircleButton extends AbstractButton{
 
 }
 
-window.customElements.define('circle-button', CircleButton)
+window.customElements.define('circle-where-clicked-button', CircleWhereClickedButton)
