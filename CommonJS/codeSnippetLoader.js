@@ -63,9 +63,61 @@ class WidgetDetailsDB{
         `}
     }
 
+        {if(widgetDescriptor == 'pulse-button') {
+            let differentCodePart = `
+            #pulse:before {   /* ANTIJITTER */
+                position: absolute;
+                content: "";
+                width: 150%;
+                height: 150%;
+                transform: translate(-50%, -50%);
+            }
 
+            .pulse-button:hover{
+                cursor: pointer;
+                animation: pulse 1s infinite ease-in;
+            }
 
+            @keyframes pulse {
+                0%     { transform: scale(1);}
+                25%     { transform: scale(0.9);}
+                50%   { transform: scale(1);}
+                75%   { transform: scale(1.1);}
+                100%   { transform: scale(1);}
+            }
 
+            `
+        return `
+            ${WidgetDetailsDB.getDescriptorWithCommonCode_buttons(differentCodePart)}
+            ${WidgetDetailsDB.getEndingMessage_buttons()}
+        `}
+        }
+
+        {if(widgetDescriptor == 'pulse-grow-button') {
+            let differentCodePart = `
+            .pulse-grow-button:before {   /* ANTIJITTER */
+                position: absolute;
+                content: "";
+                width: 150%;
+                heigth: 150%;
+                transfrom: translate(-50%, -50%);
+            }
+
+            .pulse-grow-button:hover {
+                cursor: pointer;
+                animation: pulse-grow 0.5s alternate infinite ease-in;
+            }	
+            
+            @keyframes pulse-grow{
+                0%     { transform: scale(1);}
+                100%     { transform: scale(1.1);}
+            }
+            `
+        return `
+            ${WidgetDetailsDB.getDescriptorWithCommonCode_buttons(differentCodePart)}
+            ${WidgetDetailsDB.getEndingMessage_buttons()}
+        `}
+        }
 
 
     { if(widgetDescriptor == 'circle-where-clicked-button') {

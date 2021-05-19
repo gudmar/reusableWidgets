@@ -4,7 +4,7 @@ class CustomButton extends CircleWhereClickedButton{
         super();
         this.supportedButtonTypes = [
             'sample-button', 'growth-button', 'shrink-button', 'circle-where-clicked',
-            'pulse-button'
+            'pulse-button', 'pulse-grow-button'
         ]
     }
 
@@ -156,14 +156,12 @@ class CustomButton extends CircleWhereClickedButton{
             }
 
 
-            #pulse:after {   /* ANTIJITTER !!!! */
+            #pulse:before {   /* ANTIJITTER */
                 position: absolute;
                 content: "";
-                width: 120px;
-                height: 70px;
-                top: -5px;
-                left: -10px;
-                z-index: -1;
+                width: 150%;
+                height: 150%;
+                transform: translate(-50%, -50%);
             }
 
             .pulse-button:hover{
@@ -178,6 +176,26 @@ class CustomButton extends CircleWhereClickedButton{
                 75%   { transform: scale(1.1);}
                 100%   { transform: scale(1);}
             }
+
+
+            .pulse-grow-button:before {   /* ANTIJITTER */
+                position: absolute;
+                content: "";
+                width: 150%;
+                heigth: 150%;
+                transfrom: translate(-50%, -50%);
+            }
+
+            .pulse-grow-button:hover {
+                cursor: pointer;
+                animation: pulse-grow 0.5s alternate infinite ease-in;
+            }	
+            
+            @keyframes pulse-grow{
+                0%     { transform: scale(1);}
+                100%     { transform: scale(1.1);}
+            }
+
 
             
             </style>
