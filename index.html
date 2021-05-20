@@ -39,19 +39,54 @@
                     <div class="h3">Inspired by</div>
                     <a href="https://ianlunn.github.io/Hover" target="_blank" class="links"><i>https://ianlunn.github.io/Hover/</i></a>
                 </div>
+                <nav>
+                    <div class="nav-button" data-bind-with-id = 'buttons-container-id'>Buttons</div>
+                    <div class="nav-button" data-bind-with-id = 'waiting-circle-container-id'>Waiting-circles</div>
+                    <div class="nav-button" data-bind-with-id = 'switches-container-id'>Switches</div>
+                    <div class="nav-button" data-bind-with-id = 'gauge-container-id'>Gauge</div>
+                    <div class="nav-button" data-bind-with-id = 'others-container-id'>Other</div>
+                </nav>
             </div>
-            <div class="content column">
-                <div class="content-headline">
-                    <div class="h2 center">Buttons</div>
-                </div>
-                <div class="widgets-container">
-                    <single-button-presenter data-button-type = "sample-button"></single-button-presenter>
-                    <single-button-presenter data-button-type = "grow-button"></single-button-presenter>
-                    <single-button-presenter data-button-type = "shrink-button"></single-button-presenter>
-                    <single-button-presenter data-button-type = "pulse-button"></single-button-presenter>
-                    <single-button-presenter data-button-type = "pulse-grow-button"></single-button-presenter>
-                    <single-button-presenter data-button-type = "circle-where-clicked-button"></single-button-presenter>
-                    
+
+            <div class="content-display">
+                <div class="widget-container-wrapper row">
+                    <div class="widgets-container column" id = "buttons-container-id">
+
+                        <div class="content-headline"><div class="h2 center">Buttons</div></div>
+
+                        <div class="widget-items center">
+                            <single-button-presenter data-button-type = "sample-button"></single-button-presenter>
+                            <single-button-presenter data-button-type = "grow-button"></single-button-presenter>
+                            <single-button-presenter data-button-type = "shrink-button"></single-button-presenter>
+                            <single-button-presenter data-button-type = "pulse-button"></single-button-presenter>
+                            <single-button-presenter data-button-type = "pulse-grow-button"></single-button-presenter>
+                            <single-button-presenter data-button-type = "circle-where-clicked-button"></single-button-presenter>
+                        </div>
+                    </div>
+                    <div class="widgets-container" id = "waiting-circle-container-id">
+                        <div class="content-headline"><div class="h2 center">Waiting circles</div></div>
+
+                        <div class="widget-items center">
+                        </div>
+                    </div>
+                    <div class="widgets-container" id = "switches-container-id">
+                        <div class="content-headline"><div class="h2 center">Switches</div></div>
+
+                        <div class="widget-items center">
+                        </div>
+                    </div>
+                    <div class="widgets-container" id = "gauge-container-id">
+                        <div class="content-headline"><div class="h2 center">Gauge</div></div>
+
+                        <div class="widget-items center">
+                        </div>
+                    </div>
+                    <div class="widgets-container" id = "others-container-id">
+                        <div class="content-headline"><div class="h2 center">Other</div></div>
+
+                        <div class="widget-items center">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

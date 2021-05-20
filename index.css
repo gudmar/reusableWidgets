@@ -39,6 +39,11 @@ a:active{
     display: flex;
     flex-direction: column;
 }
+
+.row {
+    display: flex ;
+    flex-direction: row;
+}
 .inline{
     display: flex;
     flex-direction: row;
@@ -50,7 +55,7 @@ a:active{
 
 .wrapper{
     position: relative;
-    width: 80%;
+    /* width: 80%; */
 }
 .headline{
     position: relative;
@@ -59,14 +64,10 @@ a:active{
     margin: 2rem;
     border-bottom: solid black thin;
 }
-.content{
 
-}
 .widget-container{
     display: flex;
     flex-direction: row;
-    /* align-items: flex-start; */
-    /* justify-content: flex-start; */
 }
 
 .widget-container{
@@ -84,4 +85,54 @@ a:active{
     font-size: 1.3rem;
     color: black;
     font-style: italic;
+}
+
+
+nav{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+    padding: 0.5rem;
+    background-color: rgb(80, 80, 80);
+    color: var(--prime-bg-color);
+}
+
+.nav-button{
+    font-family: var(--prime-font);
+    padding: 0.3rem;
+    transition: 0.2s;
+}
+.nav-button:hover{
+    cursor: pointer;
+    background-color: var(--prime-bg-color);
+    color: black;
+    transition: 0.2s;
+    border-radius: 5px;
+}
+.nav-button:active{
+    background-color: greenyellow;
+    box-shadow: inset 1px 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+.widget-items {
+    position: relative;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.content-display{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.widget-container-wrapper{
+    position: absolute;
+}
+
+.widgets-container{
+    border: black solid thin;
+    height: 90vh;
 }
