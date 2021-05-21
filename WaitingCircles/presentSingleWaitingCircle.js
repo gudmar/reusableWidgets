@@ -1,10 +1,11 @@
-class WaitingCirclePresenter extends AbstractComponent {
+class WaitingCirclePresenter extends HTMLElement {
     constructor() {
         super();
+        this.wrappedElementType = this.getAttribute('data-type');
+        this.addTemplate();
         this.content = this.shadowRoot.querySelector('content')
         this.colorChoser = this.shadowRoot.querySelector('#colorChoserId')
         this.sizeChoser = this.shadowRoot.querySelector('#sizeChoserId')
-        this.wrappedElementType = this.getAttribute('data-type');
         this.wrappedElement = this.shadowRoot.querySelector('waiting-circle');
         this.optionsMenuCloseButton = this.shadowRoot.querySelector('.close-button');
         this.optionsMenu = this.shadowRoot.querySelector('.options')
@@ -13,6 +14,13 @@ class WaitingCirclePresenter extends AbstractComponent {
         this.updatePresentedElementType();
 
         this.element = this.shadowRoot.querySelector('.wrapper')
+    }
+
+    addTemplate(){
+        let template = document.createElement('template');
+        template.innerHTML = this._getTemplate();
+        let sh = this.attachShadow({mode: 'open'});
+        sh.appendChild(template.content.cloneNode(true))
     }
 
     connectedCallback() {
