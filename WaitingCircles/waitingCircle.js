@@ -32,15 +32,34 @@ class WaitingCircle extends AbstractWaitingCircle{
             width: var(--circle-radius);
             height: var(--circle-radius);
         }
-        .circle {
+
+        .circle{
             position: absolute;
             border-radius: 50%;
+            width: var(--circle-radius);
+            height: var(--circle-radius);
+            z-index: 25
+
+        }
+
+        .sample-waiting-circle {
             border: solid thick var(--color-light);
             border-top: solid thick var(--color-dark);
             border-width: calc( var(--circle-radius) * 0.1 );
+
+        }
+        .circle-drop{
+            border: solid;
+            border-bottom: none;
+            border-right: none;
+            border-top: solid transparent 5px; /*Transparent, not none !!!*/
+            border-left: solid darkgreen 5px;
+            position: absolute;
+            border-radius: 50%;
+            border: solid thick var(--color-light);
+            border-width: calc( var(--circle-radius) * 0.1 );
             width: var(--circle-radius);
             height: var(--circle-radius);
-
         }
         .rotate {
             animation: infinite-rotation 1s linear infinite;

@@ -20,9 +20,8 @@
     <script src = "Modal/killable-modal.js" defer></script>
     <script src = "Switches/multiSlider.js" defer></script>
     <script src = "Switches/sliders.js" defer></script>
-    <script src = "CommonJS/presentSingleButton.js" defer></script>
     <script src = "CommonJS/codePresentationWebElement.js" defer></script>
-    <script src = "CommonJS/buttonCodeSnippetLoader.js" defer></script>
+    <script src = "Buttons/buttonCodeSnippetLoader.js" defer></script>
     <script src = "Buttons/codeSnippets.js" defer></script>
     <script src = "Buttons/abstractButtonComponent.js" defer></script>
     <script src = "Buttons/circleButton.js" defer></script>
@@ -31,8 +30,8 @@
     <script src = "WaitingCircles/waitingCircleCodeSnippetLoader.js" defer></script>
     <script src = "WaitingCircles/waitingCircleAbstractComponent.js" defer></script>
     <script src = "WaitingCircles/waitingCircle.js" defer></script>
-    <script src = "WaitingCircles/presentSingleWaitingCircle.js" defer></script>
-    
+
+    <script src = "CommonJS/presentSingleElement.js" defer></script>
     <script src = "CommonJS/menuNavigator.js" defer></script>
 </head>
     <body class = "center">
@@ -60,17 +59,18 @@
                         <div class="content-headline"><div class="h2 center">Buttons</div></div>
 
                         <div class="widget-items center">
-                            <single-button-presenter data-button-type = "sample-button"></single-button-presenter>
-                            <single-button-presenter data-button-type = "grow-button"></single-button-presenter>
-                            <single-button-presenter data-button-type = "shrink-button"></single-button-presenter>
-                            <single-button-presenter data-button-type = "pulse-button"></single-button-presenter>
-                            <single-button-presenter data-button-type = "pulse-grow-button"></single-button-presenter>
-                            <single-button-presenter data-button-type = "circle-where-clicked-button"></single-button-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "sample-button"></single-element-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "grow-button"></single-element-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "shrink-button"></single-element-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "pulse-button"></single-element-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "pulse-grow-button"></single-element-presenter>
+                            <single-element-presenter data-element-type="custom-button" data-element-subtype = "circle-where-clicked-button"></single-element-presenter>
                         </div>
                     </div>
                     <div class="widgets-container" id = "waiting-circle-container-id">
                         <div class="content-headline"><div class="h2 center">Waiting circles</div></div>
-                            <waiting-circle-presenter data-button-type= "sample-waitng-circle"></waiting-circle-presenter>
+                            <single-element-presenter data-element-type = "waiting-circle" data-element-subtype = "sample-waitng-circle"></single-element-presenter>
+                            <single-element-presenter data-element-type = "waiting-circle" data-element-subtype = "circle-drop"></single-element-presenter>
                         <div class="widget-items center">
                         </div>
                     </div>
