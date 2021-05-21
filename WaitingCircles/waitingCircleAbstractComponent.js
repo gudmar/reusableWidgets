@@ -4,7 +4,7 @@ class AbstractWaitingCircle extends AbstractComponent{
         super();
 
         this.state = {
-            elementType: 'sample-waiting-wheel',
+            elementType: 'sample-waiting-circle',
             colorTheme: 'blue',
             size: 'small',
             onclick: ()=>{}
