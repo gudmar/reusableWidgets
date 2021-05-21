@@ -9,7 +9,7 @@ class AbstractWaitingCircle extends AbstractComponent{
             size: 'small',
             onclick: ()=>{}
         }
-        this.element = this.shadowRoot.querySelector('element')
+        this.element = this.shadowRoot.querySelector('.circle')
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.setInitialState();
     }
@@ -23,7 +23,7 @@ class AbstractWaitingCircle extends AbstractComponent{
                     this.changeElementsColorThemeClass(value);
                 }
                 if (prop == 'elementType') {this.setElementType(value)}
-                if (prop == 'elementSize') {this.setElementSize(value)}
+                if (prop == 'elementSize') {this.changeElementSize(value)}
                 obj[prop] = value;
                 return true;
             }.bind(this),
@@ -34,28 +34,12 @@ class AbstractWaitingCircle extends AbstractComponent{
     }
 
     checkIfColorThemeIsSupported(colorThemeName){
-        let supportedThemes = ['green', 'blue', 'grau'];
+        let supportedThemes = ['green', 'blue', 'gray'];
         return supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
-    }
-
-    changeElementsColorThemeClass(colorThemeName){
-        let targetElement = this.shadowRoot.querySelector('element')
-        let colorClassPattern = 'color-theme-'
-        let oldThemeClass = '';
-        Array.from(targetElement.classList).forEach((item, index) => {                
-            if (item.indexOf(colorClassPattern) != -1){oldThemeClass = item}
-        })
-        if (oldThemeClass != '') {targetElement.classList.remove(oldThemeClass)}
-        targetElement.classList.add(colorClassPattern + colorThemeName)
     }
 
     _onInnerHTMLChange(){
         
-    }
-
-
-    attachAction(callback, trigger = 'click') {
-        this.addEventListener(trigger, callback)
     }
 
     // setStateIfNoAttrDefined(attrName, stateKey, cb){
@@ -68,10 +52,28 @@ class AbstractWaitingCircle extends AbstractComponent{
     // }
 
     setInitialState(){
-        this.setStateIfNoAttrDefined('data-size', 'elementSize', this.setElementSize.bind(this))
-        this.setStateIfNoAttrDefined('data-color', 'elementColor', this.setElementSize.bind(this))
+        this.setStateIfNoAttrDefined('data-size', 'elementSize', this.changeElementSize.bind(this, 'small'))
+        this.setStateIfNoAttrDefined('data-color', 'elementColor', this.changeElementsColorThemeClass.bind(this, 'blue'))
         this.setStateIfNoAttrDefined('data-type', 'elementType', (value)=> {this.stateProxy['elementType'] = value})
         console.log(this.state)
+    }
+
+    changeElementSize(newSize){
+        this.changePartOfClassNameInElement('size-', newSize)
+    }
+
+    changeElementsColorThemeClass(newColorTheme){
+        this.changePartOfClassNameInElement('color-theme-', newColorTheme)
+    }
+
+    changePartOfClassNameInElement(classNamePattern, newPartOfClassToBeInserted){
+        let oldClass = '';
+        Array.from(this.element.classList).forEach((item, index) => {    
+            if (item.indexOf(classNamePattern) != -1){oldClass = item}
+        })
+        if (oldClass != '') {this.element.classList.remove(oldClass)}
+        this.element.classList.add(classNamePattern + newPartOfClassToBeInserted)
+        console.log(classNamePattern + newPartOfClassToBeInserted)
     }
 
 
@@ -84,7 +86,8 @@ class AbstractWaitingCircle extends AbstractComponent{
     attributeChangedCallback(attrName, oldVal, newVal) {
 
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
-        if (attrName == 'element-type') {this.stateProxy.elementType = newVal}
+        if (attrName == 'data-element-type') {this.stateProxy.elementType = newVal}
+        if (attrName == 'data-size') {this.stateProxy.elementSize = newVal}
     }
 
 
@@ -94,7 +97,7 @@ class AbstractWaitingCircle extends AbstractComponent{
 
 
     static get observedAttributes() {
-        return ['data-label', 'data-color-theme', 'data-is-active', 'data-onclick']
+        return ['data-color-theme', 'data-size', 'data-color-theme']
     }
 
 }

@@ -1,4 +1,4 @@
-class WaitingCircle extends AbstractComponent{
+class WaitingCircle extends AbstractWaitingCircle{
     constructor(){
         super();
     }
@@ -11,12 +11,12 @@ class WaitingCircle extends AbstractComponent{
             align-items: center;
             justify-content: center;
         }
-        .small{ --circle-radius: 40px; }
-        .medium{ --circle-radius: 60px; }
-        .big{ --circle-radius: 100px; }
+        .size-small{ --circle-radius: 40px; }
+        .size-medium{ --circle-radius: 60px; }
+        .size-big{ --circle-radius: 100px; }
         .color-theme-green{
             --color-dark: darkgreen;
-            --color-light: yellow-green;
+            --color-light: YellowGreen;
         }
         .color-theme-blue{
             --color-dark: blue;
@@ -37,6 +37,7 @@ class WaitingCircle extends AbstractComponent{
             border-radius: 50%;
             border: solid thick var(--color-light);
             border-top: solid thick var(--color-dark);
+            border-width: calc( var(--circle-radius) * 0.1 );
             width: var(--circle-radius);
             height: var(--circle-radius);
 
