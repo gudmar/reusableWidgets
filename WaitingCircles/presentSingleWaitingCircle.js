@@ -11,6 +11,8 @@ class WaitingCirclePresenter extends AbstractComponent {
         this.optionsMenuOpenButton = this.shadowRoot.querySelector('.menu-oppener-button')
         this.wrappedElementTitleHolder = this.shadowRoot.querySelector('.type-label')
         this.updatePresentedElementType();
+
+        this.element = this.shadowRoot.querySelector('.wrapper')
     }
 
     connectedCallback() {
@@ -49,8 +51,24 @@ class WaitingCirclePresenter extends AbstractComponent {
     }
     setSize() {
         let size = this.sizeChoser.getAttribute('data-position');
-        this.wrappedElement.setAttribute('data-size', colorTheme)
+        this.wrappedElement.setAttribute('data-size', size)
+        this.changePresenterElementSize(size)
     }
+
+    changePresenterElementSize(newSize){
+        this.changePartOfClassNameInElement('size-', newSize)
+    }
+
+    changePartOfClassNameInElement(classNamePattern, newPartOfClassToBeInserted){
+        let oldClass = '';
+        Array.from(this.element.classList).forEach((item, index) => {    
+            if (item.indexOf(classNamePattern) != -1){oldClass = item}
+        })
+        if (oldClass != '') {this.element.classList.remove(oldClass)}
+        this.element.classList.add(classNamePattern + newPartOfClassToBeInserted)
+        console.log(classNamePattern + newPartOfClassToBeInserted)
+    }
+
 
     static openModalOnButtonClick(contentDescriptor) {
             console.log(contentDescriptor)
@@ -87,11 +105,23 @@ _getTemplate(){
                 flex-direction: column;
                 position: relative;
                 background-color: white;
-                width: 200px;
-                height: 100px;
                 border-radius: 5px;
                 align-items: center;
             }
+            .size-small{
+                width: 200px;
+                height: 100px;
+            }
+            .size-medium{
+                width: 200px;
+                height: 150px;
+            }
+            .size-big{
+                width: 200px;
+                height: 200px;
+            }
+
+
             .options{
                 flex-direction: column;
                 position: absolute;
@@ -180,7 +210,7 @@ _getTemplate(){
             }
         </style>
 
-        <div class = "wrapper">
+        <div class = "wrapper size-small">
             <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
             <div class = "options center do-not-display">
                 <div class = "close-button center">&times;</div>
