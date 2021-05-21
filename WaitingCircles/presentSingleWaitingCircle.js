@@ -17,7 +17,7 @@ class WaitingCirclePresenter extends AbstractComponent {
 
     connectedCallback() {
         this.setEventsOnWrappedElement();
-        this.wrappedElement.setAttribute('onclick', `WaitingCirclePresenter.openModalOnButtonClick("${this.wrappedElementType}")`)
+        this.wrappedElement.setAttribute('onclick', `WaitingCirclePresenter.openModalWithContent("${this.wrappedElementType}")`)
         this.addCloseButtonAction();
         this.addWrappedElementTitle();
     }
@@ -81,12 +81,23 @@ class WaitingCirclePresenter extends AbstractComponent {
             openModalAfterDelay();
     }
 
-    static openModalWithContent(buttonType) {
+    static openModalWithContent(elementType) {
         let modal = document.createElement('killable-modal');
-        let content = new CodePresentationCustomWebElement(buttonType)
+        let content = new CodePresentationCustomWebElement(WaitngCircleDetailsDB.getDetailsAbout(elementType))
         modal.insertElementToKillableModal(content)
         document.querySelector('body').appendChild(modal)
     }
+
+    // static openModalWithContent(circleType) {
+    //     let modal = document.createElement('killable-modal');
+    //     let content= WaitngCircleDetailsDB.getDetailsAbout(circleType);
+    //     console.log(WaitngCircleDetailsDB.getDetailsAbout(circleType))
+    //     modal.insertElementToKillableModal(content)
+    //     let information = WaitngCircleDetailsDB.g
+    //     // let content = new CodePresentationCustomWebElement(circleType)
+    //     modal.insertElementToKillableModal(content)
+    //     document.querySelector('body').appendChild(modal)
+    // }
 
 _getTemplate(){
     return `
@@ -207,6 +218,7 @@ _getTemplate(){
             }
             waiting-circe {
                 z-index: 25;
+                cursor: pointer;
             }
         </style>
 
