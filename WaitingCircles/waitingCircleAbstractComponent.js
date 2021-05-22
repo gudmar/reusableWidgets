@@ -2,6 +2,10 @@ class AbstractWaitingCircle extends AbstractComponent{
 
     constructor(){
         super();
+        this.implementationHandlers = {
+            'sample-witing-circle': SampleWaitingCircle,
+            'drop-waitg-circle': DropWaitngCircle
+        }
 
         this.state = {
             elementType: 'sample-waiting-circle',
@@ -9,21 +13,20 @@ class AbstractWaitingCircle extends AbstractComponent{
             size: 'small',
             onclick: ()=>{}
         }
-        this.element = this.shadowRoot.querySelector('.circle')
+        this.implementer = this.implementationHandlers[this.state['element-type']]
+
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.setInitialState();
     }
     stateProxyHandler(){
         return {
             set: function(obj, prop, value){
-                if (prop == 'colorTheme'){
-                    if (!this.checkIfColorThemeIsSupported(value)) {
-                        throw new Error(`${this.constructor.name}: Color theme ${value} not supported.`)
-                    }
-                    this.changeElementsColorThemeClass(value);
+                if (prop == 'colorTheme') {this.implementer.changeColorTheme(value)}
+                if (prop == 'elementType') {
+                    this.changeImplementer(value);
+                    this.startWaitingCircle();
                 }
-                if (prop == 'elementType') {this.setElementType(value)}
-                if (prop == 'elementSize') {this.changeElementSize(value)}
+                if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
                 obj[prop] = value;
                 return true;
             }.bind(this),
@@ -33,55 +36,36 @@ class AbstractWaitingCircle extends AbstractComponent{
         }
     }
 
-    checkIfColorThemeIsSupported(colorThemeName){
-        let supportedThemes = ['green', 'blue', 'gray'];
-        return supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
+    changeImplementer(key){
+        if (!this.isInList(key, Object.keys(this.implementationHandlers))) {
+            throw new Error(`${this.constructor.name}: ${key} is not supported. Try one of : ${Object.keys(this.implementationHandlers)}`)
+        }
+        this.implementer.stopWaitingCircle();
+        delete this.implementer;
+        let implementerClassName = this.implementationHandlers[key]
+        this.implementer = new implementerClassName(this);
     }
 
-    _onInnerHTMLChange(){
-        
+    isInList(element, list){
+        return list.indexOf(element) == (-1) ? false : true;
     }
 
-    // setStateIfNoAttrDefined(attrName, stateKey, cb){
-    //     let attr = this.getAttribute(attrName);
-    //     if ((attr == undefined) || attr == null) {
-    //         cb(this.state[stateKey])
-    //     } else {
-    //         cb(attr)
-    //     }
-    // }
+
 
     setInitialState(){
-        this.setStateIfNoAttrDefined('data-size', 'elementSize', this.changeElementSize.bind(this, 'small'))
-        this.setStateIfNoAttrDefined('data-color', 'elementColor', this.changeElementsColorThemeClass.bind(this, 'blue'))
+        this.setStateIfNoAttrDefined('data-size', 'elementSize', this.implementer.changeElementSize.bind(this, 'small'))
+        this.setStateIfNoAttrDefined('data-color', 'elementColor', this.impletenter.changeElementsColorThemeClass.bind(this, 'blue'))
         this.setStateIfNoAttrDefined('data-type', 'elementType', (value)=> {this.stateProxy['elementType'] = value})
         console.log(this.state)
     }
 
-    changeElementSize(newSize){
-        this.changePartOfClassNameInElement('size-', newSize)
-    }
-
-    changeElementsColorThemeClass(newColorTheme){
-        this.changePartOfClassNameInElement('color-theme-', newColorTheme)
-    }
-
-    changePartOfClassNameInElement(classNamePattern, newPartOfClassToBeInserted){
-        let oldClass = '';
-        Array.from(this.element.classList).forEach((item, index) => {    
-            if (item.indexOf(classNamePattern) != -1){oldClass = item}
-        })
-        if (oldClass != '') {this.element.classList.remove(oldClass)}
-        this.element.classList.add(classNamePattern + newPartOfClassToBeInserted)
-        console.log(classNamePattern + newPartOfClassToBeInserted)
-    }
 
 
-    setElementType(elementType) {
-        let oldElementType = this.stateProxy['elementType'];
-        this.element.classList.remove(oldElementType);
-        this.element.classList.add(elementType)
-    }
+    // setElementType(elementType) {
+    //     let oldElementType = this.stateProxy['elementType'];
+    //     this.element.classList.remove(oldElementType);
+    //     this.element.classList.add(elementType)
+    // }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
 

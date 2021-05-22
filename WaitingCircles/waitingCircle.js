@@ -1,83 +1,101 @@
-class WaitingCircle extends AbstractWaitingCircle{
+class WaitingCircle extends HTMLElement{
+
     constructor(){
         super();
+        this.implementationHandlers = {
+            'sample-waiting-circle': SampleWaitingCircle,
+            'drop-waitg-circle': DropWaitingCircle
+        }
+
+        this.state = {
+            elementType: 'sample-waiting-circle',
+            colorTheme: 'blue',
+            size: 'small',
+            onclick: ()=>{}
+        }
+        let implementerClass = this.implementationHandlers[this.state['elementType']];
+        this.implementer = new implementerClass(this)
+        this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
+        this.setInitialState();
+    }
+    stateProxyHandler(){
+        return {
+            set: function(obj, prop, value){
+                if (prop == 'colorTheme') {this.implementer.changeColorTheme(value)}
+                if (prop == 'elementType') {
+                    this.changeImplementer(value);
+                    this.startWaitingCircle();
+                }
+                if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
+                obj[prop] = value;
+                return true;
+            }.bind(this),
+            get: function(obj, prop, receiver){
+                return obj[prop]
+            }
+        }
     }
 
-    _getTemplate(){
-        return `
-        <style>
-        .center{
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    changeImplementer(key){
+        if (!this.isInList(key, Object.keys(this.implementationHandlers))) {
+            throw new Error(`${this.constructor.name}: ${key} is not supported. Try one of : ${Object.keys(this.implementationHandlers)}`)
         }
-        .size-small{ --circle-radius: 40px; }
-        .size-medium{ --circle-radius: 60px; }
-        .size-big{ --circle-radius: 100px; }
-        .color-theme-green{
-            --color-dark: darkgreen;
-            --color-light: YellowGreen;
-        }
-        .color-theme-blue{
-            --color-dark: blue;
-            --color-light: rgb(180, 180, 255) ;
-        }
-        .color-theme-gray{
-            --color-dark: darkGray;
-            --color-light: rgb(220, 220, 220) ;
-        }
-        
-        .wrapper {
-            position: relative;
-            width: var(--circle-radius);
-            height: var(--circle-radius);
-        }
-
-        .circle{
-            position: absolute;
-            border-radius: 50%;
-            width: var(--circle-radius);
-            height: var(--circle-radius);
-            z-index: 25
-
-        }
-
-        .sample-waiting-circle {
-            border: solid thick var(--color-light);
-            border-top: solid thick var(--color-dark);
-            border-width: calc( var(--circle-radius) * 0.1 );
-
-        }
-        .circle-drop{
-            border: solid;
-            border-bottom: none;
-            border-right: none;
-            border-top: solid transparent 5px; /*Transparent, not none !!!*/
-            border-left: solid darkgreen 5px;
-            position: absolute;
-            border-radius: 50%;
-            border: solid thick var(--color-light);
-            border-width: calc( var(--circle-radius) * 0.1 );
-            width: var(--circle-radius);
-            height: var(--circle-radius);
-        }
-        .rotate {
-            animation: infinite-rotation 1s linear infinite;
-        }
-
-
-        @keyframes infinite-rotation{
-            0% {transform: rotate(0deg);}
-            100% {transform: rotate(360deg)}
-        }
-
-        </style>
-        <div class = "wrapper small center">
-            <div class = "circle rotate color-theme-blue"></div>
-        </div>
-        
-        `
+        if (this.implementer != undefined) this.implementer.stopWaitingCircle();
+        delete this.implementer;
+        let implementerClassName = this.implementationHandlers[key]
+        this.implementer = new implementerClassName(this);
+        console.log(this.implementer)
     }
+
+    isInList(element, list){
+        return list.indexOf(element) == (-1) ? false : true;
+    }
+
+
+
+    setInitialState(){
+        console.log(this.implementer)
+        this.setStateIfNoAttrDefined('data-size', 'elementSize')
+        this.setStateIfNoAttrDefined('data-color', 'elementColor')
+        this.setStateIfNoAttrDefined('data-element-subtype', 'elementType')
+        console.log(this.state)
+    }
+
+    setStateIfNoAttrDefined(attrName, stateKey){
+        let attr = this.getAttribute(attrName);
+        if (attr != '') this.stateProxy[attrName] = attr;
+        // debugger;
+
+    }
+
+
+    // setElementType(elementType) {
+    //     let oldElementType = this.stateProxy['elementType'];
+    //     this.element.classList.remove(oldElementType);
+    //     this.element.classList.add(elementType)
+    // }
+
+    attributeChangedCallback(attrName, oldVal, newVal) {
+
+        if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
+        if (attrName == 'data-element-type') {this.stateProxy.elementType = newVal}
+        if (attrName == 'data-size') {this.stateProxy.elementSize = newVal}
+    }
+
+
+    connectedCallback() {
+        this.attachShadow({mode: 'open'})
+        this.changeImplementer(this.stateProxy['elementType'])
+        console.log(this.stateProxy['size'])
+        this.implementer.startWaitngCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
+
+    }
+
+
+    static get observedAttributes() {
+        return ['data-color-theme', 'data-size', 'data-color-theme']
+    }
+
 }
 
 window.customElements.define('waiting-circle', WaitingCircle)
