@@ -8,7 +8,8 @@ class WaitingCircle extends HTMLElement{
         this.implementationHandlers = {
             'sample-waiting-circle': SampleWaitingCircle,
             'drop-waiting-circle': DropWaitingCircle,
-            'dots-simple-waiting-circle': DotsSimpleWaitnigCirlce
+            'dots-simple-waiting-circle': DotsSimpleWaitnigCirlce,
+            'roller-coster-waiting-circle': RollerCosterWaitingCircle
         }
 
         this.state = {
