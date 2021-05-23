@@ -1,10 +1,14 @@
 class WaitingCircle extends HTMLElement{
 
+    // https://loading.io/css/
+    // https://stackoverflow.com/questions/12813573/position-icons-into-circle
+
     constructor(){
         super();
         this.implementationHandlers = {
             'sample-waiting-circle': SampleWaitingCircle,
-            'drop-waiting-circle': DropWaitingCircle
+            'drop-waiting-circle': DropWaitingCircle,
+            'dots-simple-waiting-circle': DotsSimpleWaitnigCirlce
         }
 
         this.state = {
