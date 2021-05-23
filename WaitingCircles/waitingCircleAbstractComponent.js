@@ -61,12 +61,6 @@ class AbstractWaitingCircle extends AbstractComponent{
 
 
 
-    // setElementType(elementType) {
-    //     let oldElementType = this.stateProxy['elementType'];
-    //     this.element.classList.remove(oldElementType);
-    //     this.element.classList.add(elementType)
-    // }
-
     attributeChangedCallback(attrName, oldVal, newVal) {
 
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
@@ -75,8 +69,7 @@ class AbstractWaitingCircle extends AbstractComponent{
     }
 
 
-    connectedCallback() {
-        // In abstract component - without window.cusotmElements.define... this will never launch.
+    connectedCallback() {        
     }
 
 

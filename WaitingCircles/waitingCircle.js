@@ -16,18 +16,21 @@ class WaitingCircle extends HTMLElement{
         let implementerClass = this.implementationHandlers[this.state['elementType']];
         this.implementer = new implementerClass(this)
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
-        this.setInitialState();
     }
     stateProxyHandler(){
         return {
             set: function(obj, prop, value){
                 if (prop == 'colorTheme') {this.implementer.changeColorTheme(value)}
                 if (prop == 'elementType') {
+                    this.implementer.stopWaitingCircle();
                     this.changeImplementer(value);
-                    this.startWaitingCircle();
+                    this.implementer.startWaitingCircle();
+                    this.implementer.changeColorTheme(this.stateProxy['colorTheme'])
+                    this.implementer.changeElementSize(this.stateProxy['size'])
                 }
                 if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
                 obj[prop] = value;
+                
                 return true;
             }.bind(this),
             get: function(obj, prop, receiver){
@@ -44,10 +47,14 @@ class WaitingCircle extends HTMLElement{
         delete this.implementer;
         let implementerClassName = this.implementationHandlers[key]
         this.implementer = new implementerClassName(this);
+        // debugger
         console.log(this.implementer)
     }
 
     isInList(element, list){
+        let val = list.includes(element)? true : false;
+        // debugger
+        return list.includes(element)? true : false;
         return list.indexOf(element) == (-1) ? false : true;
     }
 
@@ -64,8 +71,7 @@ class WaitingCircle extends HTMLElement{
     setStateIfNoAttrDefined(attrName, stateKey){
         let attr = this.getAttribute(attrName);
         if (attr != '') this.stateProxy[attrName] = attr;
-        // debugger;
-
+        debugger
     }
 
 
@@ -78,22 +84,24 @@ class WaitingCircle extends HTMLElement{
     attributeChangedCallback(attrName, oldVal, newVal) {
 
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
-        if (attrName == 'data-element-type') {this.stateProxy.elementType = newVal}
+        if (attrName == 'data-element-subtype') {this.stateProxy.elementType = newVal}
         if (attrName == 'data-size') {this.stateProxy.elementSize = newVal}
     }
 
 
     connectedCallback() {
         this.attachShadow({mode: 'open'})
-        this.changeImplementer(this.stateProxy['elementType'])
-        console.log(this.stateProxy['size'])
-        this.implementer.startWaitngCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
-
+        // console.log(this.stateProxy['size'])
+        this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
+        this.changeImplementer(this.stateProxy['elementType']);
+        console.log(this.getAttribute('data-element-subtype'))
+        
+        // debugger;
     }
 
 
     static get observedAttributes() {
-        return ['data-color-theme', 'data-size', 'data-color-theme']
+        return ['data-color-theme', 'data-size', 'data-element-subtype']
     }
 
 }

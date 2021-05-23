@@ -1,7 +1,37 @@
-class WaitngCircleGeneralClass {
+class WaitingCircleGeneralClass {
     constructor(){
        this.supportedThemes = ['gray', 'blue', 'green'];
-       console.log(this)
+    }
+
+    startWaitingCircle(size, colorTheme){
+        this.size = size;
+        this.colorTheme = colorTheme;
+        this.addStringContentToShadowRoot(this._getTemplate())
+    }
+
+
+    changeColorTheme(newColorTheme) {
+        this.changeElementsColorThemeClassIfColorSupported(newColorTheme)
+    }
+
+    changeSize(newSize){
+        this.changeElementSize(newSize)
+    }
+
+    stopWaitingCircle(){
+        this.emptyShadowRoot();
+        this.context.shadowRoot.innerHtml = '';
+    }
+
+
+    getElementFromHTML(htmlString){
+        let template = document.createElement('template');
+        template.innerHTML = htmlString;
+        return template.content.cloneNode(true)
+    }
+
+    getElement() {
+        return this.context.shadowRoot.querySelector('.circle')
     }
 
 
@@ -10,7 +40,6 @@ class WaitngCircleGeneralClass {
     }
 
     changeElementSize(newSize){
-        console.dir(this)
         this.changePartOfClassNameInElement('size-', newSize)
     }
 
@@ -28,7 +57,23 @@ class WaitngCircleGeneralClass {
         })
         if (oldClass != '') {this.getElement().classList.remove(oldClass)}
         this.getElement().classList.add(classNamePattern + newPartOfClassToBeInserted)
-        console.log(classNamePattern + newPartOfClassToBeInserted)
+    }
+
+    emptyShadowRoot(){
+        let children = this.context.shadowRoot.children;
+        Array.from(children).forEach((element, index) => {
+            this.removeElement(element)
+        })
+    }
+
+    removeElement(element){
+        element.remove()
+    }
+
+    addStringContentToShadowRoot(stringContent){
+        let template = document.createElement('template');
+        template.innerHTML = stringContent;
+        this.context.shadowRoot.appendChild(template.content.cloneNode(true))
     }
 
 
