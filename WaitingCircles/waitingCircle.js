@@ -4,7 +4,7 @@ class WaitingCircle extends HTMLElement{
         super();
         this.implementationHandlers = {
             'sample-waiting-circle': SampleWaitingCircle,
-            'drop-waitg-circle': DropWaitingCircle
+            'drop-waiting-circle': DropWaitingCircle
         }
 
         this.state = {
