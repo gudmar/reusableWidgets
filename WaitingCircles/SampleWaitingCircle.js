@@ -1,43 +1,8 @@
-class SampleWaitingCircle extends WaitngCircleGeneralClass{
+class SampleWaitingCircle extends WaitingCircleGeneralClass{
     constructor(context){
         super();
         this.context = context; // this from customWebComponent
     }
-
-    getElement() {
-        return this.context.shadowRoot.querySelector('.circle')
-    }
-
-    startWaitngCircle(size, colorTheme){
-        this.size = size;
-        this.colorTheme = colorTheme;
-        this.emptyShadowRoot();
-        let elementToInsert = this.getElementFromHTML(this._getTemplate())
-        this.context.shadowRoot.appendChild(elementToInsert)
-    }
-
-    getElementFromHTML(htmlString){
-        let template = document.createElement('template');
-        template.innerHTML = htmlString;
-        return template.content.cloneNode(true)
-    }
-
-    emptyShadowRoot(){
-        this.context.shadowRoot.innerHtml = '';
-    }
-
-    changeColorTheme(newColorTheme) {
-        this.changeElementsColorThemeClassIfColorSupported(newColorTheme)
-    }
-
-    changeSize(newSize){
-        this.changeElementSize(newSize)
-    }
-
-    stopWaitingCircle(){
-        this.context.shadowRoot.innerHtml = '';
-    }
-
 
 
     _getTemplate(){

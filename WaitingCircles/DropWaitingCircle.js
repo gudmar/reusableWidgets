@@ -1,28 +1,10 @@
-class DropWaitingCircle extends WaitngCircleGeneralClass{
+class DropWaitingCircle extends WaitingCircleGeneralClass{
     constructor(context){
         super();
         this.context = context; // this from customWebComponent
     }
 
-    getElement() {
-        return this.context.shadowRoot.querySelector('.circle')
-    }
 
-    startWaitngCircle(size, colorTheme){
-        this.context.shadowRoot.innerHtml = this._getTemplate();
-    }
-
-    changeColorTheme(newColorTheme) {
-        this.changeElementsColorThemeClassIfColorSupported(newColorTheme)
-    }
-
-    changeSize(newSize){
-        this.changeElementSize(newSize)
-    }
-
-    stopWaitingCircle(){
-        this.context.shadowRoot.innerHtml = '';
-    }
 
 
 
@@ -76,10 +58,9 @@ class DropWaitingCircle extends WaitngCircleGeneralClass{
             border-bottom: none;
             border-right: none;
             border-top: solid transparent 5px; /*Transparent, not none !!!*/
-            border-left: solid darkgreen 5px;
+            border-left: solid var(--color-dark) 5px;
             position: absolute;
             border-radius: 50%;
-            border: solid thick var(--color-light);
             border-width: calc( var(--circle-radius) * 0.1 );
             width: var(--circle-radius);
             height: var(--circle-radius);
@@ -95,8 +76,8 @@ class DropWaitingCircle extends WaitngCircleGeneralClass{
         }
 
         </style>
-        <div class = "wrapper size-${size} center">
-            <div class = "circle rotate circle-drop color-theme-${colorTheme}"></div>
+        <div class = "wrapper size-${this.size} center">
+            <div class = "circle rotate circle-drop color-theme-${this.colorTheme}"></div>
         </div>
         
         `
