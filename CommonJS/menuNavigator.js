@@ -88,7 +88,7 @@ class Navigator{
         this.removeClickedClassFromEachNavButton();
         clickedButton.classList.add('nav-button-clicked')
         this.memorizeActivePage(clickedButtonsBindWithIdAttribValue);
-        this.navigateWithAnimation(targetElementPosition)
+        this.navigateWithAnimation(targetElementPosition) 
     }
 
     memorizeActivePage(pageId) {
