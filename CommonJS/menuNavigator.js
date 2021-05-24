@@ -4,10 +4,50 @@ class Navigator{
     constructor(menuElement, controlledElement){
         this.menu = menuElement;
         this.controlledElement = controlledElement;
+        this.backgroundCanvas = null;
         this.displayWindow = document.querySelector('.content-display')
+        this.lastClickedElement = this.controlledElement.children[0];
         this.adjustAllContainersInControlledElement();
+        // this.adjustBackgroundCanvasOnResize();
         window.addEventListener('resize', this.adjustAllContainersInControlledElement.bind(this))
         this.addEventsToAllNavButtons();
+        // this.applyBgEffectIfAvailable();
+        this.bgScaleFactor = 0.3;
+        this.indexOfLastClickedElement = 0;
+    }
+
+    applyBgEffectIfAvailable(){
+        this.backgroundCanvas = document.querySelector('.background-effect-cover');
+        if (this.backgroundCanvas == null) return null;
+        let resizeBgCanvas = function(){
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+            let nrOfMenuSections = document.querySelectorAll('widgets-container').length;
+            let contentContainerWidth = parseFloat(document.querySelector('.widget-container-wrapper').getBoundingClientRect().width);
+            let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
+            this.backgroundCanvas.style.width = contentContainerWidth + 'px';
+
+
+        }.bind(this)
+        resizeBgCanvas();
+        window.addEventListener('resize', resizeBgCanvas);
+
+    }
+
+    adjustBackgroundCanvasOnResize(){
+        this.backgroundCanvas = document.querySelector('.background-effect-cover');
+        if (this.backgroundCanvas == null) return null;
+        let resizeBgCanvas = function(){
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+            let nrOfMenuSections = document.querySelectorAll('widgets-container').length;
+            let contentContainerWidth = parseFloat(document.querySelector('.widget-container-wrapper').getBoundingClientRect().width);
+            let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
+            this.backgroundCanvas.style.width = contentContainerWidth + 'px';
+        }.bind(this)
+        resizeBgCanvas();
+        window.addEventListener('resize', resizeBgCanvas);
+        
     }
 
     addEventsToAllNavButtons(){
@@ -27,33 +67,98 @@ class Navigator{
             item.style.height = screenHeight + 'px';
             this.controlledElement.style.width = parseFloat(screenWidth) * arr.length;
         })
+        this.controlledElement.style.left = 
+            parseFloat(this.controlledElement.style.left) - parseFloat(this.getElementsPositionRelativeToDisplayWindow(this.lastClickedElement).x) + 'px'
     }
 
 
     onButtonClick(e){
         let clickedButton = e.target;
-        let bindedElement = document.getElementById(clickedButton.getAttribute('data-bind-with-id'));
+        let clickedButtonsBindWithIdAttribValue = clickedButton.getAttribute('data-bind-with-id');
+        let bindedElement = document.getElementById(clickedButtonsBindWithIdAttribValue);
         if (bindedElement == null) return null;
-        let currentPosition = this.getCurrentPosition();
+        let currentControlledElementPosition = this.getCurrentControlledElementPosition();
+        let currentBackgroundPosition = this.getCurrentBackgroundPosition();
         let targetElementPosition = this.getElementsPositionRelativeToDisplayWindow(bindedElement)
+        let targetBackgroundPosition = (targetElementPosition - currentControlledElementPosition) * this.bgScaleFactor;
+        this.removeClickedClassFromEachNavButton();
+        clickedButton.classList.add('.nav-button-clicked')
+        this.memorizeActivePage(clickedButtonsBindWithIdAttribValue);
         this.navigateWithAnimation(targetElementPosition)
     }
 
-    getCurrentPosition(){return this.getElementsPositionRelativeToDisplayWindow(this.controlledElement)}
+    memorizeActivePage(pageId) {
+        this.lastClickedElement = document.getElementById(pageId)
+        // let allContainers = this.controlledElement.querySelectorAll('.widgets-container');
+        // Array.from(allContainers).forEach((element, index) => {
+        //     if (element.getAttribute('data-bind-with-id') == pageId) {
+        //         this.indexOfLastClickedElement = index;
+        //         return index
+        //     }
+        // })
+        // return this.indexOfLastClickedElement;
+    }
+
+    removeClickedClassFromEachNavButton(){
+        Array.from(document.querySelectorAll('.nav-button')).forEach((element) => {
+            element.classList.remove('.nav-button-clicked')
+        })
+    }
+
+    getCurrentControlledElementPosition(){return this.getElementsPositionRelativeToDisplayWindow(this.controlledElement)}
+
+    getCurrentBackgroundPosition() {
+        if (this.backgroundCanvas == null) return null;
+        return parseFloat(this.backgroundCanvas.getBoundingClientRect().width)
+    }
 
     navigateWithAnimation(targetPosition, nrOfFrames = 26, timeLimit = 350){
+        this.scrollElementWithAnimation({
+            startPosition: this.getCurrentControlledElementPosition(),
+            endPosition: targetPosition,
+            scrolledElement: this.controlledElement,
+            _nrOfFrames: nrOfFrames,
+            _timeLimit: timeLimit
+        })
+    }
+    animateBackground(targetPosition, nrOfFrames = 26, timeLimit = 350){
+        if (this.backgroundCanvas == null) return null;
+        this.scrollElementWithAnimation({
+            startPosition: this.getCurrentBackgroundPosition(),
+            endPosition: targetPosition,
+            scrolledElement: this.backgroundCanvas,
+            nrOfFrames: _nrOfFrames,
+            timeLimit: _timeLimit
+        })
+    }
+
+    // navigateWithAnimation(targetPosition, nrOfFrames = 26, timeLimit = 350){
+    //     let step = 0;
+    //     let startPosition = this.getCurrentControlledElementPosition();
+    //     let delta = this.substractPositions(targetPosition, {x: 0, y: 0})
+    //     let deltaStep = this.divPositionByScalar(delta, nrOfFrames);
+    //     let moveWhileEndPosition = function(){
+    //         step = step + 1;
+    //         if  (step >= nrOfFrames) {clearInterval(interval)}
+    //         if (step > 50) clearInterval(interval)
+    //         let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step))
+    //         this.setNewPositionToElement(newPosition, this.controlledElement)
+    //     }
+    //     let interval = setInterval(moveWhileEndPosition.bind(this), timeLimit/nrOfFrames)
+    // }
+
+    scrollElementWithAnimation({startPosition, endPosition, scrolledElement, _nrOfFrames, _timeLimit}){
         let step = 0;
-        let startPosition = this.getCurrentPosition();
-        let delta = this.substractPositions(targetPosition, {x: 0, y: 0})
-        let deltaStep = this.divPositionByScalar(delta, nrOfFrames);
+        let delta = this.substractPositions(endPosition, {x:0, y:0})
+        let deltaStep = this.divPositionByScalar(delta, _nrOfFrames);
         let moveWhileEndPosition = function(){
             step = step + 1;
-            if  (step >= nrOfFrames) {clearInterval(interval)}
+            if  (step >= _nrOfFrames) {clearInterval(interval)}
             if (step > 50) clearInterval(interval)
             let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step))
-            this.setNewPositionToElement(newPosition, this.controlledElement)
+            this.setNewPositionToElement(newPosition, scrolledElement)
         }
-        let interval = setInterval(moveWhileEndPosition.bind(this), timeLimit/nrOfFrames)
+        let interval = setInterval(moveWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
     }
 
     getElementsPositionRelativeToDisplayWindow(element){

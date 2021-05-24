@@ -136,3 +136,8 @@ nav{
     border: black solid thin;
     height: 90vh;
 }
+
+.background-effect-cover{
+    height: 100vh;
+    position: absolute;
+}
