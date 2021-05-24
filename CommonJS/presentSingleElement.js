@@ -190,6 +190,9 @@ class SingleElementPresenter extends HTMLElement{
                     width: 100%;
                     height: 100%;
                 }
+                .content>*{
+                    cursor: pointer;
+                }
                 .close-button{
                     align-self: flex-end;
                     margin: 0;

@@ -46,8 +46,6 @@ class RollerCosterWaitingCircle extends WaitingCircleGeneralClass{
         }
 
         .roller-coster-waiting-circle {
-            display: inline-block;
-            position: relative;
             position: absolute;
             width: var(--circle-radius);
             height: var(--circle-radius);
@@ -103,7 +101,6 @@ class RollerCosterWaitingCircle extends WaitingCircleGeneralClass{
             <div></div>
             <div></div>
             <div></div>
-
         </div>
         `
     }

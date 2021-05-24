@@ -42,7 +42,6 @@ class WaterCirclesWaitingCircle extends WaitingCircleGeneralClass{
             height: var(--circle-radius);
             transform: translateX(-50%);
             z-index: 25
-
         }
 
         .water-circles-waiting-circle {
@@ -51,45 +50,44 @@ class WaterCirclesWaitingCircle extends WaitingCircleGeneralClass{
             height: var(--circle-radius);
             transform: translate(-50%, -50%)
           }
-          .water-circles-waiting-circle div {
+
+        .water-circles-waiting-circle div {
+            position: absolute;
+            width: calc( var(--circle-radius) * 0.1);
+            height: calc( var(--circle-radius) * 0.1);
+            border-radius: 50%;
+            background-color: var(--color-dark);            
             animation: water-circles-animation 1.35s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-          }
+        }
 
-          .water-circles-waiting-circle div {
-              width: calc( var(--circle-radius) * 0.1);
-              height: calc( var(--circle-radius) * 0.1);
-              border-radius: 50%;
-              background-color: var(--color-dark);
-              position: absolute;
-          }
-          .water-circles-waiting-circle div:nth-child(1) {
+        .water-circles-waiting-circle div:nth-child(1) {
             animation-delay: -0.45s;
-          }
-          .water-circles-waiting-circle div:nth-child(2) {
+        } 
+
+        .water-circles-waiting-circle div:nth-child(2) {
             animation-delay: -0.9s;
-          }
-          .water-circles-waiting-circle div:nth-child(3) {
+        }
+
+        .water-circles-waiting-circle div:nth-child(3) {
             animation-delay: -1.35s;
-          }
+        }
 
-          @keyframes water-circles-animation {
-            0% {
-              width: 0px;
-              height: 0px;
-              top: calc( var(--circle-radius) * 0.5);
-              left: calc( var(--circle-radius) * 0.5);
-              opacity: 1;
-            }
-            100% {
-                width: var(--circle-radius);
-                height: var(--circle-radius);
-                top: 0px;
-                left: 0px;
-                opacity: 0;
-            }
-          }
-          
-
+        @keyframes water-circles-animation {
+        0% {
+            width: 0px;
+            height: 0px;
+            top: calc( var(--circle-radius) * 0.5);
+            left: calc( var(--circle-radius) * 0.5);
+            opacity: 1;
+        }
+        100% {
+            width: var(--circle-radius);
+            height: var(--circle-radius);
+            top: 0px;
+            left: 0px;
+            opacity: 0;
+        }
+        }
         </style>
 
         <div class="water-circles-waiting-circle size-small circle">
