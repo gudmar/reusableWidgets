@@ -54,13 +54,10 @@ class WaitingCircle extends HTMLElement{
         delete this.implementer;
         let implementerClassName = this.implementationHandlers[key]
         this.implementer = new implementerClassName(this);
-        // debugger
-        console.log(this.implementer)
     }
 
     isInList(element, list){
         let val = list.includes(element)? true : false;
-        // debugger
         return list.includes(element)? true : false;
         return list.indexOf(element) == (-1) ? false : true;
     }
@@ -68,11 +65,9 @@ class WaitingCircle extends HTMLElement{
 
 
     setInitialState(){
-        console.log(this.implementer)
         this.setStateIfNoAttrDefined('data-size', 'elementSize')
         this.setStateIfNoAttrDefined('data-color', 'elementColor')
         this.setStateIfNoAttrDefined('data-element-subtype', 'elementType')
-        console.log(this.state)
     }
 
     setStateIfNoAttrDefined(attrName, stateKey){
@@ -98,12 +93,8 @@ class WaitingCircle extends HTMLElement{
 
     connectedCallback() {
         this.attachShadow({mode: 'open'})
-        // console.log(this.stateProxy['size'])
         this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
         this.changeImplementer(this.stateProxy['elementType']);
-        console.log(this.getAttribute('data-element-subtype'))
-        
-        // debugger;
     }
 
 
