@@ -2,17 +2,18 @@
 
 class Navigator{
     constructor(menuElement, controlledElement){
+        this.bgScaleFactor = 0.3;
         this.menu = menuElement;
         this.controlledElement = controlledElement;
         this.backgroundCanvas = null;
         this.displayWindow = document.querySelector('.content-display')
         this.lastClickedElement = this.controlledElement.children[0];
         this.adjustAllContainersInControlledElement();
-        // this.adjustBackgroundCanvasOnResize();
+        this.adjustBackgroundCanvasOnResize();
         window.addEventListener('resize', this.adjustAllContainersInControlledElement.bind(this))
         this.addEventsToAllNavButtons();
-        // this.applyBgEffectIfAvailable();
-        this.bgScaleFactor = 0.3;
+        this.applyBgEffectIfAvailable();
+        
         this.indexOfLastClickedElement = 0;
     }
 
@@ -25,7 +26,6 @@ class Navigator{
             let nrOfMenuSections = document.querySelectorAll('widgets-container').length;
             let contentContainerWidth = parseFloat(document.querySelector('.widget-container-wrapper').getBoundingClientRect().width);
             let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
-            this.backgroundCanvas.style.width = contentContainerWidth + 'px';
 
 
         }.bind(this)
@@ -41,9 +41,10 @@ class Navigator{
             let screenWidth = window.innerWidth;
             let screenHeight = window.innerHeight;
             let nrOfMenuSections = document.querySelectorAll('widgets-container').length;
-            let contentContainerWidth = parseFloat(document.querySelector('.widget-container-wrapper').getBoundingClientRect().width);
+            let contentContainerWidth = parseFloat(this.controlledElement.getBoundingClientRect().width);
             let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
-            this.backgroundCanvas.style.width = contentContainerWidth + 'px';
+            this.backgroundCanvas.style.width = contentContainerWidth * this.bgScaleFactor + 'px';
+            console.log(contentContainerWidth * this.bgScaleFactor + 'px')
         }.bind(this)
         resizeBgCanvas();
         window.addEventListener('resize', resizeBgCanvas);
@@ -80,9 +81,12 @@ class Navigator{
         let currentControlledElementPosition = this.getCurrentControlledElementPosition();
         let currentBackgroundPosition = this.getCurrentBackgroundPosition();
         let targetElementPosition = this.getElementsPositionRelativeToDisplayWindow(bindedElement)
-        let targetBackgroundPosition = (targetElementPosition - currentControlledElementPosition) * this.bgScaleFactor;
+        let targetBackgroundPosition = 
+            this.multiplyPositionByScalar((this.substractPositions(targetElementPosition, currentControlledElementPosition)), this.bgScaleFactor);
+        console.log(targetBackgroundPosition)
+        this.backgroundCanvas.style.left = -targetBackgroundPosition.x + 'px'
         this.removeClickedClassFromEachNavButton();
-        clickedButton.classList.add('.nav-button-clicked')
+        clickedButton.classList.add('nav-button-clicked')
         this.memorizeActivePage(clickedButtonsBindWithIdAttribValue);
         this.navigateWithAnimation(targetElementPosition)
     }
@@ -101,7 +105,7 @@ class Navigator{
 
     removeClickedClassFromEachNavButton(){
         Array.from(document.querySelectorAll('.nav-button')).forEach((element) => {
-            element.classList.remove('.nav-button-clicked')
+            element.classList.remove('nav-button-clicked')
         })
     }
 

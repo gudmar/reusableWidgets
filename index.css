@@ -7,6 +7,9 @@
 body{
     font-family: var(--prime-bg-color);
     background-color: var(--prime-bg-color);
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
 }
 a:link{
     color: black;
@@ -113,6 +116,12 @@ nav{
 .nav-button:active{
     background-color: greenyellow;
     box-shadow: inset 1px 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+.nav-button-clicked{
+    background-color: rgb(220, 220, 220);
+    color: black;
+    box-shadow: inset 1px 0px 3px 3px rgba(0,0,0,0.5);   
 }
 
 .widget-items {
