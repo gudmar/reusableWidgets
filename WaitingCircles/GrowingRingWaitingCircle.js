@@ -55,7 +55,7 @@ class GrowingRingWaitingCircle extends WaitingCircleGeneralClass{
         .growing-ring-waiting-circle div {
             position: absolute;
             width: var(--circle-radius);
-            height: var(--circle-radius);
+            height: var(--circle-radius); 
             border: calc( var(--circle-radius) * 0.1) var(--color-dark) solid;
             border-radius: 50%;
             animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
