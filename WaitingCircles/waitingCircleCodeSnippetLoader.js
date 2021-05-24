@@ -110,7 +110,7 @@ class WaitngCircleDetailsDB{
             <b>Note:</b> Some css classes were ommited, as only these show how this circle really works.
                 `
             },
-'dots-simple-waiting-circle': {
+            'dots-simple-waiting-circle': {
     innerCode: `
 <pre>
 .size-small {
@@ -199,8 +199,190 @@ class WaitngCircleDetailsDB{
     }
 }
 </pre>
-            `}
+            `},
+            'roller-coster-waiting-circle': {
+                innerCode: 
+`
+<b>CSS</b>
+<pre>
+.roller-coster-waiting-circle {
+    position: absolute;
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+  }
+  .roller-coster-waiting-circle div {
+    animation: roller-coster-animation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: calc( var(--circle-radius) * 0.5); 
+  }
+
+  .roller-coster-waiting-circle div {
+      width: calc( var(--circle-radius) * 0.1);
+      height: calc( var(--circle-radius) * 0.1);
+      border-radius: 50%;
+      background-color: var(--color-dark);
+      transform: translateX(calc ( var(--circle-radius) * 0.5));
+      position: absolute;
+  }
+  .roller-coster-waiting-circle div:nth-child(1) {
+    animation-delay: -0.045s;
+  }
+  .roller-coster-waiting-circle div:nth-child(2) {
+    animation-delay: -0.09s;
+  }
+  .roller-coster-waiting-circle div:nth-child(3) {
+    animation-delay: -0.135s;
+  }
+  .roller-coster-waiting-circle div:nth-child(4) {
+    animation-delay: -0.18s;
+  }
+  .roller-coster-waiting-circle div:nth-child(5) {
+    animation-delay: -0.225s;
+  }
+  .roller-coster-waiting-circle div:nth-child(6) {
+    animation-delay: -0.27s;
+  }
+
+  @keyframes roller-coster-animation {
+    0% {
+      transform: rotate(0deg);
     }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="roller-coster-waiting-circle size-small circle">
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+&lt;/div>
+</pre>`
+                
+            },
+    
+            'water-circles-waiting-circle': {
+                'innerCode': 
+`
+<b>CSS</b>
+<pre>
+.water-circles-waiting-circle {
+    position: absolute;
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+    transform: translate(-50%, -50%)
+  }
+
+.water-circles-waiting-circle div {
+    position: absolute;
+    width: calc( var(--circle-radius) * 0.1);
+    height: calc( var(--circle-radius) * 0.1);
+    border-radius: 50%;
+    background-color: var(--color-dark);            
+    animation: water-circles-animation 1.35s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.water-circles-waiting-circle div:nth-child(1) {
+    animation-delay: -0.45s;
+} 
+
+.water-circles-waiting-circle div:nth-child(2) {
+    animation-delay: -0.9s;
+}
+
+.water-circles-waiting-circle div:nth-child(3) {
+    animation-delay: -1.35s;
+}
+
+@keyframes water-circles-animation {
+0% {
+    width: 0px;
+    height: 0px;
+    top: calc( var(--circle-radius) * 0.5);
+    left: calc( var(--circle-radius) * 0.5);
+    opacity: 1;
+}
+100% {
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+}
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="water-circles-waiting-circle size-small circle">
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+&lt;/div>
+</pre>
+`  
+            },
+        
+            'growing-ring-waiting-circle': {
+                innerCode: `
+<b>CSS</b>
+<pre>
+.growing-ring-waiting-circle {
+    position: absolute;
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+}
+.growing-ring-waiting-circle div {
+    position: absolute;
+    width: var(--circle-radius);
+    height: var(--circle-radius); 
+    border: calc( var(--circle-radius) * 0.1) var(--color-dark) solid;
+    border-radius: 50%;
+    animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--color-dark) transparent transparent transparent;
+}
+.growing-ring-waiting-circle div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.growing-ring-waiting-circle div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.growing-ring-waiting-circle div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes growing-ring-circle {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+}
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="growing-ring-waiting-circle circle">
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+&lt;/div>
+</pre>
+                
+                `
+            }
+        
+        
+        }
     
     if (dbObject[key] == undefined) return null;
     return dbObject[key]['innerCode']
