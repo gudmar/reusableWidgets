@@ -90,19 +90,10 @@ class AbstractButton extends AbstractComponent{
         this.addEventListener(trigger, callback)
     }
 
-    // setStateIfNoAttrDefined(attrName, stateKey, cb){
-    //     let attr = this.getAttribute(attrName);
-    //     if ((attr == undefined) || attr == null) {
-    //         cb(this.state[stateKey])
-    //     } else {
-    //         cb(attr)
-    //     }
-    // }
 
     setInitialState(){
         this.setStateIfNoAttrDefined('label', 'labelFromAttrib', this.setButtonLabel.bind(this))
         this.setStateIfNoAttrDefined('data-element-subtype', 'buttonType', (value)=> {this.stateProxy['buttonType'] = value})
-        console.log(this.state)
     }
 
     setButtonLabel(label) {
@@ -126,15 +117,14 @@ class AbstractButton extends AbstractComponent{
 
 
     attributeChangedCallback(attrName, oldVal, newVal) {
-
         if (attrName == 'data-label'){
             // this.setButtonLabel(newVal)
             this.stateProxy.labelFromAttrib = newVal
         }
-        if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal); console.log('attrig')}
+        if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal);}
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
         if (attrName == 'data-onclick') {this.stateProxy.onclick = newVal}
-        if (attrName == 'data-button-type') {this.stateProxy.buttonType = newVal}
+        if (attrName == 'data-element-subtype') {this.stateProxy.buttonType = newVal}
     }
 
 
@@ -162,7 +152,6 @@ class AbstractButton extends AbstractComponent{
 
     setInitialOnclick(){
         let onclickFunction = this.getAttribute('data-onclick')
-        console.log(onclickFunction)
         this.stateProxy['onclick'] = onclickFunction != undefined ? onclickFunction : ()=>{}
     }
 
@@ -172,7 +161,7 @@ class AbstractButton extends AbstractComponent{
 
 
     static get observedAttributes() {
-        return ['data-label', 'data-color-theme', 'data-is-active', 'data-onclick']
+        return ['data-label', 'data-color-theme', 'data-is-active', 'data-onclick', 'data-element-subtype']
     }
 
 }
