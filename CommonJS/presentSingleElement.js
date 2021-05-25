@@ -1,8 +1,9 @@
 class SingleElementPresenter extends HTMLElement{
     constructor(){
         super();
-        this.wrappedElementType = this.getAttribute('data-element-type');
-        this.wrappedElementSubtype = this.getAttribute('data-element-subtype')
+        this.wrappedElementType = this.getAttributeOrDefault('data-element-type', 'custom-button');
+        this.wrappedElementSubtype = this.getAttributeOrDefault('data-element-subtype', 'sample-button')
+        this.presenterDarkLightTheme = this.getAttributeOrDefault('data-presenter-light-dark-theme', 'light')
         this.addTemplate();
         this.presenterWrapper = this.shadowRoot.querySelector('.wrapper')
         this.acitivatingSwitch = this.shadowRoot.querySelector('#acitveButtonSwitchId')
@@ -13,12 +14,41 @@ class SingleElementPresenter extends HTMLElement{
         this.sizeChoser = this.shadowRoot.querySelector('#sizeChoserId')
         this.wrappedElement = this.shadowRoot.querySelector(this.wrappedElementType);
         this.optionsMenuCloseButton = this.shadowRoot.querySelector('.close-button');
-        this.optionsMenu = this.shadowRoot.querySelector('.options')
+        this.optionsMenu = this.shadowRoot.querySelector('.options');
         this.optionsMenuOpenButton = this.shadowRoot.querySelector('.menu-oppener-button')
         this.wrappedElementTitleHolder = this.shadowRoot.querySelector('.type-label')
         this.updatePresentedElementType();
 
         this.wholeElement = this.shadowRoot.querySelector('.wrapper')
+    }
+
+    getAttributeOrDefault(attirbuteName, defaultValue){
+        let attr = this.getAttribute(attirbuteName);
+        return attr == null || attr == undefined || attr == '' ? defaultValue : attr;
+    }
+
+    static get observedAttributes() {
+        return ['data-element-type', 'data-element-subtype', 'data-presenter-light-dark-theme']
+    }
+
+    attributeChangedCallback(attrName, oldVal, newVal){
+        if (attrName == 'data-element-type') this.changeElementType(newVal);
+        if (attrName == 'data-presenter-light-dark-theme') this.changePresenterColorTheme(oldVal, newVal);
+        if (attrName == 'data-element-subtype') this.changeWrappedElementSubtype(newVal);
+    }
+
+    changeElementType(){
+        // window.alert('Changing presenters wrapped element type is not implemented')
+    }
+
+    changePresenterColorTheme(oldVal, newVal){
+        let wrapper = this.shadowRoot.querySelector('.wrapper');
+        wrapper.classList.remove(oldVal);
+        wrapper.classList.add(newVal);
+    }
+
+    changeWrappedElementSubtype(newVal){
+        this.wrappedElement.setAttribute('data-element-subtype', newVal)
     }
 
     addTemplate(){
@@ -34,6 +64,9 @@ class SingleElementPresenter extends HTMLElement{
         } 
         if (this.wrappedElementType == "custom-button") {
             this.wrappedElement.setAttribute('onclick', `SingleElementPresenter.openModalOnButtonClick('${this.wrappedElementType}', '${this.wrappedElementSubtype}')`)
+        }
+        if (this.wrappedElementType == "custom-button-1") {
+            this.wrappedElement.setAttribute('onclick', `SingleElementPresenter.openModalOnButtonClick('custom-button', '${this.wrappedElementSubtype}')`)
         }
         this.setEventsOnWrappedElement();
         this.addCloseButtonAction();
@@ -69,6 +102,12 @@ class SingleElementPresenter extends HTMLElement{
             this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
             this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
         }
+
+        if (this.wrappedElementType == 'custom-button-1'){
+            this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
+            this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
+        }
+
         this.colorChoser.addEventListener('click', this.setColorTheme.bind(this))
     }
 
@@ -153,9 +192,26 @@ class SingleElementPresenter extends HTMLElement{
                     display: flex;
                     flex-direction: column;
                     position: relative;
-                    background-color: white;
                     border-radius: 5px;
                     align-items: center;
+                }
+                .light{
+                    background-color: rgba(255, 255, 255, 0.8);
+                }
+                .light>.type-label{
+                    color: black;
+                }
+                .light>.menu-oppener-button{
+                    color: black;
+                }
+                .dark{
+                    background-color: rgba(0, 0, 0, 0.8);
+                }
+                .dark>.type-label{
+                    color: white;
+                }
+                .dark>.menu-oppener-button{
+                    color: white;
                 }
                 .size-small{
                     width: 200px;
@@ -275,10 +331,11 @@ class SingleElementPresenter extends HTMLElement{
                 }
             </style>
 
-            <div class = "wrapper size-small">
+            <div class = "wrapper size-small ${this.presenterDarkLightTheme}">
                 <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
                 <div class = "options center do-not-display">
                     ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
+                    ${this.wrappedElementType == 'custom-button-1' ? this.getCustomButtonOptionsHtml() : ''}
                     ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
                 </div>
                 <div class = "content center">
@@ -296,6 +353,10 @@ class SingleElementPresenter extends HTMLElement{
         if (this.wrappedElementType == 'waiting-circle') return `
             <waiting-circle data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
         `
+        if (this.wrappedElementType == 'custom-button-1') return `
+        <custom-button-1 data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
+        `
+        
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
 
