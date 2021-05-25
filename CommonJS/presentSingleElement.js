@@ -57,11 +57,11 @@ class SingleElementPresenter extends HTMLElement{
         this.wrappedElement.setAttribute('data-element-subtype', this.wrappedElementSubtype) 
     }
 
-    wrapButton(buttonAsElement) {
-        this.content.innerHTML = '';
-        this.content.appendChild(buttonAsElement);
-        this.setEventsOnWrappedButton();
-    }
+    // wrapButton(buttonAsElement) {
+    //     this.content.innerHTML = '';
+    //     this.content.appendChild(buttonAsElement);
+    //     this.setEventsOnWrappedButton();
+    // }
 
     setEventsOnWrappedElement() {
         if (this.wrappedElementType == 'waiting-circle'){this.sizeChoser.addEventListener('click', this.setSize.bind(this))}
@@ -282,11 +282,21 @@ class SingleElementPresenter extends HTMLElement{
                     ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
                 </div>
                 <div class = "content center">
-                    <${this.wrappedElementType}></${this.wrappedElementType}>
+                    ${this.getWrappedElementAsStirng()}
                 </div>
                 <div class = "type-label"></div>
             </div>
             `
+    }
+
+    getWrappedElementAsStirng(){
+        if (this.wrappedElementType == 'custom-button') return `
+            <custom-button data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button>
+        `
+        if (this.wrappedElementType == 'waiting-circle') return `
+            <waiting-circle data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
+        `
+        throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
 
     getWaitingCircleOptionsHtml(){

@@ -101,7 +101,7 @@ class AbstractButton extends AbstractComponent{
 
     setInitialState(){
         this.setStateIfNoAttrDefined('label', 'labelFromAttrib', this.setButtonLabel.bind(this))
-        this.setStateIfNoAttrDefined('data-button-type', 'buttonType', (value)=> {this.stateProxy['buttonType'] = value})
+        this.setStateIfNoAttrDefined('data-element-subtype', 'buttonType', (value)=> {this.stateProxy['buttonType'] = value})
         console.log(this.state)
     }
 

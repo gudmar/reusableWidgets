@@ -23,6 +23,9 @@ class WaitingCircle extends HTMLElement{
         let implementerClass = this.implementationHandlers[this.state['elementType']];
         this.implementer = new implementerClass(this)
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
+        this.attachShadow({mode: 'open'})
+        this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
+        this.changeImplementer(this.stateProxy['elementType']);
     }
     stateProxyHandler(){
         return {
@@ -92,7 +95,6 @@ class WaitingCircle extends HTMLElement{
 
 
     connectedCallback() {
-        this.attachShadow({mode: 'open'})
         this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
         this.changeImplementer(this.stateProxy['elementType']);
     }
