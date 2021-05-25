@@ -58,7 +58,6 @@ class CircleWhereClickedButton extends AbstractButton{
         }
         let labelPosition = this.claculateLabelPositionInCircleElement(circleMiddlePosition);
         this.setElementPosition(circleInnerText, labelPosition) 
-
         let interval = setInterval(() => {
             this.setElementInlineSize(circleElement, {
                 width: parseFloat(circleElement.style.width) + 2, 
