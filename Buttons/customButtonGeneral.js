@@ -18,24 +18,9 @@ class CustomButtonGeneral{
 
     stopButton(){
         this.removeTooltipEvents();
+        this.emptyShadowRoot();
     }
-
-
-
-
-    setButtonToActiveUnactiveState(value){
-        if (!value) {
-            {this.changeButtonColorThemeClass('inactive')}
-            this.context.button.classList.remove(this.buttonType)
-            // this.onclickMemory = this.onclick;
-            // this.onclick = ''
-        }
-        else {
-            this.changeButtonColorThemeClass(this.state['colorTheme'])
-            this.button.classList.add(this.state.buttonType)
-            // this.onclick = this.onclickMemory;
-        }
-    }
+    
 
     setButtonType(buttonType){
         this.context.shadowRoot.querySelector('.button').classList.add(buttonType)
@@ -58,11 +43,6 @@ class CustomButtonGeneral{
         this.displayedLabel = shortenedLabel;
         this.context.shadowRoot.querySelector('.button>span').innerHTML = shortenedLabel;
     }
-
-    // changeOnclickFunction({onclick}, newFunction){
-    //     this.context.removeEventListener('click', onclick)
-    //     this.context.addEventListener('click', eval(newFunction))
-    // }
 
     getShorterLabelIfLabelTooLong(labelToShorten){
         if (labelToShorten.length <= this.maxLabelLenght) return labelToShorten
@@ -111,12 +91,6 @@ class CustomButtonGeneral{
     }
 
 
-    stopButton(){
-        this.emptyShadowRoot();
-        this.context.shadowRoot.innerHtml = '';
-    }
-
-
     getElementFromHTML(htmlString){
         let template = document.createElement('template');
         template.innerHTML = htmlString;
@@ -152,8 +126,6 @@ class CustomButtonGeneral{
         if (oldClass != '') {this.getElement().classList.remove(oldClass)}
         this.getElement().classList.add(classNamePattern + newPartOfClassToBeInserted)
     }
-
-
 
 
     emptyShadowRoot(){
