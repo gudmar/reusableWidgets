@@ -12,7 +12,12 @@ class CustomButtonGeneral{
         this.addStringContentToShadowRoot(this._getTemplate())
         this.setButtonType(buttonType);
         this.setButtonLabel(labelFromAttrib)
+        this.addTooltipEvents();
         // this.changeOnclickFunction(onclick)
+    }
+
+    stopButton(){
+        this.removeTooltipEvents();
     }
 
 
@@ -65,9 +70,16 @@ class CustomButtonGeneral{
         return getShorterLabel(labelToShorten) + '...'
     }
 
-    displayTooltipIfNeeded(){
-        this.addEventListener('mouseenter', this.createTooltipIfNeeded.bind(this));
-        this.addEventListener('mouseleave', this.removeTooltipIfExists.bind(this));
+    addTooltipEvents(){
+        this.createTooltipFunctionInstance = this.createTooltipIfNeeded.bind(this)
+        this.removeTooltipFunctionInstance = this.removeTooltipIfExists.bind(this)
+        this.context.addEventListener('mouseenter', this.createTooltipFunctionInstance);
+        this.context.addEventListener('mouseleave', this.removeTooltipIfExists.bind(this));
+    }
+
+    removeTooltipEvents() {
+        this.context.removeEventListener('mouseenter', this.createTooltipFunctionInstance);
+        this.context.removeEventListener('mouseleave', this.removeTooltipFunctionInstance);
     }
 
     createTooltipIfNeeded(){
@@ -75,12 +87,12 @@ class CustomButtonGeneral{
             let tooltip = document.createElement('div');
             tooltip.classList.add('tooltip');
             tooltip.innerHTML = this.fullLabel;
-            this.shadowRoot.appendChild(tooltip)
+            this.context.shadowRoot.appendChild(tooltip)
         }
     }
     removeTooltipIfExists(){
-        let tooltip = this.shadowRoot.querySelector('.tooltip');
-        if (tooltip != null) {this.shadowRoot.removeChild(tooltip)}
+        let tooltip = this.context.shadowRoot.querySelector('.tooltip');
+        if (tooltip != null) {this.context.shadowRoot.removeChild(tooltip)}
     }
 
 
@@ -93,8 +105,9 @@ class CustomButtonGeneral{
         this.context.shadowRoot.querySelector('.button').classList.remove(buttonType)
     }
 
-    setButtonToActiveState({colorTheme}){
+    setButtonToActiveState({colorTheme, buttonType}){
         this.changeButtonColorThemeClass(colorTheme)
+        this.context.shadowRoot.querySelector('.button').classList.add(buttonType)
     }
 
 
