@@ -1,6 +1,6 @@
 class GrowButton extends CustomButtonGeneral {
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
     }
 
     _getTemplate(){{
@@ -90,22 +90,6 @@ class GrowButton extends CustomButtonGeneral {
                 z-index: 70;
             }
 
-
-
-            .sample-button:hover {
-                cursor: pointer;
-                background-color: var(--button-hover-bg);
-                color: var(--button-hover-fg);
-                transition: 0.2s;
-            }
-
-            .sample-button:active {
-                background-color: var(--button-active-bg);
-                color: var(--button-active-fg);
-            }
-
-
-
             .grow-button:hover {
                 cursor: pointer;
                 transform: scale(1.2);
@@ -118,22 +102,6 @@ class GrowButton extends CustomButtonGeneral {
                 transition: 0.2s;
             }
 
-
-            .shrink-button:hover {
-                cursor: pointer;
-                transform: scale(0.8);
-                transition: 0.2s;
-            }
-
-            .shrink-button:active {
-                background-color: var(--button-active-bg);
-                transform: scale(1);
-                transition: 0.2s;
-            }   
-
-            .circle-where-clicked-button:hover {
-                cursor: pointer;
-            }
 
             .circle{
                 position: absolute;
