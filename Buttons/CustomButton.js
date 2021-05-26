@@ -79,7 +79,6 @@ class CustomButton1 extends HTMLElement{
             throw new Error(`${this.constructor.name}: ${key} is not supported. Try one of : ${Object.keys(this.implementationHandlers)}`)
         }
         if (this.implementer != undefined) this.implementer.stopButton();
-        console.log(this.implementer)
         delete this.implementer;
         let implementerClassName = this.implementationHandlers[key]
         this.implementer = new implementerClassName(this);

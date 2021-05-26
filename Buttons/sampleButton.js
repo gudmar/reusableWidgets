@@ -3,7 +3,7 @@ class SampleButton extends CustomButtonGeneral{
         super(context);
     }
 
-    _getTemplate(){{
+    _getTemplate(){
             return `
                 <style>
                 *{
@@ -202,5 +202,5 @@ class SampleButton extends CustomButtonGeneral{
             `
         }
     
-    }
+    
 }
