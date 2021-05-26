@@ -2,7 +2,7 @@
 
 class Navigator{
     constructor(menuElement, controlledElement){
-        this.bgScaleFactor = 0.3;
+        this.bgScaleFactor = 0.1;
         this.menu = menuElement;
         this.controlledElement = controlledElement;
         this.backgroundCanvas = null;
@@ -43,7 +43,7 @@ class Navigator{
             let nrOfMenuSections = document.querySelectorAll('widgets-container').length;
             let contentContainerWidth = parseFloat(this.controlledElement.getBoundingClientRect().width);
             let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
-            this.backgroundCanvas.style.width = contentContainerWidth * this.bgScaleFactor + 'px';
+            this.backgroundCanvas.style.width = contentContainerWidth * 1.5 + 'px';    /// 1.5 - number unacceptable. Name it
             console.log(contentContainerWidth * this.bgScaleFactor + 'px')
         }.bind(this)
         resizeBgCanvas();
@@ -162,7 +162,15 @@ class Navigator{
             let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step))
             this.setNewPositionToElement(newPosition, scrolledElement)
         }
+        let moveBACKGROUNDWhileEndPosition = function(){
+            step = step + 1;
+            if  (step >= _nrOfFrames) {clearInterval(intervalBG)}
+            if (step > 50) clearInterval(intervalBG)
+            let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step*this.bgScaleFactor))
+            this.setNewPositionToElement(newPosition, this.backgroundCanvas)
+        }
         let interval = setInterval(moveWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
+        let intervalBG = setInterval(moveBACKGROUNDWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
     }
 
     getElementsPositionRelativeToDisplayWindow(element){

@@ -196,7 +196,7 @@ class SingleElementPresenter extends HTMLElement{
                     align-items: center;
                 }
                 .light{
-                    background-color: rgba(255, 255, 255, 0.8);
+                    background-color: rgba(255, 255, 255, 0.5);
                 }
                 .light>.type-label{
                     color: black;
@@ -205,7 +205,7 @@ class SingleElementPresenter extends HTMLElement{
                     color: black;
                 }
                 .dark{
-                    background-color: rgba(0, 0, 0, 0.8);
+                    background-color: rgba(0, 0, 0, 0.5);
                 }
                 .dark>.type-label{
                     color: white;
@@ -230,7 +230,7 @@ class SingleElementPresenter extends HTMLElement{
                 .options{
                     flex-direction: column;
                     position: absolute;
-                    background-color: rgb(240, 240, 240);
+                    background-color: rgba(240, 240, 240, 0.9);
                     padding: 1rem;
                     border-radius: 5px;
                     box-shadow: 7px 10px 6px 0px rgba(0,0,0,0.71);             
