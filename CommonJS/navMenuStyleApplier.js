@@ -1,7 +1,7 @@
 class NavigatorStyleApplier {
     constructor(){
         this.nrOfScreans = document.querySelectorAll('.widgets-container').length;
-        this.backgroundMoveStepFactor = 0.3;
+        this.backgroundMoveStepFactor = 0.1;
         this.backgroundCanvasScaleFactor = 1.5;
     }
 
@@ -34,11 +34,11 @@ class NavigatorStyleApplier {
         for (let i = 0; i < this.nrOfScreans; i++){
             output = output + `
                 .movable-content-${i}{
-                    transition: 1s;
+                    transition: left 1s, width 0s;
                     left: ${100 * -i}vw;
                 }
                 .movable-background-${i}{
-                    transition: 1s;
+                    transition: left 1s, width 0s;
                     left: ${(100 * -i) * this.backgroundMoveStepFactor}vw;
                 }
             `
