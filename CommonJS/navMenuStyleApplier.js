@@ -1,6 +1,8 @@
 class NavigatorStyleApplier {
     constructor(){
-        this.nrOfScreans = document.querySelectorAll('.widgets-container').length
+        this.nrOfScreans = document.querySelectorAll('.widgets-container').length;
+        this.backgroundMoveStepFactor = 0.3;
+        this.backgroundCanvasScaleFactor = 1.5;
     }
 
     reattachStyle(){
@@ -15,6 +17,9 @@ class NavigatorStyleApplier {
     getStyleElement(){
         return `
             <style id='navigatorStyleId'>
+                .background-effect-cover{
+                    width: ${this.nrOfScreans * this.backgroundCanvasScaleFactor *100}vw;
+                }
                 .movable {
                     position: relative;
                     
@@ -28,9 +33,13 @@ class NavigatorStyleApplier {
         let output = '';
         for (let i = 0; i < this.nrOfScreans; i++){
             output = output + `
-                .movable-${i}{
+                .movable-content-${i}{
                     transition: 1s;
                     left: ${100 * -i}vw;
+                }
+                .movable-background-${i}{
+                    transition: 1s;
+                    left: ${(100 * -i) * this.backgroundMoveStepFactor}vw;
                 }
             `
         }
