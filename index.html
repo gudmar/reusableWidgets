@@ -48,7 +48,9 @@
     <script src = "WaitingCircles/waitingCircle.js" defer></script>
 
     <script src = "CommonJS/presentSingleElement.js" defer></script>
-    <script src = "CommonJS/menuNavigator.js" defer></script>
+    <!-- <script src = "CommonJS/menuNavigator.js" defer></script> -->
+    <script src = "CommonJS/navMenuStyleApplier.js" defer></script>
+    <script src = "CommonJS/navMenuCSS.js" defer></script>
 </head>
     <body class = "center">
         <div class="background-effect-cover"></div>
@@ -70,7 +72,7 @@
 
             <div class="content-display">
                 <div class="widget-container-wrapper row">
-                    <div class="widgets-container column" id = "buttons-container-id">
+                    <div class="widgets-container movable column" id = "buttons-container-id">
 
                         <div class="content-headline"><div class="h2 center">Buttons</div></div>
 
@@ -83,7 +85,7 @@
                             <single-element-presenter data-element-type="custom-button-1" data-element-subtype = "circle-where-clicked-button"></single-element-presenter>
                         </div>
                     </div>
-                    <div class="widgets-container" id = "waiting-circle-container-id">
+                    <div class="widgets-container movable" id = "waiting-circle-container-id">
                         <div class="content-headline"><div class="h2 center">Waiting circles</div></div>
                         <div class="widget-items center">
                             <single-element-presenter data-element-type = "waiting-circle" data-element-subtype = "sample-waiting-circle"></single-element-presenter>
@@ -94,19 +96,19 @@
                             <single-element-presenter data-element-type = "waiting-circle" data-element-subtype = "growing-ring-waiting-circle"></single-element-presenter>    
                         </div>
                     </div>
-                    <div class="widgets-container" id = "switches-container-id">
+                    <div class="widgets-container movable" id = "switches-container-id">
                         <div class="content-headline"><div class="h2 center">Switches</div></div>
 
                         <div class="widget-items center">
                         </div>
                     </div>
-                    <div class="widgets-container" id = "gauge-container-id">
+                    <div class="widgets-container movable" id = "gauge-container-id">
                         <div class="content-headline"><div class="h2 center">Gauge</div></div>
 
                         <div class="widget-items center">
                         </div>
                     </div>
-                    <div class="widgets-container" id = "others-container-id">
+                    <div class="widgets-container movable" id = "others-container-id">
                         <div class="content-headline"><div class="h2 center">Other</div></div>
 
                         <div class="widget-items center">

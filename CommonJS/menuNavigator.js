@@ -2,7 +2,7 @@
 
 class Navigator{
     constructor(menuElement, controlledElement){
-        this.bgScaleFactor = 0.1;
+        this.bgScaleFactor = 0.5;
         this.menu = menuElement;
         this.controlledElement = controlledElement;
         this.backgroundCanvas = null;
@@ -88,7 +88,9 @@ class Navigator{
         this.removeClickedClassFromEachNavButton();
         clickedButton.classList.add('nav-button-clicked')
         this.memorizeActivePage(clickedButtonsBindWithIdAttribValue);
-        this.navigateWithAnimation(targetElementPosition) 
+        this.navigateAllElements(targetElementPosition)
+        // this.navigateWithAnimation(targetElementPosition) 
+        // this.animateBackground(this.multiplyPositionByScalar(targetBackgroundPosition, this.bgScaleFactor))
     }
 
     memorizeActivePage(pageId) {
@@ -109,11 +111,29 @@ class Navigator{
         })
     }
 
-    getCurrentControlledElementPosition(){return this.getElementsPositionRelativeToDisplayWindow(this.controlledElement)}
+    getCurrentControlledElementPosition(){
+        console.log(this.getElementsPositionRelativeToDisplayWindow(this.controlledElement))
+        return this.getElementsPositionRelativeToDisplayWindow(this.controlledElement)
+    }
 
     getCurrentBackgroundPosition() {
         if (this.backgroundCanvas == null) return null;
-        return parseFloat(this.backgroundCanvas.getBoundingClientRect().width)
+        console.log(this.getElementsPositionRelativeToDisplayWindow(this.backgroundCanvas))
+        return this.getElementsPositionRelativeToDisplayWindow(this.backgroundCanvas)
+    }
+
+    navigateAllElements(endContentPosition) {
+        let contentAnimationDescriptor = {
+            item: this.controlledElement,
+            startPosition: this.getCurrentControlledElementPosition(),
+            endPosition: endContentPosition
+        }
+        let bgAnimationDescriptor = {
+            item: this.backgroundCanvas,
+            startPosition: this.getCurrentBackgroundPosition(),
+            endPosition: this.multiplyPositionByScalar(endContentPosition, this.bgScaleFactor)
+        }
+        this.scrollListOfElementsWithAnimation([contentAnimationDescriptor, bgAnimationDescriptor])
     }
 
     navigateWithAnimation(targetPosition, nrOfFrames = 26, timeLimit = 350){
@@ -136,41 +156,41 @@ class Navigator{
         })
     }
 
-    // navigateWithAnimation(targetPosition, nrOfFrames = 26, timeLimit = 350){
+    scrollListOfElementsWithAnimation(listOfElementsWithPositions, _nrOfFrames=50, _timeLimit=400){
+        let step = 0;
+        let moveListOfElements = function(){
+            step = step + 1;
+            for (let element of listOfElementsWithPositions){
+                let {item, startPosition, endPosition} = element;
+                let delta = this.substractPositions(endPosition, {x: 0, y: 0});
+                let deltaStep = this.divPositionByScalar(delta, _nrOfFrames);
+                let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step));
+                newPosition.y = startPosition.y;
+                this.setNewXPositionToElement(newPosition, item);
+                // debugger;
+            }
+            if (step >= _nrOfFrames) clearInterval(interval)            
+        }.bind(this)
+
+        let interval = setInterval(moveListOfElements, _timeLimit/_nrOfFrames)
+    }
+
+    // scrollElementWithAnimation({startPosition, endPosition, scrolledElement, _nrOfFrames, _timeLimit}){
     //     let step = 0;
-    //     let startPosition = this.getCurrentControlledElementPosition();
-    //     let delta = this.substractPositions(targetPosition, {x: 0, y: 0})
-    //     let deltaStep = this.divPositionByScalar(delta, nrOfFrames);
+    //     let delta = this.substractPositions(endPosition, {x:0, y:0})
+    //     let deltaStep = this.divPositionByScalar(delta, _nrOfFrames);
     //     let moveWhileEndPosition = function(){
     //         step = step + 1;
-    //         if  (step >= nrOfFrames) {clearInterval(interval)}
+    //         if  (step >= _nrOfFrames) {clearInterval(interval)}
     //         if (step > 50) clearInterval(interval)
     //         let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step))
-    //         this.setNewPositionToElement(newPosition, this.controlledElement)
+    //         this.setNewPositionToElement(newPosition, scrolledElement)
     //     }
-    //     let interval = setInterval(moveWhileEndPosition.bind(this), timeLimit/nrOfFrames)
+    //     let interval = setInterval(moveWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
     // }
 
-    scrollElementWithAnimation({startPosition, endPosition, scrolledElement, _nrOfFrames, _timeLimit}){
-        let step = 0;
-        let delta = this.substractPositions(endPosition, {x:0, y:0})
-        let deltaStep = this.divPositionByScalar(delta, _nrOfFrames);
-        let moveWhileEndPosition = function(){
-            step = step + 1;
-            if  (step >= _nrOfFrames) {clearInterval(interval)}
-            if (step > 50) clearInterval(interval)
-            let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step))
-            this.setNewPositionToElement(newPosition, scrolledElement)
-        }
-        let moveBACKGROUNDWhileEndPosition = function(){
-            step = step + 1;
-            if  (step >= _nrOfFrames) {clearInterval(intervalBG)}
-            if (step > 50) clearInterval(intervalBG)
-            let newPosition = this.substractPositions(startPosition, this.multiplyPositionByScalar(deltaStep, step*this.bgScaleFactor))
-            this.setNewPositionToElement(newPosition, this.backgroundCanvas)
-        }
-        let interval = setInterval(moveWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
-        let intervalBG = setInterval(moveBACKGROUNDWhileEndPosition.bind(this), _timeLimit/_nrOfFrames)
+    scrollBgElementWIthAnimation({startPosition, endPosition, scrolledElement, _nrOfFrames, _timeLimit}){
+
     }
 
     getElementsPositionRelativeToDisplayWindow(element){
@@ -215,9 +235,9 @@ class Navigator{
         }
     }
 
-    setNewPositionToElement(position, element){
+    setNewXPositionToElement(position, element){
         element.style.left = position.x + 'px';
-        element.style.top = position.y + 'px';
+        // element.style.top = position.y + 'px';
     }
 
     getMenuButtons(){
