@@ -30,18 +30,28 @@ class Navigator{
     onButtonClick(event){
         let bindedId = event.target.getAttribute('data-bind-with-id');
         let nrOfChosenScreenContainer = this.indexOfScreenContainerFromId(bindedId);
-        this.changeNavigationClass(`movable-${nrOfChosenScreenContainer}`)
+        this.changeNavigationClassForContent(`movable-content-${nrOfChosenScreenContainer}`)
+        this.changeNavigationClassForBackground(`movable-background-${nrOfChosenScreenContainer}`)
         this.clearNavButtonsClicked();
         event.target.classList.add('nav-button-clicked')
     }
-    changeNavigationClass(newClassName){
+
+    changeNavigationClassForContent(newClassName){
+        this.changeNavigationClass(this.controlledElement, newClassName, 'movable-content-')
+    }
+
+    changeNavigationClassForBackground(newClassName){
+        this.changeNavigationClass(this.backgroundCanvas, newClassName, 'movable-background-')
+    }
+
+    changeNavigationClass(targetElement, newClassName, pattern){
         let oldClassName = null;
-        Array.from(this.controlledElement.classList).forEach((element, index) => {
-            if (element.indexOf('movable-') != -1) {oldClassName = element}
+        Array.from(targetElement.classList).forEach((element, index) => {
+            if (element.indexOf(pattern) != -1) {oldClassName = element}
         })
-        this.controlledElement.classList.add(newClassName);
+        targetElement.classList.add(newClassName);
         try{
-            this.controlledElement.classList.remove(oldClassName);
+            targetElement.classList.remove(oldClassName);
         } catch {
             // Probably button did not contain this class
         }
@@ -64,5 +74,5 @@ class Navigator{
 }
 
 
-let navigator = new Navigator(document.querySelector('nav'), document.querySelector('.widget-container-wrapper'))
+let navigator = new Navigator(document.querySelector('nav'), document.querySelector('.widget-container-wrapper'), document.querySelector('.background-effect-cover'))
 navigator.addEvents();
