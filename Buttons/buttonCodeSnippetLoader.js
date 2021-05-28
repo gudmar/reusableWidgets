@@ -110,6 +110,37 @@ class ButtonDetailsDB{
             },
 
 
+            'push-button': {
+                innerCode: `
+                #push {
+                    transition: 0.3s;
+                }
+                #push:hover {
+                  animation: push 0.3s ease-in
+                }
+                @keyframes push {  /* has to be an animation, because transition does not support 3 frames */
+                    0% {transform: scale(1);}
+                    50% {transform: scale(0.9);}
+                    100% {transform: scale(1);}
+                }
+                `
+            },
+
+            'pop-button': {
+                innerCode: `
+                #pop {
+                    transition: 0.3s;
+                }
+                #pop:hover {
+                  animation: pop 0.3s ease-in
+                }
+                @keyframes pop {  /* has to be an animation, because transition does not support 3 frames */
+                    0% {transform: scale(1);}
+                    50% {transform: scale(1.1);}
+                    100% {transform: scale(1);}
+                }
+                `
+            },         
 
             'circle-where-clicked-button': {
                 innerCode: `
