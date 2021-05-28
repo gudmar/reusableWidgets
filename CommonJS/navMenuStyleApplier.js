@@ -39,7 +39,7 @@ class NavigatorStyleApplier {
                 }
                 .movable-background-${i}{
                     transition: left 1s, width 0s;
-                    left: ${(100 * -i) * this.backgroundMoveStepFactor}vw;
+                    left: ${(100 * -i) * this.backgroundMoveStepFactor - 2}vw;
                 }
             `
         }

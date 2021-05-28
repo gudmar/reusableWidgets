@@ -19,6 +19,16 @@ class Navigator{
         this.menuButtons.forEach((button) => {addEventToButton(button)})
     }
 
+    addInitialClassesToElements_chromeBugWorkaround(){
+        // In chrome after clicking a left menu option and hitting F5 page contetn would move left, 
+        // and finally after a few test scenarios page content would be unreachable. Recovery is closing tab and opening once again, as 
+        // page refreshes do not help. setTimeout in adding initial classes is vital for avoiding this bug. Appears only in chromium and chrome.
+        let timePeriod = setTimeout(()=>{
+            this.controlledElement.classList.add('movable-content-0')
+            this.backgroundCanvas.classList.add('movable-background-0')    
+        }, 100);
+    }
+
     indexOfClickedElement(event){
         return Array.from(this.menuButtons).indexOf(event.target)
     }
@@ -49,12 +59,12 @@ class Navigator{
         Array.from(targetElement.classList).forEach((element, index) => {
             if (element.indexOf(pattern) != -1) {oldClassName = element}
         })
-        targetElement.classList.add(newClassName);
         try{
             targetElement.classList.remove(oldClassName);
         } catch {
             // Probably button did not contain this class
         }
+        targetElement.classList.add(newClassName);
     }
 
     clearNavButtonsClicked(){
@@ -76,3 +86,4 @@ class Navigator{
 
 let navigator = new Navigator(document.querySelector('nav'), document.querySelector('.widget-container-wrapper'), document.querySelector('.background-effect-cover'))
 navigator.addEvents();
+navigator.addInitialClassesToElements_chromeBugWorkaround();
