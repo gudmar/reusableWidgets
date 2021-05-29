@@ -17,17 +17,19 @@ class ArcDrawer {
 
 
     createArc(radius, positionXY, startAngle, endAngle, width, color, id){
-        let path = this.createElementNS('path');
+        let svg = this.createSvg()
+        let path = this.createElementNS('path')
         let listOfAttributes = {
             'id': id,
             'd': this.getArcAsString(positionXY.x, positionXY.y, radius, startAngle, endAngle),
             'stroke': color,
-            'stroke-widht': width,
+            'stroke-width': width,
             'stroke-linecap': 'round',
             'fill': 'none'
         }
         this.setAttributesFromObject(path, listOfAttributes)
-        return path;
+        svg.appendChild(path)
+        return svg;
     }
 
     getArcAsString(x, y, radius, startAngle, endAngle) {
@@ -86,7 +88,7 @@ class ArcDrawer {
     }
 
     createElementNS(elementType) {
-        return document.createElementNS('http://www.w3.org/2000/svg', 'element')
+        return document.createElementNS('http://www.w3.org/2000/svg', elementType)
     }
 
     setAttributesFromObject(targetElement, objectWithAttributes){
