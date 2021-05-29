@@ -168,6 +168,14 @@ class SingleElementPresenter extends HTMLElement{
             modal.insertElementToKillableModal(content);
         
         }
+        if (elementType == 'speed-gauge') {
+            content = this.stringToElement('Speed gauge description')
+            modal.insertElementToKillableModal(content)
+        }
+        if (elementType == 'degree-gauge') {
+            content = this.stringToElement('gauge description')
+            modal.insertElementToKillableModal(content)
+        }
         document.querySelector('body').appendChild(modal)
     }
 
@@ -329,6 +337,8 @@ class SingleElementPresenter extends HTMLElement{
                     z-index: 25;
                     cursor: pointer;
                 }
+                ${this.wrappedElementType == 'speed-gauge' ? '.menu-oppener-button {display: none;}':''}
+                ${this.wrappedElementType == 'degree-gauge' ? '.menu-oppener-button {display: none;}':''}
             </style>
 
             <div class = "wrapper size-small ${this.presenterDarkLightTheme}">
@@ -337,6 +347,8 @@ class SingleElementPresenter extends HTMLElement{
                     ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
                     ${this.wrappedElementType == 'custom-button-1' ? this.getCustomButtonOptionsHtml() : ''}
                     ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
+                    ${this.wrappedElementType == 'speed-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                    ${this.wrappedElementType == 'degree-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
                 </div>
                 <div class = "content center">
                     ${this.getWrappedElementAsStirng()}
@@ -356,6 +368,12 @@ class SingleElementPresenter extends HTMLElement{
         if (this.wrappedElementType == 'custom-button-1') return `
         <custom-button-1 data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
         `
+        if (this.wrappedElementType == 'speed-gauge') return `
+        <speed-gauge></speed-gauge>
+        `
+        if (this.wrappedElementType == 'degree-gauge') return `
+        <degree-gauge></degree-gauge>
+        `
         
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
@@ -373,6 +391,13 @@ class SingleElementPresenter extends HTMLElement{
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
             <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
             <input type = "text" placeholder = "Button caption..." value = ''></input>
+        `
+    }
+    getCustomGaugeOptionsHtml(){
+        return`
+            <div id="colorChoserId" data-label-set="blue,green,red">
+                Option stylig is not supported by this component, just this id='colorChoserId' element is significant to avoid error
+            </div>
         `
     }
 

@@ -1,4 +1,6 @@
 
+// Should be deleted
+// !!!!!!!!!!! CURRENTLY NOT USED. Capable of navigating menu in X and Y, hovewer css navigation is better
 
 class Navigator{
     constructor(menuElement, controlledElement){
