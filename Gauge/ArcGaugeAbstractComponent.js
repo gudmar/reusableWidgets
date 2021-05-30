@@ -20,8 +20,13 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     }
 
     connectedCallback() {
+        let textBoxManager = new ValueTextboxContentManager(this.shadowRoot.querySelector('.value-input'), 2, 
+            this.getConstraints().minValue, this.getConstraints().maxValue);
+        textBoxManager.addEventsToManagedBox();
+
         this.svgCreator.placeManagedObject(50);
         this.resetStyle();
+
     }
 
     getConstraints(){
@@ -126,6 +131,21 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             background-color: red;
             text-align: center;
         }
+        .input-not-valid{
+            background-color: rgba(255, 0, 0, 0.7);
+        }
+        .editable-content{
+            width: 100%;
+            border: solid rgb(0, 255, 0) medium;
+        }
+        .full-value-tooltip{
+            background-color: beige;
+            color: black;
+            padding: 4px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 100;
+        }
     </style>
         `
     }
@@ -137,6 +157,7 @@ class ArcGaugeAbstractComponent extends HTMLElement {
                 <div class = "svg-holder">
                     <div class = "value-holder center">
                         <div class = "value-input" contenteditable></div>
+                        <div class = "full-value-tooltip display-none"></div>
                         <div class = "unit"></div>
                     </div>
                 </div>
