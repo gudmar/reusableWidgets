@@ -105,7 +105,6 @@ class ArcDrawer {
         }
     }
 
-    angle2value(angle) {return ((angle/360) * (this.settings.maxValue))}
 
     generateGoodEnoughId(){
         return Math.random().toString(36).substr(2, 9);
