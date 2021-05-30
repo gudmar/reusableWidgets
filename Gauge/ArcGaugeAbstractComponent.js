@@ -2,10 +2,13 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     constructor(){
         super();
         this.addShadow();
+        this.widgetRadius = 60;
         this.svgCreator = new SvgArcManager(this, this.getSettingDimentions(), this.getSettingStyle(), this.getConstraints())
-        this.currentValue = 50;
+        this.currentValue = 190;
 
         this.arcAngle = this.getArcAngle();
+
+        
     }
 
     static get observedAttributes() {
@@ -32,12 +35,12 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     
     getSettingDimentions(){
         return {
-            centerX: 100,
-            centerY: 100,
-            radius: 95 - (parseInt(this.getSettingStyle()['arcStrokeWidth'], 10) / 2),
-            radiusLargeCircle: 95,
-            radiusSmalCircle: 95 - parseInt(this.getSettingStyle()['arcStrokeWidth'], 10),
-            radiusEventCircle: 95 - (parseInt(this.getSettingStyle()['arcStrokeWidth'], 10) / 2)
+            centerX: this.widgetRadius/2,
+            centerY: this.widgetRadius/2,
+            radius: this.widgetRadius/2 - (parseInt(this.getSettingStyle()['arcStrokeWidth'], 10) / 2),
+            radiusLargeCircle: this.widgetRadius/2 + this.getSettingStyle()['arcStrokeWidth']/2,
+            radiusSmalCircle: this.widgetRadius/2 - this.getSettingStyle()['arcStrokeWidth']/2,
+            radiusEventCircle: this.widgetRadius/2 - (parseInt(this.getSettingStyle()['arcStrokeWidth'], 10) / 2)
         }
     }
 
