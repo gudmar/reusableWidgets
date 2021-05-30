@@ -22,6 +22,8 @@ class SvgArcManager extends ArcDrawer {
 
         this.value = null; // transfered via drawArc 
         this.managedElement = null;
+
+        this.mouseMoveEventEnabled = false;
     }
 
     placeManagedObject(value){
@@ -49,16 +51,24 @@ class SvgArcManager extends ArcDrawer {
     }
 
     addOnEvenCircleClickEvent(){
-        let onEventCircleClick = function(e){
+        let mouseEventOnArc = function(e){
             let newPoint = this.xy2svg({x: e.clientX, y: e.clientY}, this.managedElement);
             this.alterArcPointInput(newPoint)
         }.bind(this)
-        this.eventWheel.addEventListener('click', onEventCircleClick)
+        let mouseMoveEventOnArc = function(e) {if (this.mouseMoveEventEnabled) {mouseEventOnArc(e)}}.bind(this)
+        let unlockMouseMoveEvent = function(e) {this.mouseMoveEventEnabled = true}.bind(this)
+        let lockMouseMoveEvent = function(e) {this.mouseMoveEventEnabled = false}.bind(this)
+        this.eventWheel.addEventListener('click', mouseEventOnArc)
+        this.eventWheel.addEventListener('mousedown', unlockMouseMoveEvent)
+        document.querySelector('body').addEventListener('mouseup', lockMouseMoveEvent)
+        this.eventWheel.addEventListener('mousemove', mouseMoveEventOnArc)
     }
 
     alterArcPointInput(endPoint){
-        let angle = this.calculateCartesian2Angle(this.managedElement, {x:0, y:0}, {x: this.dimensions.centerX, y: this.dimensions.centerY}, endPoint)
+        let angle = this.calculateCartesian2Angle(this.managedElement, {x:this.dimensions.centerX, y:0}, {x: this.dimensions.centerX, y: this.dimensions.centerY}, endPoint)
         let value = this.angle2value(angle);
+        console.log(angle)
+        console.log(value)
         this.alterArc(value)
     }
 
@@ -66,7 +76,8 @@ class SvgArcManager extends ArcDrawer {
     alterArc(value){
         this.value = value;
         this.managedElement.querySelector(`#${this.svgArcId}`).setAttribute('stroke', this.getAlertWarnInfoColor());
-        this.setArcAngle(this.valueToAngle_overwritable())
+        // debugger
+        this.setArcAngle(this.valueToAngle_overwritable(this.value))
     }
 
     angle2value(angle) {return ((angle/360) * (this.constraints.maxValue))}
@@ -89,8 +100,8 @@ class SvgArcManager extends ArcDrawer {
 
 
     setArcAngle(endAngle){
-        this.managedElement.querySelector(`#${this.svgArcId}`).setAttributeNS(null, 'd', this.getArcAsString(this.dimensions['centerX'], 
-        this.dimensions['centerY'], this.dimensions['radius'], 0, endAngle))
+        let path = this.getArcAsString(this.dimensions['centerX'], this.dimensions['centerY'], this.dimensions['radius'], 0, endAngle)
+        this.managedElement.querySelector(`#${this.svgArcId}`).setAttributeNS(null, 'd', path)
     }
 
 
