@@ -17,7 +17,7 @@ class ArcDrawer {
 
 
     createArc(radius, positionXY, startAngle, endAngle, width, color, id){
-        let svg = this.createSvg()
+        let svg = this.createSvg(radius * 2 + width)
         let path = this.createElementNS('path')
         let listOfAttributes = {
             'id': id,
@@ -32,6 +32,7 @@ class ArcDrawer {
         return svg;
     }
 
+
     getArcAsString(x, y, radius, startAngle, endAngle) {
         let  start = this.polarToCartesian(x, y, radius, endAngle);
         let  end = this.polarToCartesian(x, y, radius, startAngle);
@@ -43,16 +44,16 @@ class ArcDrawer {
         return d;
     }
 
-    calculateCartesian2Angle(startPoint, middleOfCirclePoint, endPoint) {
+    calculateCartesian2Angle(svgElement, startPoint, middleOfCirclePoint, endPoint) {
         // THis retuns angle between 2 points
         
-        let mP = xy2svg(middleOfCirclePoint, this.svgElement)
-        let sP = xy2svg(startPoint, this.svgElement)
-        let eP = xy2svg(endPoint, this.svgElement)
+        let mP = this.xy2svg(middleOfCirclePoint, svgElement)
+        let sP = this.xy2svg(startPoint, svgElement)
+        let eP = this.xy2svg(endPoint, svgElement)
         let output = undefined;
         let pS_pM = this.getDistanceBetweenPoints(mP, sP)
-        let pE_pM = this.getDistanceBetweenPoints(pE, pM)
-        let pE_pS = this.getDistanceBetweenPoints(pE, pS)
+        let pE_pM = this.getDistanceBetweenPoints(eP, mP)
+        let pE_pS = this.getDistanceBetweenPoints(eP, sP)
         if (sP.x < eP.x) {
             output = Math.acos((pS_pM * pS_pM + pE_pM * pE_pM - pE_pS * pE_pS) / (2 * pS_pM * pE_pM)) * 180 / Math.PI    
         } else {
@@ -83,8 +84,15 @@ class ArcDrawer {
         };
     }
 
-    createSvg(){
-        return document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    createSvg(size){
+        let svg = this.createElementNS('svg')
+        let listOfAttributes = {
+            'viewBox': `0 0 ${size} ${size}`,
+            'width': size,
+            'height': size
+        }
+        this.setAttributesFromObject(svg, listOfAttributes)
+        return svg;
     }
 
     createElementNS(elementType) {
