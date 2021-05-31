@@ -172,7 +172,7 @@ class SingleElementPresenter extends HTMLElement{
             content = this.stringToElement('Speed gauge description')
             modal.insertElementToKillableModal(content)
         }
-        if (elementType == 'degree-gauge') {
+        if (elementType == 'degree-gauge' || elementType == 'percentage-gauge') {
             content = this.stringToElement('gauge description')
             modal.insertElementToKillableModal(content)
         }
@@ -352,6 +352,7 @@ class SingleElementPresenter extends HTMLElement{
                     ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
                     ${this.wrappedElementType == 'speed-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
                     ${this.wrappedElementType == 'degree-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                    ${this.wrappedElementType == 'percentage-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
                 </div>
                 <div class = "content center">
                     ${this.getWrappedElementAsStirng()}
@@ -382,9 +383,11 @@ class SingleElementPresenter extends HTMLElement{
         <speed-gauge></speed-gauge>
         `
         if (this.wrappedElementType == 'degree-gauge') return `
-        <degree-gauge data-label = "angle-gauge"></degree-gauge>
+        <degree-gauge data-label = "angle-gauge" data-approximate='1'></degree-gauge>
         `
-        
+        if (this.wrappedElementType == 'percentage-gauge') return `
+        <percentage-gauge data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
+        `
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
 
