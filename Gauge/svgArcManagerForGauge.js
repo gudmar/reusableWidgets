@@ -3,7 +3,7 @@ class SvgArcManager extends ArcDrawer {
         super();
         let mandatoryDimansions = ['centerX', 'centerY', 'radius', 'radiusLargeCircle', 'radiusSmalCircle', 'radiusEventCircle']
         let mandatoryStyles = ['circleStroke', 'fill', 'arcStrokeWidth', 'eventCircleStrokeWidth', 'colorAlert', 'colorInfo', 'colorWarn']
-        let mandatoryConstraints = ['minAlertValue', 'minWarnValue', 'minValue', 'maxValue']
+        let mandatoryConstraints = ['minAlertValue', 'minWarnValue', 'minValue', 'maxValue', 'unit']
         let listOfNotPassedParameters = [];
         listOfNotPassedParameters = [...listOfNotPassedParameters, ...this.getListOfNotPassedMandatoryParameters(dimensionSettings, mandatoryDimansions)];
         listOfNotPassedParameters = [...listOfNotPassedParameters, ...this.getListOfNotPassedMandatoryParameters(styleSettings, mandatoryStyles)];
@@ -51,9 +51,16 @@ class SvgArcManager extends ArcDrawer {
     }
 
     addOnEvenCircleClickEvent(){
+        let dispatchArcChangeEvent = function(value){
+            let event = new CustomEvent('arcValueChanged', {
+                detail: {newValue: value}
+            })
+            this.context.dispatchEvent(event)
+        }.bind(this)
         let mouseEventOnArc = function(e){
             let newPoint = this.xy2svg({x: e.clientX, y: e.clientY}, this.managedElement);
             this.alterArcPointInput(newPoint)
+            dispatchArcChangeEvent(this.endPointToValue(newPoint))
         }.bind(this)
         let mouseMoveEventOnArc = function(e) {if (this.mouseMoveEventEnabled) {mouseEventOnArc(e)}}.bind(this)
         let unlockMouseMoveEvent = function(e) {this.mouseMoveEventEnabled = true}.bind(this)
@@ -65,11 +72,12 @@ class SvgArcManager extends ArcDrawer {
     }
 
     alterArcPointInput(endPoint){
-        let angle = this.calculateCartesian2Angle(this.managedElement, {x:this.dimensions.centerX, y:0}, {x: this.dimensions.centerX, y: this.dimensions.centerY}, endPoint)
-        let value = this.angle2value(angle);
-        console.log(angle)
-        console.log(value)
-        this.alterArc(value)
+        this.alterArc(this.endPointToValue(endPoint))
+    }
+
+    endPointToValue(endPoint){
+        let angle = this.calculateCartesian2Angle(this.managedElement, {x:this.dimensions.centerX, y:0}, {x: this.dimensions.centerX, y: this.dimensions.centerY}, endPoint)        
+        return this.angle2value(angle);
     }
 
 

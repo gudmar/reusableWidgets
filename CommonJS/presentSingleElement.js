@@ -257,6 +257,9 @@ class SingleElementPresenter extends HTMLElement{
                 .content>*{
                     cursor: pointer;
                 }
+                .content>degree-gauge{
+                    cursor: default;
+                }
                 .close-button{
                     align-self: flex-end;
                     margin: 0;
@@ -341,7 +344,7 @@ class SingleElementPresenter extends HTMLElement{
                 ${this.wrappedElementType == 'degree-gauge' ? '.menu-oppener-button {display: none;}':''}
             </style>
 
-            <div class = "wrapper size-small ${this.presenterDarkLightTheme}">
+            <div class = "wrapper size-${this.getPresenterElementSize()} ${this.presenterDarkLightTheme}">
                 <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
                 <div class = "options center do-not-display">
                     ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
@@ -358,6 +361,13 @@ class SingleElementPresenter extends HTMLElement{
             `
     }
 
+    getPresenterElementSize(){
+        if (this.wrappedElementType == 'degree-gauge') return 'big'
+        if (this.wrappedElementType == 'percentage-gauge') return 'big'
+        if (this.wrappedElementType == 'speed-gauge') return 'big'
+        return 'small'
+    }
+
     getWrappedElementAsStirng(){
         if (this.wrappedElementType == 'custom-button') return `
             <custom-button data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button>
@@ -372,7 +382,7 @@ class SingleElementPresenter extends HTMLElement{
         <speed-gauge></speed-gauge>
         `
         if (this.wrappedElementType == 'degree-gauge') return `
-        <degree-gauge></degree-gauge>
+        <degree-gauge data-label = "angle-gauge"></degree-gauge>
         `
         
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
