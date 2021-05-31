@@ -12,21 +12,47 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['data-value']
+        return ['data-value', 'data-label']
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
+        if (attrName == 'data-label') this.setLabel(newVal)
+    }
 
+    setLabel(newLabel){
+        this.shadowRoot.querySelector('.label-holder').innerText = newLabel;
     }
 
     connectedCallback() {
-        let textBoxManager = new ValueTextboxContentManager(this.shadowRoot.querySelector('.value-input'), 2, 
+        this.textBoxManager = new ValueTextboxContentManager(this.shadowRoot.querySelector('.value-input'), 2, 
             this.getConstraints().minValue, this.getConstraints().maxValue);
-        textBoxManager.addEventsToManagedBox();
+        this.textBoxManager.addEventsToManagedBox();
 
         this.svgCreator.placeManagedObject(50);
         this.resetStyle();
+        this.addEventListeners();
+    }
 
+    addEventListeners(){
+        this.shadowRoot.querySelector('.value-input').addEventListener('valueTextBoxChanged', this.updateDataValueAttribute.bind(this))
+        this.addEventListener('arcValueChanged', this.updateDataValueAttribute.bind(this))
+    }
+
+    updateDataValueAttribute(e){
+        let oldValue = this.getAttribute('data-value');
+        let newValue = e.detail['newValue']
+        if (oldValue != newValue){
+            this.setAttribute('data-value', e.detail['newValue'])
+            this.updateArc(newValue)
+            this.updateLabel(newValue)
+        }
+    }
+
+    updateArc(value){
+        this.svgCreator.alterArc(value)
+    }
+    updateLabel(value){
+        this.textBoxManager.setValue(value)
     }
 
     getConstraints(){
@@ -34,7 +60,8 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             minAlertValue : 250, 
             minWarnValue: 150,
             minValue: 10, 
-            maxValue: 330
+            maxValue: 330,
+            unit: 'deg'
         }
     }
 
@@ -146,6 +173,11 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             position: absolute;
             z-index: 100;
         }
+        .label-holder{
+            font-family: Arial;
+            font-size: ${fontSizes.labelFontSize};
+            cursor: pointer;
+        }
     </style>
         `
     }
@@ -157,8 +189,7 @@ class ArcGaugeAbstractComponent extends HTMLElement {
                 <div class = "svg-holder">
                     <div class = "value-holder center">
                         <div class = "value-input" contenteditable></div>
-                        <div class = "full-value-tooltip display-none"></div>
-                        <div class = "unit"></div>
+                        <div class = "unit">${this.getConstraints().unit}</div>
                     </div>
                 </div>
                 <div class = "label-holder"></div>

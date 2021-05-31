@@ -9,6 +9,15 @@ class ValueTextboxContentManager{
         this.minValue = minValue;
     }
 
+    setValue(value){
+        if (value == this.previousBoxValue) return false;
+        if (this.validateValue(value)){
+            this.previousBoxValue = value;
+            this.fullValueBoxContent = value;
+            this.displayValue(value)
+        }
+    }
+
     addEventsToManagedBox(){
         let startInputtingValue = function(){
             this.managedBoxContext.innerText = this.fullValueBoxContent;
@@ -18,22 +27,21 @@ class ValueTextboxContentManager{
         let stopInputtingValue = function(event){
             let newValue = this.managedBoxContext.innerText;
             this.changeBoxContentElementToNotEditable();
-            console.log(this.validateValue(newValue))
+            
             if (this.validateValue(newValue)) {
                 this.fullValueBoxContent = parseFloat(newValue);
                 this.previousBoxValue = newValue;
-                this.managedBoxContext.innerText = this.prepareLabelToDisplay(newValue)
+                this.displayValue(newValue)
+                this.emitValueBoxChangeEvent(newValue)
             } else {
+                if (this.previousBoxValue.trim() == "") {
+                    this.managedBoxContext.innerText = '';
+                    return false;
+                }
                 this.managedBoxContext.innerText = this.prepareLabelToDisplay(this.previousBoxValue)
                 this.updateFullLableTooltipValue();
             }
         }.bind(this)
-        let showFullLabelTooltip = function(){
-            if (this.isLabelTooLong()){
-                this.managedBoxContext.parentNode.querySelector('.full-value-tooltip').classList.remove('display-none')
-            }
-        }.bind(this)
-        let hideFullLabelTooltip = function(){this.managedBoxContext.parentNode.querySelector('.full-value-tooltip').classList.add('display-none')}.bind(this)
         this.managedBoxContext.addEventListener('focus', startInputtingValue);
         this.managedBoxContext.addEventListener('input', this.displayUnvlidIfNeeded.bind(this));
         this.managedBoxContext.addEventListener('blur', stopInputtingValue);
@@ -42,15 +50,27 @@ class ValueTextboxContentManager{
         this.managedBoxContext.addEventListener('mouseleave', this.removeFullLabelTooltip.bind(this))
     }
 
+    displayValue(value){
+        this.managedBoxContext.innerText = this.prepareLabelToDisplay(value)
+    }
+
+    emitValueBoxChangeEvent(value){
+        let event = new CustomEvent('valueTextBoxChanged', {
+            detail: {newValue: value}
+        })
+        this.managedBoxContext.dispatchEvent(event)
+    }
+
     updateFullLableTooltipValue(){
-        debugger;
         this.managedBoxContext.parentNode.querySelector('.full-value-tooltip').innerText = this.fullValueBoxContent;
     }
 
     addFullLabelTooltip(){
-        let template = `<div class = "full-value-tooltip">${this.fullValueBoxContent}</div>`
-        let element = this.stringToElement(template);
-        this.managedBoxContext.appendChild(element);
+        if (this.isLabelTooLong()){
+            let template = `<div class = "full-value-tooltip">${this.fullValueBoxContent}</div>`
+            let element = this.stringToElement(template);
+            this.managedBoxContext.appendChild(element);
+        }
     }
 
     removeFullLabelTooltip(){
@@ -146,6 +166,8 @@ class ValueTextboxContentManager{
 
     isLabelTooLong(){
         let convetedFullBoxContent = this.fullValueBoxContent + '';
-        return convetedFullBoxContent.length > this.maxLabelLength ? true : false;
+        console.log(convetedFullBoxContent.length)
+        console.log(convetedFullBoxContent.length > this.maxLabelLength)
+        return convetedFullBoxContent.length > this.maxLabelLength
     }
 }
