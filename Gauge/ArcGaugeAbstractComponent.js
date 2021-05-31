@@ -1,36 +1,64 @@
 class ArcGaugeAbstractComponent extends HTMLElement {
     constructor(){
         super();
+        let nrOfDigitsDisplayedInValueBox = 3;
         this.addShadow();
         this.widgetRadius = 90;
         this.svgCreator = new SvgArcManager(this, this.getSettingDimentions(), this.getSettingStyle(), this.getConstraints())
+        this.textBoxManager = new ValueTextboxContentManager(this.shadowRoot.querySelector('.value-input'), nrOfDigitsDisplayedInValueBox, 
+                this.getConstraints().minValue, this.getConstraints().maxValue);
         this.currentValue = 190;
-
+        this.nrOfDititsForApptoximation = 0;
         this.arcAngle = this.getArcAngle();
 
         
     }
 
     static get observedAttributes() {
-        return ['data-value', 'data-label']
+        return ['data-value', 'data-label', 'data-approximate']
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
         if (attrName == 'data-label') this.setLabel(newVal)
+        if (attrName == 'data-approximate') this.changeApproximation(newVal)
+        if (attrName == 'data-value') {
+            if (oldVal != newVal) this.setAttribute('data-value', newVal)
+        }
+
+    }
+
+    getCurrentValue() {
+        return this.approximate(this.getAttribute('data-value'))
     }
 
     setLabel(newLabel){
         this.shadowRoot.querySelector('.label-holder').innerText = newLabel;
     }
 
+    changeApproximation(value){
+        this.nrOfDititsForApptoximation = value;
+        this.svgCreator.changeApproximation(value)
+        this.textBoxManager.changeApproximation(value)
+    }
+
     connectedCallback() {
-        this.textBoxManager = new ValueTextboxContentManager(this.shadowRoot.querySelector('.value-input'), 2, 
-            this.getConstraints().minValue, this.getConstraints().maxValue);
+        this.setInitialValue();
+        this.textBoxManager.setValue(this.getCurrentValue())
         this.textBoxManager.addEventsToManagedBox();
 
-        this.svgCreator.placeManagedObject(50);
+        this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.resetStyle();
         this.addEventListeners();
+    }
+
+    setInitialValue(){
+        let valueFromDataAttribute = this.getAttribute('data-value');
+        if (!this.textBoxManager.validateValue(valueFromDataAttribute)) {
+            this.setAttribute('data-value', this.approximate(this.getConstraints().minValue))
+        }
+        else {
+            this.setAttribute('data-value', this.approximate(valueFromDataAttribute))
+        }
     }
 
     addEventListeners(){
@@ -59,8 +87,8 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         return {
             minAlertValue : 250, 
             minWarnValue: 150,
-            minValue: 10, 
-            maxValue: 330,
+            minValue: 1, 
+            maxValue: 360,
             unit: 'deg'
         }
     }
@@ -134,7 +162,6 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             width: 50%;
             height: 50%;
             border-radius: 50%;
-            background-color: purple;
             transform: translate(-50%, -50%);
             display: flex;
 
@@ -147,7 +174,6 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             height: ${calculateValueInputHeight()}rem;
             width: 100%;
             font-size: ${fontSizes.valueFontSize};
-            background-color: yellow;
             text-align: center;
         }
         .unit{
@@ -155,7 +181,6 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             width: 100%;
             height: 1rem;
             font-size: ${fontSizes.unitFontSize};
-            background-color: red;
             text-align: center;
         }
         .input-not-valid{
@@ -163,7 +188,9 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         }
         .editable-content{
             width: 100%;
-            border: solid rgb(0, 255, 0) medium;
+            line-height: ${calculateValueInputHeight()}rem;
+            background-color: white;
+            color: black;
         }
         .full-value-tooltip{
             background-color: beige;
@@ -202,6 +229,11 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         let template = document.createElement('template');
         template.innerHTML = htmlString;
         return template.content.cloneNode(true)
+    }
+
+    approximate(value, nrOfDitits = this.nrOfDititsForApptoximation){
+        let multiplier = Math.pow(10, nrOfDitits);
+        return Math.round(parseFloat(value) * multiplier) / multiplier
     }
 }
 

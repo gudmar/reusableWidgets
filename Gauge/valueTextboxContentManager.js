@@ -7,6 +7,7 @@ class ValueTextboxContentManager{
         this.previousBoxValue = '';   
         this.maxValue = maxValue;
         this.minValue = minValue;
+        this.nrOfDititsToApproximation = 0;
     }
 
     setValue(value){
@@ -16,6 +17,12 @@ class ValueTextboxContentManager{
             this.fullValueBoxContent = value;
             this.displayValue(value)
         }
+    }
+
+    changeApproximation(nrOfDititsToApproximation){
+        this.nrOfDititsToApproximation = nrOfDititsToApproximation;
+        this.previousBoxValue = this.approximate(this.previousBoxValue);
+        this.fullValueBoxContent = this.approximate(this.fullValueBoxContent);
     }
 
     addEventsToManagedBox(){
@@ -29,6 +36,7 @@ class ValueTextboxContentManager{
             this.changeBoxContentElementToNotEditable();
             
             if (this.validateValue(newValue)) {
+                newValue = this.approximate(newValue)
                 this.fullValueBoxContent = parseFloat(newValue);
                 this.previousBoxValue = newValue;
                 this.displayValue(newValue)
@@ -38,7 +46,7 @@ class ValueTextboxContentManager{
                     this.managedBoxContext.innerText = '';
                     return false;
                 }
-                this.managedBoxContext.innerText = this.prepareLabelToDisplay(this.previousBoxValue)
+                this.displayValue(this.previousBoxValue)
                 this.updateFullLableTooltipValue();
             }
         }.bind(this)
@@ -51,7 +59,7 @@ class ValueTextboxContentManager{
     }
 
     displayValue(value){
-        this.managedBoxContext.innerText = this.prepareLabelToDisplay(value)
+        this.managedBoxContext.innerText = this.prepareLabelToDisplay(this.approximate(value))
     }
 
     emitValueBoxChangeEvent(value){
@@ -126,9 +134,6 @@ class ValueTextboxContentManager{
     changeBoxContentElementToNotEditable(){
         this.removeClassStyling();
         this.restoreClassStyling();
-        // this.fullValueBoxContent = this.managedBoxContext.innerText;
-        // this.managedBoxContext.innerText = this.prepareLabelToDisplay(this.fullValueBoxContent);
-        // this.managedBoxContext.setAttribute('contenteditable', false)
     }
 
     isManagedBoxEditable(){
@@ -169,5 +174,10 @@ class ValueTextboxContentManager{
         console.log(convetedFullBoxContent.length)
         console.log(convetedFullBoxContent.length > this.maxLabelLength)
         return convetedFullBoxContent.length > this.maxLabelLength
+    }
+
+    approximate(value, nrOfDitits = this.nrOfDititsToApproximation){
+        let multiplier = Math.pow(10, nrOfDitits);
+        return Math.round(value * multiplier) / multiplier
     }
 }

@@ -24,6 +24,7 @@ class SvgArcManager extends ArcDrawer {
         this.managedElement = null;
 
         this.mouseMoveEventEnabled = false;
+        this.nrOfDititsToApproximation = 0;
     }
 
     placeManagedObject(value){
@@ -50,10 +51,16 @@ class SvgArcManager extends ArcDrawer {
         this.managedElement.addEventListener('click', f)
     }
 
+    changeApproximation(nrOfDititsToApproximation){
+        this.nrOfDititsToApproximation = nrOfDititsToApproximation;
+        this.previousBoxValue = this.approximate(this.previousBoxValue);
+        this.fullValueBoxContent = this.approximate(this.fullValueBoxContent);
+    }
+
     addOnEvenCircleClickEvent(){
         let dispatchArcChangeEvent = function(value){
             let event = new CustomEvent('arcValueChanged', {
-                detail: {newValue: value}
+                detail: {newValue: this.approximate(value)}
             })
             this.context.dispatchEvent(event)
         }.bind(this)
@@ -88,7 +95,7 @@ class SvgArcManager extends ArcDrawer {
         this.setArcAngle(this.valueToAngle_overwritable(this.value))
     }
 
-    angle2value(angle) {return ((angle/360) * (this.constraints.maxValue))}
+    angle2value(angle) {return ((angle/360) * (this.constraints.maxValue))  THis has to be moved to allow overwritting}
 
     valueToAngle_overwritable(value) {
         return value
@@ -155,5 +162,10 @@ class SvgArcManager extends ArcDrawer {
         let notPassedFields = [];
         listOfMandatoryFields.forEach(element => {if (keys.indexOf(element) == -1) notPassedFields.push(element)});
         return notPassedFields;
+    }
+
+    approximate(value, nrOfDitits = this.nrOfDititsToApproximation){
+        let multiplier = Math.pow(10, nrOfDitits);
+        return Math.round(value * multiplier) / multiplier
     }
 }
