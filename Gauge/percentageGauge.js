@@ -37,6 +37,13 @@ class PercentageGauge extends ArcGaugeAbstractComponent{
             eventCircleStrokeWidth: 30
         }
     }
+
+    angle2value_overwritable(angle) {return ((angle/360) * (this.getConstraints().maxValue))}
+
+    getArcAngle(){ return (this.currentValue / this.getConstraints().maxValue) * 360 }
+    valueToAngle_overwritable(value) {
+        return (value / this.getConstraints().maxValue) * 360;
+    }
 }
 
 window.customElements.define('percentage-gauge', PercentageGauge)

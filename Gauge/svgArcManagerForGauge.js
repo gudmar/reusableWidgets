@@ -95,10 +95,10 @@ class SvgArcManager extends ArcDrawer {
         this.setArcAngle(this.valueToAngle_overwritable(this.value))
     }
 
-    angle2value(angle) {return ((angle/360) * (this.constraints.maxValue))  THis has to be moved to allow overwritting}
+    angle2value(angle) {return this.context.angle2value_overwritable(angle)}
 
     valueToAngle_overwritable(value) {
-        return value
+        return this.context.valueToAngle_overwritable(value)
     }
 
     getAlertWarnInfoColor(){
@@ -119,11 +119,6 @@ class SvgArcManager extends ArcDrawer {
         this.managedElement.querySelector(`#${this.svgArcId}`).setAttributeNS(null, 'd', path)
     }
 
-
-    percentageToDegree(){
-        
-    }
-
     createSurroundingWheels(){
         let createCircle = function(radius){
             return this.createCircle(radius, this.styles['circleStroke'], 1)
@@ -133,9 +128,10 @@ class SvgArcManager extends ArcDrawer {
     }
 
     createEventWheel(){
-        console.log(this.styles['arcStrokeWidth'])
         let createCircle = function(radius) {
-            return this.createCircle(radius, 'transparent', this.styles['arcStrokeWidth'])
+            let circle = this.createCircle(radius, 'transparent', this.styles['arcStrokeWidth']);
+            circle.setAttribute('class', 'circle-hoverable');
+            return circle
         }.bind(this)
         this.eventWheel = createCircle(this.dimensions.radius )
         this.managedElement.appendChild(this.eventWheel)

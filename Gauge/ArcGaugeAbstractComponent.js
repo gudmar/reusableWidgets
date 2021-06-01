@@ -118,6 +118,15 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         }
     }
 
+    angle2value_overwritable(angle) {return ((angle/360) * (this.getConstraints().maxValue))}
+
+    // valueToAngle_overwritable(value) {
+    //     return value
+    // }
+    valueToAngle_overwritable(value) {
+        return (value / this.getConstraints().maxValue) * 360;
+    }
+
     getArcAngle(){ return (this.currentValue / this.getConstraints().maxValue) *360 }
 
     stringOrBooleanToBoolean(val){
@@ -149,6 +158,14 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         <style id = "widget_style">
         .svg-holder{
             position: relative;
+            
+        }
+        .wrapper{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            align-items: center;
         }
         .center{
             display: flex;
@@ -188,9 +205,13 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         }
         .editable-content{
             width: 100%;
+            text-align: center;
             line-height: ${calculateValueInputHeight()}rem;
+            font-size: ${fontSizes.valueFontSize};
             background-color: white;
             color: black;
+            border: none;
+            outline: none;
         }
         .full-value-tooltip{
             background-color: beige;
@@ -203,6 +224,9 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         .label-holder{
             font-family: Arial;
             font-size: ${fontSizes.labelFontSize};
+            cursor: pointer;
+        }
+        .circle-hoverable:hover{
             cursor: pointer;
         }
     </style>

@@ -257,7 +257,7 @@ class SingleElementPresenter extends HTMLElement{
                 .content>*{
                     cursor: pointer;
                 }
-                .content>degree-gauge{
+                .content>degree-gauge, .content>percentage-gauge, .content>speed-gauge{
                     cursor: default;
                 }
                 .close-button{
@@ -341,6 +341,7 @@ class SingleElementPresenter extends HTMLElement{
                     cursor: pointer;
                 }
                 ${this.wrappedElementType == 'speed-gauge' ? '.menu-oppener-button {display: none;}':''}
+                ${this.wrappedElementType == 'percentage-gauge' ? '.menu-oppener-button {display: none;}':''}
                 ${this.wrappedElementType == 'degree-gauge' ? '.menu-oppener-button {display: none;}':''}
             </style>
 
