@@ -172,7 +172,7 @@ class SingleElementPresenter extends HTMLElement{
             content = this.stringToElement('Speed gauge description')
             modal.insertElementToKillableModal(content)
         }
-        if (elementType == 'degree-gauge' || elementType == 'percentage-gauge') {
+        if (elementType == 'degree-gauge' || elementType == 'percentage-gauge' || elementType == 'line-gauge' || elementType == 'speed-gauge') {
             content = this.stringToElement('gauge description')
             modal.insertElementToKillableModal(content)
         }
@@ -257,7 +257,7 @@ class SingleElementPresenter extends HTMLElement{
                 .content>*{
                     cursor: pointer;
                 }
-                .content>degree-gauge, .content>percentage-gauge, .content>speed-gauge{
+                .content>degree-gauge, .content>percentage-gauge, .content>speed-gauge, .content>line-gauge{
                     cursor: default;
                 }
                 .close-button{
@@ -351,6 +351,7 @@ class SingleElementPresenter extends HTMLElement{
                     ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
                     ${this.wrappedElementType == 'custom-button-1' ? this.getCustomButtonOptionsHtml() : ''}
                     ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
+                    ${this.wrappedElementType == 'line-gauge' ? this.getLineGaugeOptionsHtml() : ''}
                     ${this.wrappedElementType == 'speed-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
                     ${this.wrappedElementType == 'degree-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
                     ${this.wrappedElementType == 'percentage-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
@@ -380,6 +381,9 @@ class SingleElementPresenter extends HTMLElement{
         if (this.wrappedElementType == 'custom-button-1') return `
         <custom-button-1 data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
         `
+        if (this.wrappedElementType == 'line-gauge') return `
+        <line-gauge data-color-theme = "blue", data-min-val = "0", data-max-val = "100", data-value = "20"></line-gauge>
+        `
         if (this.wrappedElementType == 'speed-gauge') return `
         <speed-gauge></speed-gauge>
         `
@@ -387,7 +391,7 @@ class SingleElementPresenter extends HTMLElement{
         <degree-gauge data-label = "angle-gauge" data-approximate='1'></degree-gauge>
         `
         if (this.wrappedElementType == 'percentage-gauge') return `
-        <percentage-gauge data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
+        <percentage-gauge data-value="85" data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
         `
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
@@ -412,6 +416,12 @@ class SingleElementPresenter extends HTMLElement{
             <div id="colorChoserId" data-label-set="blue,green,red">
                 Option stylig is not supported by this component, just this id='colorChoserId' element is significant to avoid error
             </div>
+        `
+    }
+    getLineGaugeOptionsHtml(){
+        return `
+            <div class = "close-button center">&times;</div>
+            <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
         `
     }
 
