@@ -9,9 +9,7 @@ class ArcGaugeAbstractComponent extends HTMLElement {
                 this.getConstraints().minValue, this.getConstraints().maxValue);
         this.currentValue = 190;
         this.nrOfDititsForApptoximation = 0;
-        this.arcAngle = this.getArcAngle();
-
-        
+        this.arcAngle = this.getArcAngle();  
     }
 
     static get observedAttributes() {
@@ -120,9 +118,7 @@ class ArcGaugeAbstractComponent extends HTMLElement {
 
     angle2value_overwritable(angle) {return ((angle/360) * (this.getConstraints().maxValue))}
 
-    // valueToAngle_overwritable(value) {
-    //     return value
-    // }
+
     valueToAngle_overwritable(value) {
         return (value / this.getConstraints().maxValue) * 360;
     }
