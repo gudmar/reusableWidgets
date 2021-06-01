@@ -42,20 +42,27 @@ class ValueTextboxContentManager{
                 this.displayValue(newValue)
                 this.emitValueBoxChangeEvent(newValue)
             } else {
-                if (this.previousBoxValue.trim() == "") {
+                if ((this.previousBoxValue + '').trim() == "") {
                     this.managedBoxContext.innerText = '';
                     return false;
                 }
                 this.displayValue(this.previousBoxValue)
-                this.updateFullLableTooltipValue();
+                // this.updateFullLableTooltipValue();
+            }
+        }.bind(this)
+        let stopInputtingValueOnEnter = function(e){
+            if (e.key == "Enter") {
+                e.preventDefault();
+                stopInputtingValue.call(this, e);
             }
         }.bind(this)
         this.managedBoxContext.addEventListener('focus', startInputtingValue);
-        this.managedBoxContext.addEventListener('input', this.displayUnvlidIfNeeded.bind(this));
+        this.managedBoxContext.addEventListener('change', this.displayUnvlidIfNeeded.bind(this));
         this.managedBoxContext.addEventListener('blur', stopInputtingValue);
         this.managedBoxContext.addEventListener('input', this.onValueChange.bind(this))
         this.managedBoxContext.addEventListener('mouseenter', this.addFullLabelTooltip.bind(this))
         this.managedBoxContext.addEventListener('mouseleave', this.removeFullLabelTooltip.bind(this))
+        this.managedBoxContext.addEventListener('keydown', stopInputtingValueOnEnter.bind(this))
     }
 
     displayValue(value){
