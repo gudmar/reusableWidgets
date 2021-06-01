@@ -8,6 +8,17 @@ class ValueTextboxContentManager{
         this.maxValue = maxValue;
         this.minValue = minValue;
         this.nrOfDititsToApproximation = 0;
+        this.observer = new MutationObserver(this.innerHtmlChangeHandler.bind(this));
+        this.observer.observe(this.managedBoxContext, {characterData: true, subtree: true})
+    }
+
+    innerHtmlChangeHandler(mutations){
+        let handleSingleMutation = function(singleMutation){
+            if (singleMutation.type == 'characterData'){
+                this.onValueChange();
+            }
+        }.bind(this)
+        mutations.forEach(handleSingleMutation)
     }
 
     setValue(value){
