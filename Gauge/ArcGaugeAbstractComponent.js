@@ -200,9 +200,6 @@ class ArcGaugeAbstractComponent extends HTMLElement {
             font-size: ${fontSizes.unitFontSize};
             text-align: center;
         }
-        .input-not-valid{
-            background-color: rgba(255, 0, 0, 0.7);
-        }
         .editable-content{
             width: 100%;
             text-align: center;
@@ -228,6 +225,9 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         }
         .circle-hoverable:hover{
             cursor: pointer;
+        }
+        .input-not-valid{
+            background-color: rgba(255, 0, 0, 0.7);
         }
     </style>
         `
