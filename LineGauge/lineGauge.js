@@ -47,8 +47,15 @@ class LineGauge extends HTMLElement{
     }
 
     onSliderTrackClick(e){
-        console.log(e)
-        this.stateProxy['currentValue'] = e.clientX;
+        console.log(e.target)
+        this.slider.style.width = this.getOnclickCordinanceRelativeToEventTarget(e).x + 'px';
+        this.stateProxy['currentValue'] = this.getValueFromSlider();
+    }
+
+    getOnclickCordinanceRelativeToEventTarget(e){
+        let {left, top} = e.target.getBoundingClientRect();
+        console.log(top + '   ' + left)
+        return {x: e.pageX - parseFloat(left), y: e.pageY - parseFloat(top)}
     }
 
     changeSliderWidth(min, max, value){
@@ -58,6 +65,7 @@ class LineGauge extends HTMLElement{
 
     getValueFromSlider(){
         let {min, max} = this.state;
+        return (this.getSliderWidth()/this.getSliderTrackWidth()) * (max - min);
         return (max - min) / this.getSliderWidth;
     }
 
@@ -105,7 +113,13 @@ class LineGauge extends HTMLElement{
     }
 
     connectedCallback(){
-        this.sliderTrack.addEventListener('click', this.onSliderTrackClick.bind(this))
+        let activateSlidingMode = function(e){this.slidingEventActiveted = true}.bind(this)
+        let disactivateSlidingMode = function(e){this.slidingEventActiveted = false}.bind(this)
+        let onMouseMove = function(e) { if (this.slidingEventActiveted) this.onSliderTrackClick(e);}
+        this.sliderTrack.addEventListener('mousedown', this.onSliderTrackClick.bind(this))
+        this.sliderTrack.addEventListener('mousedown', activateSlidingMode.bind(this))
+        document.addEventListener('mouseup', disactivateSlidingMode.bind(this))
+        this.sliderTrack.addEventListener('mousemove', onMouseMove.bind(this))
     }
 
 
@@ -147,6 +161,9 @@ class LineGauge extends HTMLElement{
                     border-radius: 5px;
                     box-shadow: inset 0 0 15px #455;
                     overflow: hidden;
+                }
+                .slider-track:hover{
+                    cursor: pointer;
                 }
                 .ignicator{
                     position: absolute;
