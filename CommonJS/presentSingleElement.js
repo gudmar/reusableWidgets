@@ -382,7 +382,7 @@ class SingleElementPresenter extends HTMLElement{
         <custom-button-1 data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
         `
         if (this.wrappedElementType == 'line-gauge') return `
-        <line-gauge data-color-theme = "blue", data-min-val = "0", data-max-val = "100", data-value = "20"></line-gauge>
+        <line-gauge data-size= "150" data-color-theme = "blue", data-min-val = "0", data-max-val = "100", data-value = "20"></line-gauge>
         `
         if (this.wrappedElementType == 'speed-gauge') return `
         <speed-gauge></speed-gauge>
