@@ -21,7 +21,7 @@ class ArcDrawer {
         let path = this.createElementNS('path')
         let listOfAttributes = {
             'id': id,
-            'd': this.getArcAsString(positionXY.x, positionXY.y, radius, startAngle, endAngle),
+            'd': this.getArcAsString(positionXY['x'], positionXY['y'], radius, startAngle, endAngle),
             'stroke': color,
             'stroke-width': width,
             'stroke-linecap': 'round',

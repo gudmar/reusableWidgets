@@ -10,6 +10,7 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         this.currentValue = 190;
         this.nrOfDititsForApptoximation = 0;
         this.arcAngle = this.getArcAngle();  
+        this.svgCreator.placeManagedObject(this.getCurrentValue());
     }
 
     static get observedAttributes() {
@@ -20,13 +21,27 @@ class ArcGaugeAbstractComponent extends HTMLElement {
         if (attrName == 'data-label') this.setLabel(newVal)
         if (attrName == 'data-approximate') this.changeApproximation(newVal)
         if (attrName == 'data-value') {
-            if (oldVal != newVal) this.setAttribute('data-value', newVal)
+            if (oldVal != newVal) {
+                this.updateArc(newVal);
+                this.updateLabel(newVal);
+                this.emitEventOnValueChange(newVal);
+            }
         }
 
     }
 
+    emitEventOnValueChange(value){
+        let event = new Event('gauge-changed-value', {
+            detail: {
+                newValue: value
+            }
+        })
+        this.dispatchEvent(event);
+    }
+
     getCurrentValue() {
-        return this.approximate(this.getAttribute('data-value'))
+        let fromAttrib = this.approximate(this.getAttribute('data-value'));
+        return isNaN(fromAttrib) ? this.currentValue : fromAttrib;
     }
 
     setLabel(newLabel){
@@ -40,11 +55,13 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     }
 
     connectedCallback() {
+        // this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.setInitialValue();
+        // this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.textBoxManager.setValue(this.getCurrentValue())
         this.textBoxManager.addEventsToManagedBox();
 
-        this.svgCreator.placeManagedObject(this.getCurrentValue());
+        // this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.resetStyle();
         this.addEventListeners();
     }
