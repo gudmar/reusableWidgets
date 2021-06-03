@@ -104,16 +104,29 @@ class SingleElementPresenter extends HTMLElement{
         if (this.wrappedElementType == 'line-gauge'){
             console.log('line-gauge')
             let sizeControllingSlider = this.shadowRoot.querySelector('#size-controlling-slider')
+            let valueControllingSlider = this.shadowRoot.querySelector('#value-controlling-slider')
+            // let changeValueControlligSlidersValue = function(e){tihs.changeTart}
             this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
             sizeControllingSlider.addEventListener('linear-gauge-changed-value', this.changeWrappedElementWidth.bind(this))
+            valueControllingSlider.addEventListener('linear-gauge-changed-value', this.changeWrappedElementValue.bind(this))
+            this.wrappedElement.addEventListener('linear-gauge-changed-value', this.changeTargetElementsValue.bind(this, valueControllingSlider))
         }
 
         this.colorChoser.addEventListener('click', this.setColorTheme.bind(this))
     }
 
+    changeTargetElementsValue(targetElement){
+        let newValue = this.wrappedElement.getAttribute('data-value');
+        targetElement.setAttribute('data-value', newValue)
+    }
+
     changeWrappedElementWidth(e){
         let newWidth = e.target.getAttribute('data-value');
         this.wrappedElement.setAttribute('data-size', newWidth);
+    }
+    changeWrappedElementValue(e){
+        let newValue = e.target.getAttribute('data-value');
+        this.wrappedElement.setAttribute('data-value', newValue);
     }
 
     activateDisactivateButton() {
@@ -245,11 +258,16 @@ class SingleElementPresenter extends HTMLElement{
                     position: absolute;
                     background-color: rgba(240, 240, 240, 0.9);
                     padding: 1rem;
+                    padding-top: 0;
+                    padding-right: 0;
                     border-radius: 5px;
                     box-shadow: 7px 10px 6px 0px rgba(0,0,0,0.71);             
                     z-index: 100;
+                    top: -5rem;
+                    height: 20rem;
+                    
                 }
-                .options > *{
+                .options-content > *{
                     margin-bottom:20px;
                     margin-top:20px;
                     
@@ -266,7 +284,10 @@ class SingleElementPresenter extends HTMLElement{
                     cursor: default;
                 }
                 .close-button{
+                    position: relative;
+                    left: 90%;
                     align-self: flex-end;
+                    align-self: end;
                     margin: 0;
                     margin-top: 0.5rem;
                     cursor: pointer;
@@ -345,6 +366,20 @@ class SingleElementPresenter extends HTMLElement{
                     z-index: 25;
                     cursor: pointer;
                 }
+                .close-button-placeholder{
+                    position: relative;
+                    height: 1.5rem;
+                    margin: 0px;
+                }
+                .options-content{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    position: relative;
+                    max-height: 18rem;
+                    overflow: auto;
+                    margin: 0px;
+                }
                 ${this.wrappedElementType == 'speed-gauge' ? '.menu-oppener-button {display: none;}':''}
                 ${this.wrappedElementType == 'percentage-gauge' ? '.menu-oppener-button {display: none;}':''}
                 ${this.wrappedElementType == 'degree-gauge' ? '.menu-oppener-button {display: none;}':''}
@@ -352,14 +387,17 @@ class SingleElementPresenter extends HTMLElement{
 
             <div class = "wrapper size-${this.getPresenterElementSize()} ${this.presenterDarkLightTheme}">
                 <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
-                <div class = "options center do-not-display">
-                    ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'custom-button-1' ? this.getCustomButtonOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'line-gauge' ? this.getLineGaugeOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'speed-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'degree-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
-                    ${this.wrappedElementType == 'percentage-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                <div class = "options do-not-display">
+                    <div class = "close-button-placeholder"><div class = "close-button center">&times;</div></div>
+                    <div class = 'options-content'>
+                        ${this.wrappedElementType == 'custom-button' ? this.getCustomButtonOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'custom-button-1' ? this.getCustomButtonOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'waiting-circle' ? this.getWaitingCircleOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'line-gauge' ? this.getLineGaugeOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'speed-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'degree-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                        ${this.wrappedElementType == 'percentage-gauge' ? this.getWaitingCircleOptionsHtml() : ''}
+                    </div>
                 </div>
                 <div class = "content center">
                     ${this.getWrappedElementAsStirng()}
@@ -403,14 +441,12 @@ class SingleElementPresenter extends HTMLElement{
 
     getWaitingCircleOptionsHtml(){
         return `
-            <div class = "close-button center">&times;</div>
             <multi-switch id="colorChoserId" data-label-set="blue,green,gray"></multi-switch>
             <multi-switch id="sizeChoserId" data-label-set="small,medium,big"></multi-switch>
         `
     }
     getCustomButtonOptionsHtml(){
         return `
-            <div class = "close-button center">&times;</div>
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
             <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
             <input type = "text" placeholder = "Button caption..." value = ''></input>
@@ -425,10 +461,10 @@ class SingleElementPresenter extends HTMLElement{
     }
     getLineGaugeOptionsHtml(){
         return `
-            <div class = "close-button center">&times;</div>
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
             <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
             <line-gauge id="size-controlling-slider" data-size= "100" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "120"></line-gauge>
+            <line-gauge id="value-controlling-slider" data-size= "100" data-color-theme = "blue", data-min-val = "30", data-max-val = "100", data-value = "50"></line-gauge>
 
         `
     }
