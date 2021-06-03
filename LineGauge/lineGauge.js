@@ -69,23 +69,6 @@ class LineGauge extends HTMLElement{
         this.setValueLabel(value)
     }
 
-    // setSliderToValue(value){
-
-    //     // !@#$
-    //     let calculateSliderWidth = function(){
-    //         let min = this.stateProxy['min'];
-    //         let max = this.stateProxy['max'];
-    //         let sliderTrackWidth = this.getSliderTrackWidth();
-    //         // console.log(value)
-    //         // console.log(sliderTrackWidth)
-    //         // console.log(max)
-    //         // console.log(sliderTrackWidth * parseFloat(value) / (max - min))
-    //         return sliderTrackWidth * parseFloat(value) / (max - min);
-    //     }.bind(this)
-    //     // this.stateProxy['currentValue'] = value;
-    //     this.slider.style.width = calculateSliderWidth() + 'px'        
-    // }
-
     setValueLabelsRegardingConstraints(value){
         let approximatedValue = this.approximate(value, 2);
         if (approximatedValue < this.state.min) approximatedValue = this.state.min
@@ -107,6 +90,7 @@ class LineGauge extends HTMLElement{
         this.dispatchEvent(event);
     }
     onSliderTrackClick(e){
+        if (!this.stateProxy.isActive) return false;
         let clickedCordRelevantToSliderTrack = parseFloat(this.getOnclickCordinanceRelativeToEventTarget(e).x)
         let newValue = this.approximate(this.calculateValueFromClick(clickedCordRelevantToSliderTrack), 2);
         this.setAttribute('data-value', newValue)
@@ -127,15 +111,10 @@ class LineGauge extends HTMLElement{
         return parseFloat(min) + (clickXCord) * (parseFloat(max) - parseFloat(min))/this.getSliderTrackWidth();
     }
 
-    // getSliderWidth() {
-    //     return parseFloat(this.slider.getBoundingClientRect().width);
-    // }
 
     getSliderTrackWidth(){
         return parseFloat(this.sliderTrack.getBoundingClientRect().width);
     }
-
-
 
     setNewLabel(value){
         this.label.innerHTML = value;
@@ -148,13 +127,12 @@ class LineGauge extends HTMLElement{
 
     setButtonToActiveUnactiveState(shellBeActive){
         if (!shellBeActive) {
-            {this.changeColorThemeClass('inactive')}
+            this.changeColorThemeClass('inactive')
             this.onclickMemory = this.onclick;
-            this.onclick = ''
+            this.onclick = '';
         }
         else {
             this.changeColorThemeClass(this.state['colorTheme'])
-            this.button.classList.add(this.state.buttonType)
             this.onclick = this.onclickMemory;
         }
     }
@@ -171,9 +149,16 @@ class LineGauge extends HTMLElement{
     }
 
     connectedCallback(){
-        let activateSlidingMode = function(e){this.slidingEventActiveted = true}.bind(this)
-        let disactivateSlidingMode = function(e){this.slidingEventActiveted = false}.bind(this)
-        let onMouseMove = function(e) { if (this.slidingEventActiveted) this.onSliderTrackClick(e);}
+        let activateSlidingMode = function(e){
+            if (this.stateProxy.isActive) this.slidingEventActiveted = true
+        }.bind(this)
+        let disactivateSlidingMode = function(e){
+            if (this.stateProxy.isActive) this.slidingEventActiveted = false
+        }.bind(this)
+        let onMouseMove = function(e) {
+            if (!this.stateProxy.isActive) return false;
+            if (this.slidingEventActiveted) this.onSliderTrackClick(e);
+        }
         this.sliderTrack.addEventListener('mousedown', this.onSliderTrackClick.bind(this))
         this.sliderTrack.addEventListener('mousedown', activateSlidingMode.bind(this))
         document.addEventListener('mouseup', disactivateSlidingMode.bind(this))
@@ -196,6 +181,7 @@ class LineGauge extends HTMLElement{
         if (attrName == 'data-max-val') {this.stateProxy.max = newVal}
         if (attrName == 'data-size') {this.stateProxy.size = newVal}
         if (attrName == 'data-value') {
+            if (oldVal == newVal) return false;
             if (parseFloat(newVal) < this.stateProxy['min']) {
                 this.setAttribute('data-value', this.stateProxy['min'])
                 newVal = this.stateProxy['min']
@@ -296,6 +282,13 @@ class LineGauge extends HTMLElement{
             .color-theme-red>.negative-value-label{
                 color: white;
             }
+            .color-theme-inactive .ignicator{
+                background-color: gray; 
+                color: darkgray;
+            }
+            .color-theme-inactive>.negative-value-label{
+                color: rgb(230, 230, 230);
+            }
         </style>
     
         `
@@ -320,6 +313,13 @@ class LineGauge extends HTMLElement{
         let template = document.createElement('template');
         template.innerHTML = htmlString;
         return template.content.cloneNode(true)
+    }
+
+    _stringOrBooleanToBoolean(value){
+        if (value == 'true') return true;
+        if (value == 'false') return false;
+        if (typeof(value) == 'boolean') return value;
+        throw new Error(`${this.constructor.name}: Given value ${value} is not convertavle to boolean`)
     }
 }
 
