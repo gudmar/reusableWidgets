@@ -12,7 +12,7 @@ class SingleElementPresenter extends HTMLElement{
         this.acitivatingSwitch = this.shadowRoot.querySelector('#acitveButtonSwitchId')
         this.colorChoser = this.shadowRoot.querySelector('#colorChoserId')
         this.sizeChoser = this.shadowRoot.querySelector('#sizeChoserId')
-        this.wrappedElement = this.shadowRoot.querySelector(this.wrappedElementType);
+        this.wrappedElement = this.shadowRoot.querySelector("#wrapped-element-id");
         this.optionsMenuCloseButton = this.shadowRoot.querySelector('.close-button');
         this.optionsMenu = this.shadowRoot.querySelector('.options');
         this.optionsMenuOpenButton = this.shadowRoot.querySelector('.menu-oppener-button')
@@ -90,12 +90,6 @@ class SingleElementPresenter extends HTMLElement{
         this.wrappedElement.setAttribute('data-element-subtype', this.wrappedElementSubtype) 
     }
 
-    // wrapButton(buttonAsElement) {
-    //     this.content.innerHTML = '';
-    //     this.content.appendChild(buttonAsElement);
-    //     this.setEventsOnWrappedButton();
-    // }
-
     setEventsOnWrappedElement() {
         if (this.wrappedElementType == 'waiting-circle'){this.sizeChoser.addEventListener('click', this.setSize.bind(this))}
         if (this.wrappedElementType == 'custom-button'){
@@ -107,8 +101,19 @@ class SingleElementPresenter extends HTMLElement{
             this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
             this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
         }
+        if (this.wrappedElementType == 'line-gauge'){
+            console.log('line-gauge')
+            let sizeControllingSlider = this.shadowRoot.querySelector('#size-controlling-slider')
+            this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
+            sizeControllingSlider.addEventListener('linear-gauge-changed-value', this.changeWrappedElementWidth.bind(this))
+        }
 
         this.colorChoser.addEventListener('click', this.setColorTheme.bind(this))
+    }
+
+    changeWrappedElementWidth(e){
+        let newWidth = e.target.getAttribute('data-value');
+        this.wrappedElement.setAttribute('data-size', newWidth);
     }
 
     activateDisactivateButton() {
@@ -373,25 +378,25 @@ class SingleElementPresenter extends HTMLElement{
 
     getWrappedElementAsStirng(){
         if (this.wrappedElementType == 'custom-button') return `
-            <custom-button data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button>
+            <custom-button id = "wrapped-element-id" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button>
         `
         if (this.wrappedElementType == 'waiting-circle') return `
-            <waiting-circle data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
+            <waiting-circle id = "wrapped-element-id" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
         `
         if (this.wrappedElementType == 'custom-button-1') return `
-        <custom-button-1 data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
+        <custom-button-1 id = "wrapped-element-id" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
         `
         if (this.wrappedElementType == 'line-gauge') return `
-        <line-gauge data-size= "150" data-color-theme = "blue", data-min-val = "0", data-max-val = "100", data-value = "20"></line-gauge>
+        <line-gauge id = "wrapped-element-id" data-label = "line-gauge" data-size= "150" data-color-theme = "blue" data-min-val = "30", data-max-val = "100", data-value = "20"></line-gauge>
         `
         if (this.wrappedElementType == 'speed-gauge') return `
-        <speed-gauge></speed-gauge>
+        <speed-gauge id = "wrapped-element-id"></speed-gauge>
         `
         if (this.wrappedElementType == 'degree-gauge') return `
-        <degree-gauge data-label = "angle-gauge" data-approximate='1'></degree-gauge>
+        <degree-gauge id = "wrapped-element-id" data-label = "angle-gauge" data-approximate='1'></degree-gauge>
         `
         if (this.wrappedElementType == 'percentage-gauge') return `
-        <percentage-gauge data-value="85" data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
+        <percentage-gauge id = "wrapped-element-id" data-value="85" data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
         `
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
@@ -422,6 +427,9 @@ class SingleElementPresenter extends HTMLElement{
         return `
             <div class = "close-button center">&times;</div>
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
+            <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
+            <line-gauge id="size-controlling-slider" data-size= "100" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "120"></line-gauge>
+
         `
     }
 
