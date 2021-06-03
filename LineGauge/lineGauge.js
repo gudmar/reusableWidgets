@@ -28,7 +28,6 @@ class LineGauge extends HTMLElement{
                         }
                         if (!this.state.isActive){
                             this.state.colorTheme = value;
-                            // this.setAttribute(`data-color-theme`, value)
                             return true;
                         }
                         this.changeColorThemeClass(value);
@@ -37,16 +36,21 @@ class LineGauge extends HTMLElement{
                     if (prop == 'displayedLabel') {this.setNewLabel(value)}
                     if (prop == 'currentValue') {
                         let approximatedValue = this.approximate(value, 2);
-                        this.changeSliderWidth(this.state.min, this.state.max, value);
-                        this.valueLabel.innerText = approximatedValue;
-                        this.valueLabelNegative.innerText = approximatedValue;
-                        this.setAttribute('data-value', approximatedValue)
+                        if (approximatedValue < this.state.min) {
+                            approximatedValue = this.state.min
+                        } else if  (approximatedValue > this.state.max) {
+                            approximatedValue = this.state.max
+                        }
+                        let oldValue = this.approximate(parseFloat(this.getAttribute('data-value')), 2);
+                        this.setValueLabelsRegardingConstraints(approximatedValue)
+                        this.changeSliderWidth(this.stateProxy.min, this.stateProxy.max, approximatedValue)
+                        this.emitEventOnValueChange();
                     }
-                    if (prop == 'min') {this.changeSliderWidth(value, this.state.max, this.state.currentValue)}
-                    if (prop == 'max') {this.changeSliderWidth(this.state.min, value, this.state.currentValue)}
+                    if (prop == 'min') {this.stateProxy['currentValue'] = this.stateProxy['currentValue']}
+                    if (prop == 'max') {this.stateProxy['currentValue'] = this.stateProxy['currentValue']}
                     if (prop == 'size') {
                         this.changeSliderTrackWidth(value);
-                        this.changeSliderWidth(this.state.min, this.state.max, this.currentValue)
+                        this.changeSliderWidth(this.state.min, this.state.max, this.stateProxy.currentValue)
                     }
                     obj[prop] = value;
                     return true;
@@ -57,9 +61,55 @@ class LineGauge extends HTMLElement{
             }
     }
 
+    setValue(value){
+        value = parseFloat(value)
+        if (value < this.stateProxy.min) value = this.stateProxy.min
+        if (value > this.stateProxy.max) value = this.stateProxy.max
+        this.changeSliderWidth(this.stateProxy.min, this.stateProxy.max, value)
+        this.setValueLabel(value)
+    }
+
+    // setSliderToValue(value){
+
+    //     // !@#$
+    //     let calculateSliderWidth = function(){
+    //         let min = this.stateProxy['min'];
+    //         let max = this.stateProxy['max'];
+    //         let sliderTrackWidth = this.getSliderTrackWidth();
+    //         // console.log(value)
+    //         // console.log(sliderTrackWidth)
+    //         // console.log(max)
+    //         // console.log(sliderTrackWidth * parseFloat(value) / (max - min))
+    //         return sliderTrackWidth * parseFloat(value) / (max - min);
+    //     }.bind(this)
+    //     // this.stateProxy['currentValue'] = value;
+    //     this.slider.style.width = calculateSliderWidth() + 'px'        
+    // }
+
+    setValueLabelsRegardingConstraints(value){
+        let approximatedValue = this.approximate(value, 2);
+        if (approximatedValue < this.state.min) approximatedValue = this.state.min
+        if (approximatedValue > this.state.max) approximatedValue = this.state.max
+        this.setValueLabel(value)
+    }
+
+    setValueLabel(value) {
+        this.valueLabel.innerText = value;
+        this.valueLabelNegative.innerText = value;
+    }
+
+    emitEventOnValueChange(){
+        let event = new CustomEvent('linear-gauge-changed-value', {
+            detail: {
+                newValue: this.getAttribute('data-value')
+            }
+        })
+        this.dispatchEvent(event);
+    }
     onSliderTrackClick(e){
-        this.slider.style.width = this.getOnclickCordinanceRelativeToEventTarget(e).x + 'px';
-        this.stateProxy['currentValue'] = this.getValueFromSlider();
+        let clickedCordRelevantToSliderTrack = parseFloat(this.getOnclickCordinanceRelativeToEventTarget(e).x)
+        let newValue = this.approximate(this.calculateValueFromClick(clickedCordRelevantToSliderTrack), 2);
+        this.setAttribute('data-value', newValue)
     }
 
     getOnclickCordinanceRelativeToEventTarget(e){
@@ -68,18 +118,18 @@ class LineGauge extends HTMLElement{
     }
 
     changeSliderWidth(min, max, value){
-        this.slider.style.width = value * (max - min)/this.getSliderTrackWidth();
+
+        this.slider.style.width = (value - min)*this.getSliderTrackWidth() / (max - min) + 'px';
     }
 
-    getValueFromSlider(){
+    calculateValueFromClick(clickXCord){
         let {min, max} = this.state;
-        return (this.getSliderWidth()/this.getSliderTrackWidth()) * (max - min);
-        return (max - min) / this.getSliderWidth;
+        return parseFloat(min) + (clickXCord) * (parseFloat(max) - parseFloat(min))/this.getSliderTrackWidth();
     }
 
-    getSliderWidth() {
-        return parseFloat(this.slider.getBoundingClientRect().width);
-    }
+    // getSliderWidth() {
+    //     return parseFloat(this.slider.getBoundingClientRect().width);
+    // }
 
     getSliderTrackWidth(){
         return parseFloat(this.sliderTrack.getBoundingClientRect().width);
@@ -110,7 +160,7 @@ class LineGauge extends HTMLElement{
     }
 
     changeColorThemeClass(colorThemeName){
-        let targetElement = this.shadowRoot.querySelector('.wrapper')
+        let targetElement = this.shadowRoot.querySelector('.slider-track')
             let colorClassPattern = 'color-theme-'
             let oldThemeClass = '';
             Array.from(targetElement.classList).forEach((item, index) => {                
@@ -128,23 +178,34 @@ class LineGauge extends HTMLElement{
         this.sliderTrack.addEventListener('mousedown', activateSlidingMode.bind(this))
         document.addEventListener('mouseup', disactivateSlidingMode.bind(this))
         this.sliderTrack.addEventListener('mousemove', onMouseMove.bind(this))
+        this.setNewLabel(this.stateProxy['displayedLabel'])
     }
 
     static get observedAttributes() {
-        return ['data-is-active', 'data-color-theme', 'data-min-val', 'data-max-val', 'data-size']
+        return ['data-is-active', 'data-color-theme', 'data-min-val', 'data-max-val', 'data-size', 'data-value', 'data-label']
     }
 
 
     attributeChangedCallback(attrName, oldVal, newVal) {
         if (attrName == 'data-label'){
-            // this.setButtonLabel(newVal)
-            this.stateProxy.labelFromAttrib = newVal
+            this.stateProxy['displayedLabel'] = newVal
         }
         if (attrName == 'data-is-active') {this.stateProxy.isActive = this._stringOrBooleanToBoolean(newVal);}
         if (attrName == 'data-color-theme') {this.stateProxy.colorTheme = newVal}
         if (attrName == 'data-min-val') {this.stateProxy.min = newVal}
         if (attrName == 'data-max-val') {this.stateProxy.max = newVal}
         if (attrName == 'data-size') {this.stateProxy.size = newVal}
+        if (attrName == 'data-value') {
+            if (parseFloat(newVal) < this.stateProxy['min']) {
+                this.setAttribute('data-value', this.stateProxy['min'])
+                newVal = this.stateProxy['min']
+            }
+            else if (parseFloat(newVal) > this.stateProxy['max']) {
+                this.setAttribute('data-value', this.stateProxy['max'])
+                newVal = this.stateProxy['max']
+            }
+            this.stateProxy['currentValue'] = newVal;
+        }
     }
 
     _getElementFromTemplate(){
@@ -183,7 +244,7 @@ class LineGauge extends HTMLElement{
                 background-color: rgb(220, 220, 220);
                 position: relative;
                 width: ${sliderTrackWidth}px;
-                border-radius: 5px;
+                border-radius: 8px;
                 box-shadow: inset 0 0 15px #455;
                 overflow: hidden;
             }
@@ -203,6 +264,7 @@ class LineGauge extends HTMLElement{
                 width: ${sliderTrackWidth}px;
                 height: var(--height);
                 text-align: center;
+                background-color: transparent;
             }
             .negative-value-label {
                 position: relative;
@@ -211,7 +273,7 @@ class LineGauge extends HTMLElement{
                 z-index: 4;
 
             }
-            .color-theme-blue{
+            .color-theme-blue .ignicator{
                 background-color: blue; 
                 color: white;
                 overflow: hidden;
@@ -220,14 +282,14 @@ class LineGauge extends HTMLElement{
             .color-theme-blue>.negative-value-label{
                 color: white;
             }
-            .color-theme-green{
+            .color-theme-green .ignicator{
                 background-color: green; 
                 color: white;
             }
             .color-theme-green>.negative-value-label{
                 color: white;
             }
-            .color-theme-red{
+            .color-theme-red .ignicator{
                 background-color: red; 
                 color: white;
             }
@@ -243,13 +305,13 @@ class LineGauge extends HTMLElement{
         return `
             ${this._getStyling(sliderTrackWidth)}
             <div class = "wrapper">
-                <div class = "slider-track">
-                    <div class = "ignicator color-theme-blue">
+                <div class = "slider-track color-theme-blue">
+                    <div class = "ignicator">
                         <div class = "negative-value-label"></div>
                     </div>
                     <div class = "positive-value-label"></div>
                 </div>
-                <div class ="label></div>
+                <div class ="label"></div>
             </div>
         `
     }
