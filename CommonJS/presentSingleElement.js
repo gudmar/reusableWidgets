@@ -112,6 +112,12 @@ class SingleElementPresenter extends HTMLElement{
             this.wrappedElement.addEventListener('linear-gauge-changed-value', this.changeTargetElementsValue.bind(this, valueControllingSlider))
         }
 
+        if (this.wrappedElementType == 'percentage-gauge' || this.wrappedElementType == "degree-gauge"){
+            let controller = this.shadowRoot.querySelector('#wrapped-element-controller-id');
+            controller.addEventListener('linear-gauge-changed-value', this.changeWrappedElementValue.bind(this));
+            this.wrappedElement.addEventListener('gauge-changed-value', this.changeTargetElementsValue.bind(this, controller))
+        }
+
         this.colorChoser.addEventListener('click', this.setColorTheme.bind(this))
     }
 
@@ -273,12 +279,16 @@ class SingleElementPresenter extends HTMLElement{
                     
                 }
                 .content{
+                    display: flex;
+                    flex-direction: column;
                     position: relative;
                     width: 100%;
                     height: 100%;
                 }
                 .content>*{
                     cursor: pointer;
+                    margin-top: 0.5rem;
+                    margin-bottom: 0.5rem;
                 }
                 .content>degree-gauge, .content>percentage-gauge, .content>speed-gauge, .content>line-gauge{
                     cursor: default;
@@ -425,16 +435,18 @@ class SingleElementPresenter extends HTMLElement{
         <custom-button-1 id = "wrapped-element-id" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue'>Button</custom-button-1>
         `
         if (this.wrappedElementType == 'line-gauge') return `
-        <line-gauge id = "wrapped-element-id" data-label = "line-gauge" data-size= "150" data-color-theme = "blue" data-min-val = "30", data-max-val = "100", data-value = "20"></line-gauge>
+        <line-gauge id = "wrapped-element-id" data-label = "line-gauge" data-size= "150" data-color-theme = "blue" data-min-val = "30", data-max-val = "100", data-value = "50"></line-gauge>
         `
         if (this.wrappedElementType == 'speed-gauge') return `
         <speed-gauge id = "wrapped-element-id"></speed-gauge>
         `
         if (this.wrappedElementType == 'degree-gauge') return `
-        <degree-gauge id = "wrapped-element-id" data-label = "angle-gauge" data-approximate='1'></degree-gauge>
+        <degree-gauge id = "wrapped-element-id"  data-label = "angle-gauge" data-approximate='1'></degree-gauge>
+        <line-gauge id = "wrapped-element-controller-id" data-label = "Gauge controller" data-size= "150" data-color-theme = "blue" data-min-val = "0", data-max-val = "360", data-value = "1"></line-gauge>
         `
         if (this.wrappedElementType == 'percentage-gauge') return `
         <percentage-gauge id = "wrapped-element-id" data-value="85" data-label = "percentage-gauge" data-approximate='0'></percentage-gauge>
+        <line-gauge id = "wrapped-element-controller-id" data-label = "Gauge controller" data-size= "150" data-color-theme = "blue" data-min-val = "0", data-max-val = "100", data-value = "85"></line-gauge>
         `
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
     }
@@ -463,8 +475,8 @@ class SingleElementPresenter extends HTMLElement{
         return `
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
             <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
-            <line-gauge id="size-controlling-slider" data-size= "100" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "120"></line-gauge>
-            <line-gauge id="value-controlling-slider" data-size= "100" data-color-theme = "blue", data-min-val = "30", data-max-val = "100", data-value = "50"></line-gauge>
+            <line-gauge id="size-controlling-slider" data-size= "100" data-label="Change size" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "120"></line-gauge>
+            <line-gauge id="value-controlling-slider" data-size= "100" data-label="Change value" data-color-theme = "blue", data-min-val = "30", data-max-val = "100", data-value = "50"></line-gauge>
 
         `
     }

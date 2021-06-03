@@ -30,6 +30,7 @@ class SvgArcManager extends ArcDrawer {
     placeManagedObject(value){
         let startAngle = 0;
         let endAngle = this.valueToAngle_overwritable(this.recalculateRegardingConstraints(value));
+        if (endAngle == undefined) endAngle = 0;
         this.managedElement = this.getArcElement(
             this.dimensions['radius'], 
             {x: this.dimensions['centerX'], y: this.dimensions['centerY']}, 
@@ -90,8 +91,10 @@ class SvgArcManager extends ArcDrawer {
 
     alterArc(value){
         this.value = value;
-        this.managedElement.querySelector(`#${this.svgArcId}`).setAttribute('stroke', this.getAlertWarnInfoColor());
         // debugger
+        console.log(this.managedElement)
+        this.managedElement.querySelector(`#${this.svgArcId}`).setAttribute('stroke', this.getAlertWarnInfoColor());
+        console.log(this.managedElement)
         this.setArcAngle(this.valueToAngle_overwritable(this.value))
     }
 
