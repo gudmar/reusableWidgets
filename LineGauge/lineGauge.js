@@ -69,6 +69,7 @@ class LineGauge extends HTMLElement{
         this.setValueLabel(value)
     }
 
+
     setValueLabelsRegardingConstraints(value){
         let approximatedValue = this.approximate(value, 2);
         if (approximatedValue < this.state.min) approximatedValue = this.state.min
@@ -102,7 +103,6 @@ class LineGauge extends HTMLElement{
     }
 
     changeSliderWidth(min, max, value){
-
         this.slider.style.width = (value - min)*this.getSliderTrackWidth() / (max - min) + 'px';
     }
 
@@ -159,6 +159,7 @@ class LineGauge extends HTMLElement{
             if (!this.stateProxy.isActive) return false;
             if (this.slidingEventActiveted) this.onSliderTrackClick(e);
         }
+
         this.sliderTrack.addEventListener('mousedown', this.onSliderTrackClick.bind(this))
         this.sliderTrack.addEventListener('mousedown', activateSlidingMode.bind(this))
         document.addEventListener('mouseup', disactivateSlidingMode.bind(this))

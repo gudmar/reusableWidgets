@@ -332,7 +332,11 @@ class SingleElementPresenter extends HTMLElement{
                 }
 
                 .do-not-display{
-                    display: none;
+                    width: 0px;
+                    height: 0px;
+                    overflow: hidden;
+                    padding: 0;
+                    margin: 0;
                 }
                 .menu-oppener-button {
                     width: 1.5rem;
@@ -475,7 +479,7 @@ class SingleElementPresenter extends HTMLElement{
         return `
             <multi-switch id="colorChoserId" data-label-set="blue,green,red"></multi-switch>
             <slide-box id="acitveButtonSwitchId" data-is-on = 'true' data-label="disactivate"></slide-box>
-            <line-gauge id="size-controlling-slider" data-size= "100" data-label="Change size" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "120"></line-gauge>
+            <line-gauge id="size-controlling-slider" data-size= "100" data-label="Change size" data-color-theme = "blue", data-min-val = "100", data-max-val = "150", data-value = "140"></line-gauge>
             <line-gauge id="value-controlling-slider" data-size= "100" data-label="Change value" data-color-theme = "blue", data-min-val = "30", data-max-val = "100", data-value = "50"></line-gauge>
 
         `

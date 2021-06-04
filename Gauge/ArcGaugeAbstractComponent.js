@@ -55,19 +55,17 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        // this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.setInitialValue();
-        // this.svgCreator.placeManagedObject(this.getCurrentValue());
         this.textBoxManager.setValue(this.getCurrentValue())
         this.textBoxManager.addEventsToManagedBox();
 
-        // this.svgCreator.placeManagedObject(this.getCurrentValue());
+        
         this.resetStyle();
         this.addEventListeners();
     }
 
     setInitialValue(){
-        let valueFromDataAttribute = this.getAttribute('data-value');
+        let valueFromDataAttribute = this.getCurrentValue();//this.getAttribute('data-value');
         if (!this.textBoxManager.validateValue(valueFromDataAttribute)) {
             this.setAttribute('data-value', this.approximate(this.getConstraints().minValue))
         }
