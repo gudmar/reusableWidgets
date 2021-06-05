@@ -30,6 +30,27 @@ class WaitingCircleGeneralClass {
         return template.content.cloneNode(true)
     }
 
+    getStylingForElementsLocatedOnCircle(nrOfElements, animationDelayDelta){
+        let angleBetweenElements = 360 / nrOfElements;
+        let output = '';
+        for (let i = 0; i < nrOfElements; i++){
+            output = output + `
+            .element-located-on-circle-${i} {
+                transform: translate(-50%, -50%) rotate(${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(-${angleBetweenElements * 1}deg); 
+                animation-delay: ${animationDelayDelta * i}ms;
+            } `
+        }
+        return output;
+    }
+
+    getElementsToBeLocadetOnCircle(nrOfElements){
+        let output = '';
+        for (let i = 0; i < nrOfElements; i++){
+            output = output + `<div class = 'element-located-on-circle element-located-on-circle-${i}'></div>`
+        }
+        return output;
+    }
+
     getElement() {
         return this.context.shadowRoot.querySelector('.circle')
     }
