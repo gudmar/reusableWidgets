@@ -1,6 +1,8 @@
 class PresenterMethodProvider {
-    constructor(){
+    constructor(context){
+        this.context = context
         this.specyficStylingElement = null;
+        this.optionsMenuOpenButton = this.context.shadowRoot.querySelector('.menu-oppener-button')
     }
 setOnclick(stringToCall){
     // debugger
@@ -10,11 +12,13 @@ setOnclick(stringToCall){
 
 addWrappedElement(id = 'wrapped-element-id'){
     this.context.shadowRoot.appendChild(this.stringToElement(this.getElementSpecyficStyling()));
-    this.context.addWrappedElement(this.stringToElement(this.getElementSpecyficTemplate(id)))
+    let elementToAdd = this.stringToElement(this.getElementSpecyficTemplate(id))
+    this.context.addWrappedElement(elementToAdd)
     this.addMenuToContext();
 }
 
-addCloseButtonAction(){
+
+addCloseOpenMenu(){
     let hideOptionsMenu = function(){this.optionsMenu.classList.add('do-not-display')}.bind(this)
     let showOptionsMenu = function(){this.optionsMenu.classList.remove('do-not-display')}.bind(this)
     this.optionsMenuCloseButton.addEventListener('click', hideOptionsMenu);

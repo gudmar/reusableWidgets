@@ -30,12 +30,13 @@ class SingleElementPresenter extends HTMLElement{
     }
 
     getWrappedElementImplementer(type, subtype){
-        console.log(subtype)
         let isInArray = function(element, arr){
             return arr.indexOf(element) == -1 ? false : true;
         }
         if (type == 'custom-button' || type == 'custom-button-1') return new ButtonWrapper(this, subtype);
+        console.log(subtype)
         if (type == 'waiting-circle') return new WaitnigCircleWrapper(this, subtype)
+        
         if (type == 'line-gauge') return new LineGalugeWrapper(this)
         if (isInArray(type, ['degree-gauge', 'percentage-gauge', 'speed-gauge'])) return new ArcGaugeWrapper(this, type)
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
@@ -307,6 +308,7 @@ class SingleElementPresenter extends HTMLElement{
             </style>
 
             <div class = "wrapper size-small ${this.presenterDarkLightTheme}">
+                <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
                 <div class = "content center">
                     
                 </div>
@@ -316,7 +318,6 @@ class SingleElementPresenter extends HTMLElement{
     }
 
     addMenu(element){
-        console.log(this.shadowRoot.querySelector('.wrapper'))
         this.shadowRoot.querySelector('.wrapper').appendChild(element)
     }
 

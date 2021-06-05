@@ -94,7 +94,7 @@ class RollerCosterWaitingCircle extends WaitingCircleGeneralClass{
 
         </style>
 
-        <div class="roller-coster-waiting-circle size-small circle">
+        <div class="roller-coster-waiting-circle size-small circle color-theme-${this.colorTheme}">
             <div></div>
             <div></div>
             <div></div>

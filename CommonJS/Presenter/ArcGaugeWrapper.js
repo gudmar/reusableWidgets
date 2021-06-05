@@ -1,6 +1,6 @@
 class ArcGaugeWrapper extends PresenterMethodProvider{
     constructor(context, subtype){
-        super();
+        super(context);
         this.elementSubtype = subtype;
         this.context = context;
         this.addWrappedElement('wrapped-element-id');

@@ -1,6 +1,6 @@
 class LineGalugeWrapper extends PresenterMethodProvider{
     constructor(context){
-        super();
+        super(context);
         this.context = context;
         this.addWrappedElement('wrapped-element-id');
         this.addMenuToContext();
@@ -9,7 +9,7 @@ class LineGalugeWrapper extends PresenterMethodProvider{
         this.colorChoser = this.context.shadowRoot.querySelector('#colorChoserId')
         this.optionsMenu = this.context.shadowRoot.querySelector('.options');
         this.optionsMenuCloseButton = this.context.shadowRoot.querySelector('.close-button');
-
+        this.addCloseOpenMenu();
         // this.sizeChoser = this.shadowRoot.querySelector('#sizeChoserId')
 
 

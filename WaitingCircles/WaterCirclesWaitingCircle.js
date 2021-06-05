@@ -90,7 +90,7 @@ class WaterCirclesWaitingCircle extends WaitingCircleGeneralClass{
         }
         </style>
 
-        <div class="water-circles-waiting-circle size-small circle">
+        <div class="water-circles-waiting-circle size-small circle color-theme-${this.colorTheme}">
             <div></div>
             <div></div>
             <div></div>

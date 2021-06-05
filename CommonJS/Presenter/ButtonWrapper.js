@@ -1,6 +1,6 @@
 class ButtonWrapper extends PresenterMethodProvider{
     constructor(context, subtype){
-        super();
+        super(context);
         this.context = context;
         this.subtype = subtype;
         this.addWrappedElement('wrapped-element-id');
@@ -12,11 +12,12 @@ class ButtonWrapper extends PresenterMethodProvider{
         this.optionsMenu = this.context.shadowRoot.querySelector('.options');
         this.optionsMenuCloseButton = this.context.shadowRoot.querySelector('.close-button');
         this.addOnclickWrappedElement();
+        this.addCloseOpenMenu()
 
     }
 
     addOnclickWrappedElement(){
-        this.context.setAttribute('onclick', `ButtonWrapper.openModalWithContent('${this.subtype}')`)
+        this.wrappedElement.setAttribute('onclick', `ButtonWrapper.openModalWithContent('${this.subtype}')`)
     }
 
     static openModalWithContent(elementSubtype){
