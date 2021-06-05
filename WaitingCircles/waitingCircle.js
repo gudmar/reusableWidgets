@@ -24,8 +24,6 @@ class WaitingCircle extends HTMLElement{
         this.implementer = new implementerClass(this)
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.attachShadow({mode: 'open'})
-        this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
-        this.changeImplementer(this.stateProxy['elementType']);
     }
     stateProxyHandler(){
         return {
@@ -76,7 +74,6 @@ class WaitingCircle extends HTMLElement{
     setStateIfNoAttrDefined(attrName, stateKey){
         let attr = this.getAttribute(attrName);
         if (attr != '') this.stateProxy[attrName] = attr;
-        debugger
     }
 
 
@@ -95,8 +92,8 @@ class WaitingCircle extends HTMLElement{
 
 
     connectedCallback() {
-        this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
         this.changeImplementer(this.stateProxy['elementType']);
+        this.implementer.startWaitingCircle(this.stateProxy['size'], this.stateProxy['colorTheme']);
     }
 
 

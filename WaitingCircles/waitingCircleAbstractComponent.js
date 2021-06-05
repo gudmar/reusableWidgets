@@ -24,7 +24,7 @@ class AbstractWaitingCircle extends AbstractComponent{
                 if (prop == 'colorTheme') {this.implementer.changeColorTheme(value)}
                 if (prop == 'elementType') {
                     this.changeImplementer(value);
-                    this.startWaitingCircle();
+                    this.startWaitingCircle(this.stateProxy.size, this.stateProxy.colorTheme);
                 }
                 if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
                 obj[prop] = value;

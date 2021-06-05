@@ -1,6 +1,6 @@
 class WaitnigCircleWrapper extends PresenterMethodProvider{
     constructor(context, elementSubtype){
-        super();
+        super(context);
         this.wrappedElementSubtype = elementSubtype;
         this.context = context;
         this.addWrappedElement('wrapped-element-id');
@@ -11,11 +11,12 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
         this.optionsMenu = this.context.shadowRoot.querySelector('.options');
         this.optionsMenuCloseButton = this.context.shadowRoot.querySelector('.close-button');
         this.addOnclickWrappedElement()
+        this.addCloseOpenMenu();
 
     }
 
     addOnclickWrappedElement(){
-        this.context.setAttribute('onclick', `WaitnigCircleWrapper.openModalWithContent('waiting-circle', '${this.wrappedElementSubtype}')`)
+        this.wrappedElement.setAttribute('onclick', `WaitnigCircleWrapper.openModalWithContent('${this.wrappedElementSubtype}')`)
     }
 
 
@@ -54,9 +55,9 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
             </styling>
         `
     }
-    getElementSpecyficTemplate(){
+    getElementSpecyficTemplate(id){
         return `
-        <waiting-circle id = "wrapped-element-id" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
+        <waiting-circle id = "${id}" data-element-subtype = '${this.wrappedElementSubtype}' data-color-theme = 'blue' data-size = 'small'></waiting-circle>
         `
     }
 

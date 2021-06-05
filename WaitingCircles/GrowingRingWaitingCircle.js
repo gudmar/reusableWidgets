@@ -83,7 +83,7 @@ class GrowingRingWaitingCircle extends WaitingCircleGeneralClass{
 
         </style>
 
-        <div class="growing-ring-waiting-circle circle">
+        <div class="growing-ring-waiting-circle size-small circle color-theme-${this.colorTheme}">
             <div></div>
             <div></div>
             <div></div>

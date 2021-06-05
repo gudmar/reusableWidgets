@@ -73,6 +73,7 @@ class WaitingCircleGeneralClass {
     addStringContentToShadowRoot(stringContent){
         let template = document.createElement('template');
         template.innerHTML = stringContent;
+        let elementToAdd = template.content.cloneNode(true)
         this.context.shadowRoot.appendChild(template.content.cloneNode(true))
     }
 
