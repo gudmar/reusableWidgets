@@ -587,7 +587,81 @@ getElementsToBeLocadetOnCircle(nrOfElements){
 </pre>
                 
                 `
-            }        
+            },
+            'bubbling-circles-waiting-circle': {
+                'innerCode': 
+`
+<b>CSS</b>
+<pre>
+.size-small{ --circle-diameter: 40px; }
+
+.color-theme-blue{
+    --color-dark: blue;
+    --color-light: rgb(180, 180, 255) ;
+}
+
+.wrapper {
+    position: relative;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+}
+
+.circle{
+    position: absolute;
+    border-radius: 50%;
+    width: calc(var(--circle-diameter) * 0.5);
+    height: calc(var(--circle-diameter) * 0.5);
+    transform: translate(-100%,-50%);
+    z-index: 25
+}
+
+.bubbling-circle {
+    box-sizing: border-box;
+    position: absolute;
+    // top: calc( var(--circle-diameter) * 0.5);
+    border-radius: 50%;
+    animation: 2s linear infinite animate-wheel;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-dark);
+}
+
+.bubbling-circle-1{
+    animation-delay: 0s;
+}
+
+.bubbling-circle-2{
+    animation-delay: 1s;
+}
+
+
+
+@keyframes animate-wheel {
+    0% { left: 0px;
+        width: 0px;
+        height: 0px;
+        }
+    50% { left: calc( var(--circle-diameter) * 0.5);
+            width: var(--circle-diameter);
+            height: var(--circle-diameter);
+            }
+    100% {
+           left: calc( var(--circle-diameter) * 1);
+           width: 0px;
+           height: 0px;
+}
+}
+</style>
+
+</pre>
+<b>HTML</b>
+<pre>
+    &lt;div class="bubbling-circles-waiting-circle size-small circle color-theme-blue">
+        &lt;div class="bubbling-circle bubbling-circle-1">&lt;/div>
+        &lt;div class="bubbling-circle bubbling-circle-2">&lt;/div>
+    &lt;/div>
+</pre>
+`  
+            } 
 
 
         

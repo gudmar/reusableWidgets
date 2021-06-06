@@ -12,7 +12,8 @@ class WaitingCircle extends HTMLElement{
             'roller-coster-waiting-circle': RollerCosterWaitingCircle,
             'water-circles-waiting-circle': WaterCirclesWaitingCircle,
             'growing-ring-waiting-circle': GrowingRingWaitingCircle,
-            'blinking-dots-waiting-circle': BlinkingDotsWaitingCircle
+            'blinking-dots-waiting-circle': BlinkingDotsWaitingCircle,
+            'bubbling-circles-waiting-circle': BubblingCirclesWaitingCircle
         }
 
         this.state = {
