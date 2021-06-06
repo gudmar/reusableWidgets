@@ -661,10 +661,280 @@ getElementsToBeLocadetOnCircle(nrOfElements){
     &lt;/div>
 </pre>
 `  
-            } 
+            },
 
 
+            'growing-ring-SVG-waiting-circle': {
+                'innerCode': 
+`
+<h3>growing-ring-SVG-waiting-circle</h3>
+<p>Source code can be found on <a target="_blank" href = "https://github.com/gudmar/reusableWidgets">GitHub</a></p>
+<p>This circle could be implemented with CSS, however background color would have to be defined and have no opacity. In case opacity is needed 
+    and background-color needs to be flexibel I decidet to use SVG path for this. Using SVG path equals JS that would recalcualte this path and 
+    code becomes more complex. In this real example it is even more complex, as <code>waiting-circle</code> is a custom component that implements more
+    than only this growing-ring-SVG-waiting-circle but basicly all circles available on this site. But simplified example could look like below:
+    </p>
+
+<b>JS</b>
+<pre>
+class ArcDrawer {
+    constructor(){
         
+    }
+
+    getArcElement(radius, positionXY, startAngle, endAngle, width, color, id = this.generateGoodEnoughId()){
+        let _radius = radius == undefined ? 100 : radius;
+        let {x, y} = positionXY == undefined ? {x: 100, y: 100} : positionXY;
+        let _x = x == undefined ? 100 : x;
+        let _y = y == undefined ? 100 : y;
+        let _width = width == undefined ? 10 : width;
+        let _color = color == undefined ? 'black' : color;
+        let _startAngle = startAngle == undefined ? 0 : startAngle;
+        let _endAngle = endAngle == undefined ? 90 : endAngle;
+        return this.createArc(_radius, {x: _x, y: _y}, _startAngle, _endAngle, _width, _color, id)
+    }
+
+
+    createArc(radius, positionXY, startAngle, endAngle, width, color, id){
+        let svg = this.createSvg(radius * 2 + width)
+        let path = this.createElementNS('path')
+        let listOfAttributes = {
+            'id': id,
+            'd': this.getArcAsString(positionXY['x'], positionXY['y'], radius, startAngle, endAngle),
+            'stroke': color,
+            'stroke-width': width,
+            'stroke-linecap': 'round',
+            'fill': 'none'
+        }
+        this.setAttributesFromObject(path, listOfAttributes)
+        svg.appendChild(path)
+        return svg;
+    }
+
+
+    getArcAsString(x, y, radius, startAngle, endAngle) {
+        let  start = this.polarToCartesian(x, y, radius, endAngle);
+        let  end = this.polarToCartesian(x, y, radius, startAngle);
+        let  largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+        let  d = [
+            "M", start.x, start.y,
+            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+        ].join(" ");
+        return d;
+    }
+
+    calculateCartesian2Angle(svgElement, startPoint, middleOfCirclePoint, endPoint) {
+        // THis retuns angle between 2 points
+        
+        let mP = this.xy2svg(middleOfCirclePoint, svgElement)
+        let sP = this.xy2svg(startPoint, svgElement)
+        let eP = this.xy2svg(endPoint, svgElement)
+        let output = undefined;
+        let pS_pM = this.getDistanceBetweenPoints(mP, sP)
+        let pE_pM = this.getDistanceBetweenPoints(eP, mP)
+        let pE_pS = this.getDistanceBetweenPoints(eP, sP)
+        if (sP.x < eP.x) {
+            output = Math.acos((pS_pM * pS_pM + pE_pM * pE_pM - pE_pS * pE_pS) / (2 * pS_pM * pE_pM)) * 180 / Math.PI    
+        } else {
+            output = 360 - Math.acos((pS_pM * pS_pM + pE_pM * pE_pM - pE_pS * pE_pS) / (2 * pS_pM * pE_pM)) * 180 / Math.PI
+        }
+        if (output == 360) output = 359.999
+        return output
+    }
+
+    getDistanceBetweenPoints(A, B){
+        return Math.sqrt((Math.pow(A.x - B.x, 2) + (Math.pow(A.y - B.y, 2))))
+    }
+
+    xy2svg(point, element) {
+        // takes a point ({x: , y: }) in normal mouse coordinance and returns point in svg coordinance
+        let p = element.createSVGPoint();
+        p.x = point.x
+        p.y = point.y
+        let output = p.matrixTransform(element.getScreenCTM().inverse());
+        return output
+    }
+
+    polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+        return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+        };
+    }
+
+    createSvg(size){
+        let svg = this.createElementNS('svg')
+        let listOfAttributes = {
+            'viewBox': \`0 0 \${size} \${size}\`,
+            'width': size,
+            'height': size
+        }
+        this.setAttributesFromObject(svg, listOfAttributes)
+        return svg;
+    }
+
+    createElementNS(elementType) {
+        return document.createElementNS('http://www.w3.org/2000/svg', elementType)
+    }
+
+    setAttributesFromObject(targetElement, objectWithAttributes){
+        for (let key of Object.keys(objectWithAttributes)){
+            targetElement.setAttributeNS(null, key, objectWithAttributes[key])
+        }
+    }
+
+
+    generateGoodEnoughId(){
+        return Math.random().toString(36).substr(2, 9);
+    }
+}
+
+
+
+class GrowingRingSVGWaitingCircle{
+    // depends on ArcDrawer.js from Gauge
+    constructor(){
+        super();
+        this.circleHolder = document.querySelector('.circle-placeholder');
+        this.arcCreator = new ArcDrawer();
+        this.startAngle = 0;
+        this.deltaEndAngleMin = 10;
+        this.deltaEndAnfleMax = 330;
+        this.radius = 40;
+        this.strokeWidth = 10;
+        this.arcId = 'arcId';
+        this.colorTheme = 'blue'
+        this.animationDelta = 12.4;
+        this.nrOfAnimationFrames = 26;
+        this.animationDurationInMs = 1000;
+        this.animationInterval = null;
+        this.arcMiddlePoint = {x: this.radius + this.strokeWidth / 2, y: this.radius + this.strokeWidth / 2}
+    }
+
+
+    startWaitingCircle(size, colorTheme){
+        this.insertInitialSVGStartArc();
+        this.arc = this.circleHolder.shadowRoot.querySelector('svg>path');
+        this.animate();
+    }
+
+    insertInitialSVGStartArc(){
+        let svgElement = this.arcCreator.createArc(this.radius, {x: this.arcMiddlePoint.x, y: this.arcMiddlePoint.y}, 
+        this.startAngle, this.deltaEndAngleMin, this.strokeWidth, this.colorTheme, this.id)
+        this.circleHolder.shadowRoot.querySelector('.circle').appendChild(svgElement);
+    }
+
+    animate(){
+        let isArcGrowing = true;
+        let currentStartAngle = this.startAngle;
+        let currentEndAngle = this.deltaEndAngleMin;
+        let alterArc = function(startAngle, endAngle){
+            let newPathD = this.arcCreator.getArcAsString(this.arcMiddlePoint.x, this.arcMiddlePoint.y, this.radius, startAngle, endAngle);
+            this.arc.setAttributeNS(null, 'd', newPathD)
+        }.bind(this)
+        let growArcIfFlag = function(deltaGrowth){
+            currentEndAngle = currentEndAngle + deltaGrowth;
+            alterArc(currentStartAngle, currentEndAngle)
+        }.bind(this)
+        let shrinkArcIfFlag = function(deltaGrowth){
+            currentStartAngle = currentStartAngle + deltaGrowth;
+            alterArc(currentStartAngle, currentEndAngle)            
+        }.bind(this)
+        let animation = function(){
+            if (isArcGrowing) {
+                growArcIfFlag(this.animationDelta);
+                if (currentEndAngle - currentStartAngle > this.deltaEndAnfleMax - this.startAngle){isArcGrowing = false}
+            } else {
+                shrinkArcIfFlag(this.animationDelta);
+                if (currentEndAngle - currentStartAngle < this.deltaEndAngleMin - this.startAngle) {isArcGrowing = true}
+            }
+        }.bind(this)
+
+        this.animationInterval = setInterval(animation, this.animationDurationInMs/this.nrOfAnimationFrames)
+    }
+}
+</pre>
+<b>CSS</b>
+
+<pre>
+
+        .center{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .size-small{ --circle-radius: 40px; }
+
+        .size-medium{ --circle-radius: 60px; }
+
+        .size-big{ --circle-radius: 100px; }
+
+        .color-theme-green{
+            --color-dark: darkgreen;
+            --color-light: YellowGreen;
+        }
+
+        .color-theme-blue{
+            --color-dark: blue;
+            --color-light: rgb(180, 180, 255) ;
+        }
+
+        .color-theme-gray{
+            --color-dark: darkGray;
+            --color-light: rgb(220, 220, 220) ;
+        }
+
+        .circle{
+            position: absolute;
+            border-radius: 50%;
+            width: var(--circle-radius);
+            height: var(--circle-radius);
+            z-index: 25;
+            animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .positioning-circle{
+            position: absolute;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            z-index: 25;
+            transform: translate(-50%, -100%);
+        }
+
+        .growing-ring-waiting-circle {
+            position: absolute;
+            width: var(--circle-radius);
+            height: var(--circle-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(-75%, -75%);
+        }
+
+        @keyframes growing-ring-circle {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+</pre>
+
+<b>HTML</b>
+<pre>
+&lt;div class = "positioning-circle center">
+    &lt;div class="growing-ring-waiting-circle size-small circle color-theme-blue">&lt;/div>
+&lt;/div>
+
+</pre>
+`  
+            }             
+
         }
     
     if (dbObject[key] == undefined) return null;

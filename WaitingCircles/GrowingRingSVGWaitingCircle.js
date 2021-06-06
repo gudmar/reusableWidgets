@@ -90,26 +90,26 @@ class GrowingRingSVGWaitingCircle extends WaitingCircleGeneralClass{
             align-items: center;
             justify-content: center;
         }
+
         .size-small{ --circle-radius: 40px; }
+
         .size-medium{ --circle-radius: 60px; }
+
         .size-big{ --circle-radius: 100px; }
+
         .color-theme-green{
             --color-dark: darkgreen;
             --color-light: YellowGreen;
         }
+
         .color-theme-blue{
             --color-dark: blue;
             --color-light: rgb(180, 180, 255) ;
         }
+
         .color-theme-gray{
             --color-dark: darkGray;
             --color-light: rgb(220, 220, 220) ;
-        }
-        
-        .wrapper {
-            position: relative;
-            width: var(--circle-radius);
-            height: var(--circle-radius);
         }
 
         .circle{
@@ -118,7 +118,9 @@ class GrowingRingSVGWaitingCircle extends WaitingCircleGeneralClass{
             width: var(--circle-radius);
             height: var(--circle-radius);
             z-index: 25;
+            animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
+
         .positioning-circle{
             position: absolute;
             border-radius: 50%;
@@ -137,19 +139,6 @@ class GrowingRingSVGWaitingCircle extends WaitingCircleGeneralClass{
             justify-content: center;
             transform: translate(-75%, -75%);
         }
-        .growing-ring-waiting-circle div {
-            position: absolute;
-            width: var(--circle-radius);
-            height: var(--circle-radius); 
-            border: calc( var(--circle-radius) * 0.1) var(--color-dark) solid;
-            border-radius: 50%;
-            animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-            border-color: var(--color-dark) transparent transparent transparent;
-        }
-
-        .circle{
-            animation: growing-ring-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        }
 
         @keyframes growing-ring-circle {
             0% {
@@ -163,10 +152,11 @@ class GrowingRingSVGWaitingCircle extends WaitingCircleGeneralClass{
           
 
         </style>
+
+        
         <div class = "positioning-circle center">
-            <div class="growing-ring-waiting-circle size-small circle color-theme-${this.colorTheme}">
+            <div class="growing-ring-waiting-circle size-small circle color-theme-${this.colorTheme}"></div>
         </div>
-            </div>
         `
 
     }
