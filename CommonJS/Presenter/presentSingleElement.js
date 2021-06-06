@@ -283,6 +283,7 @@ class SingleElementPresenter extends HTMLElement{
                     font-style: italic;
                     font-family: Arial;
                     bottom: 5px;
+                    text-align: center;
                 }
                 waiting-circe {
                     z-index: 25;
