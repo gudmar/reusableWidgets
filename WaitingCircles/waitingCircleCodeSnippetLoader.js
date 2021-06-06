@@ -379,8 +379,217 @@ class WaitngCircleDetailsDB{
 </pre>
                 
                 `
-            }
-        
+            },
+            'blinking-dots-waiting-circle': {
+                innerCode: `
+<b>CSS</b>
+<pre>
+.size-small{ --circle-diameter: 40px; }
+.color-theme-blue{
+    --color-dark: blue;
+    --color-light: rgb(180, 180, 255) ;
+}
+
+.wrapper {
+    position: relative;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+}
+
+.circle{
+    position: absolute;
+    border-radius: 50%;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    z-index: 25;
+}
+.size-small{ --circle-dots-diameter: 20px; }
+.size-medium{ --circle-dots-diameter: 30px; }
+.size-big{ --circle-dots-diameter: 50px; }
+
+.element-located-on-circle {
+    position: absolute;
+    background-color: var(--color-dark);
+    width: calc( var(--circle-diameter) * 0.1 );
+    height: calc( var(--circle-diameter) * 0.1 );
+    border-radius: 50%;
+    border: none;
+    top: 50%;
+    left: 50%;    
+
+    animation: infinite-blinking 1.2s linear infinite;
+}
+
+.element-located-on-circle-0 {
+    transform: translate(-50%, -50%) 
+        rotate(0deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 0ms;
+} 
+.element-located-on-circle-1 {
+    transform: translate(-50%, -50%) 
+        rotate(30deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 100ms;
+} 
+.element-located-on-circle-2 {
+    transform: translate(-50%, -50%) 
+        rotate(60deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 200ms;
+} 
+.element-located-on-circle-3 {
+    transform: translate(-50%, -50%) 
+        rotate(90deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 300ms;
+} 
+.element-located-on-circle-4 {
+    transform: translate(-50%, -50%) 
+        rotate(120deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 400ms;
+} 
+.element-located-on-circle-5 {
+    transform: translate(-50%, -50%) 
+        rotate(150deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 500ms;
+} 
+.element-located-on-circle-6 {
+    transform: translate(-50%, -50%) 
+        rotate(180deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 600ms;
+} 
+.element-located-on-circle-7 {
+    transform: translate(-50%, -50%) 
+        rotate(210deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 700ms;
+} 
+.element-located-on-circle-8 {
+    transform: translate(-50%, -50%) 
+        rotate(240deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 800ms;
+} 
+.element-located-on-circle-9 {
+    transform: translate(-50%, -50%) 
+        rotate(270deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 900ms;
+} 
+.element-located-on-circle-10 {
+    transform: translate(-50%, -50%) 
+        rotate(300deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 1000ms;
+} 
+.element-located-on-circle-11 {
+    transform: translate(-50%, -50%) 
+        rotate(330deg) 
+        translate(calc( 0.5 * var(--circle-diameter))) 
+        rotate(-30deg); 
+    animation-delay: 1100ms;
+} 
+
+
+@keyframes infinite-blinking{
+    0% {
+        opacity: 1; 
+        width: calc( var(--circle-diameter) * 0.2 );
+        height: calc( var(--circle-diameter) * 0.2 );
+    }
+    10% {
+        opacity: 0.9; 
+        width: calc( var(--circle-diameter) * 0.18 );
+        height: calc( var(--circle-diameter) * 0.18 );
+    }
+    20% {
+        opacity: 0.8; 
+        width: calc( var(--circle-diameter) * 0.15 );
+        height: calc( var(--circle-diameter) * 0.15 );
+    }
+    30% {
+        opacity: 0.7; 
+        width: calc( var(--circle-diameter) * 0.12 );
+        height: calc( var(--circle-diameter) * 0.12 );                
+    }
+    50% {
+        opacity: 0.6;
+        width: calc( var(--circle-diameter) * 0.12 );
+        height: calc( var(--circle-diameter) * 0.12 );                
+
+    }
+    60% {opacity: 0.5;}
+    70% {opacity: 0.4;}
+    80% {opacity: 0.35;}
+    90% {opacity: 0.3;}
+    100% {opacity: 0.25;}
+}
+
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="circle rotate color-theme-green size-medium">
+    &lt;div class="element-located-on-circle element-located-on-circle-0">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-1">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-2">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-3">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-4">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-5">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-6">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-7">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-8">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-9">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-10">&lt;/div>
+    &lt;div class="element-located-on-circle element-located-on-circle-11">&lt;/div>
+&lt;/div>
+</pre>
+
+<b>JS</b>
+<p>Styling for dot elements located on circumference of a circle can be made with help of JS, or with SCSS
+Here is an example of JS approach:</p>
+<pre>
+getStylingForElementsLocatedOnCircle(nrOfElements, animationDelayDelta){
+    let angleBetweenElements = 360 / nrOfElements;
+    let output = '';
+    for (let i = 0; i < nrOfElements; i++){
+        output = output + \`
+        .element-located-on-circle-\${i} {
+            transform: translate(-50%, -50%) rotate(\${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(-\${angleBetweenElements * 1}deg); 
+            animation-delay: \${animationDelayDelta * i}ms;
+        } \`
+    }
+    return output;
+}
+
+getElementsToBeLocadetOnCircle(nrOfElements){
+    let output = '';
+    for (let i = 0; i < nrOfElements; i++){
+        output = output + \`<div class = 'element-located-on-circle element-located-on-circle-\${i}'></div>\`
+    }
+    return output;
+}
+</pre>
+                
+                `
+            }        
+
+
         
         }
     
@@ -392,6 +601,8 @@ class WaitngCircleDetailsDB{
         
         `
 }
+
+
 
 }
 
