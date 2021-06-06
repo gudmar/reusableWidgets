@@ -20,13 +20,6 @@ class ButtonWrapper extends PresenterMethodProvider{
         this.wrappedElement.setAttribute('onclick', `ButtonWrapper.openModalWithContent('${this.subtype}')`)
     }
 
-    static openModalWithContent(elementSubtype){
-        let modal = document.createElement('killable-modal');
-        let content = new CodePresentationCustomWebElement(ButtonDetailsDB.getDetailsAbout(elementSubtype))
-        modal.insertElementToKillableModal(content);
-        document.querySelector('body').appendChild(modal)
-    }
-
     addEvents(){
         this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
         this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
@@ -38,8 +31,8 @@ class ButtonWrapper extends PresenterMethodProvider{
     }
 
 
-    openModalWithContent(elementType, elementSubtype) {
-        let openModalWithContent = function(elementType, elementSubtype) {
+    static openModalWithContent(elementSubtype) {
+        let openModalWithContent = function(elementSubtype) {
             let content = null;
             let modal = document.createElement('killable-modal');
             content = new CodePresentationCustomWebElement(ButtonDetailsDB.getDetailsAbout(elementSubtype))
@@ -48,7 +41,7 @@ class ButtonWrapper extends PresenterMethodProvider{
         }
         let openModalAfterDelay = function(){
             setTimeout(()=>{
-                openModalWithContent(elementType, elementSubtype)
+                openModalWithContent(elementSubtype)
             }, 300);
         }
         openModalAfterDelay();

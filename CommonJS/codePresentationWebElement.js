@@ -16,6 +16,16 @@ class CodePresentationCustomWebElement extends HTMLElement{
     _getTemplate(contentAsString){
         return `
             <style>
+            pre{
+                padding: 10px;
+                border-radius: 6px;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 0.7rem;
+                line-height: 1rem;
+                background-color: rgb(100, 100, 100);
+                color: white;
+                white-space: pre-wrap;
+            }
             </style>
             ${contentAsString}
         `
