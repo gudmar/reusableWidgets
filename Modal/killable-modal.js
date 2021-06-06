@@ -98,7 +98,7 @@ class KillableModal extends AbstractComponent{
                 display: flex;
                 justify-content: flex-end;
                 width: 100%;
-                height: 4rem;
+                height: 2rem;
             }
             .modal-content{
                 position: relative;
@@ -121,9 +121,9 @@ class KillableModal extends AbstractComponent{
 
             .quick-button{
                 position: relative;
-                width: 3rem;
-                height: 3rem;
-                font-size: 2rem;
+                width: 1.4rem;
+                height: 1.4rem;
+                font-size: 1rem;
                 font-family: Arial, Helvetica, sans-serif;
                 border-radius: 50%;
                 color: black;
@@ -157,12 +157,12 @@ class KillableModal extends AbstractComponent{
                     height: 90%;
                 }
                 .modal-shut-button{
-                    width: 4rem;
-                    height: 4rem;
-                    font-size: 3rem;
+                    width: 1.3rem;
+                    height: 1.3rem;
+                    font-size: 1rem;
                 }
                 .modal-title-bar {
-                    height: 6rem;
+                    height: 2rem;
                 }
                 .modal-content{
                     height: calc(100% - 9rem);

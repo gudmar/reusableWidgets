@@ -167,9 +167,9 @@ class HidableModal extends AbstractComponent{
                 overflow: auto;
             }
             .modal-shut-button{
-                width: 2rem;
-                height: 2rem;
-                font-size: 2rem;
+                width: 1rem;
+                height: 1rem;
+                font-size: 0.8rem;
                 background-color: red;
                 color: white;
             }
@@ -180,9 +180,9 @@ class HidableModal extends AbstractComponent{
 
             .quick-button{
                 position: relative;
-                width: 3rem;
-                height: 3rem;
-                font-size: 2rem;
+                width: 1rem;
+                height: 1rem;
+                font-size: 0.8rem;
                 font-family: Arial, Helvetica, sans-serif;
                 border-radius: 50%;
                 color: black;
@@ -216,9 +216,9 @@ class HidableModal extends AbstractComponent{
                     height: 90%;
                 }
                 .modal-shut-button{
-                    width: 4rem;
-                    height: 4rem;
-                    font-size: 3rem;
+                    width: 1rem;
+                    height: 1rem;
+                    font-size: 0.8rem;
                 }
                 .modal-title-bar {
                     height: 6rem;
