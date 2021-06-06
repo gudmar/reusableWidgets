@@ -13,8 +13,10 @@ class WaitingCircle extends HTMLElement{
             'water-circles-waiting-circle': WaterCirclesWaitingCircle,
             'growing-ring-waiting-circle': GrowingRingWaitingCircle,
             'blinking-dots-waiting-circle': BlinkingDotsWaitingCircle,
-            'bubbling-circles-waiting-circle': BubblingCirclesWaitingCircle
+            'bubbling-circles-waiting-circle': BubblingCirclesWaitingCircle,
+            'growing-ring-SVG-waiting-circle':GrowingRingSVGWaitingCircle
         }
+        
 
         this.state = {
             elementType: 'sample-waiting-circle',
@@ -23,6 +25,7 @@ class WaitingCircle extends HTMLElement{
             onclick: ()=>{}
         }
         let implementerClass = this.implementationHandlers[this.state['elementType']];
+        // if (this.state['elementType'] == 'growing-ring-SVG-waiting-circle') debugger
         this.implementer = new implementerClass(this)
         this.stateProxy = new Proxy(this.state, this.stateProxyHandler())
         this.attachShadow({mode: 'open'})
