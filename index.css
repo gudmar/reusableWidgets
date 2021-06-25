@@ -9,6 +9,7 @@ body{
     background-color: var(--prime-bg-color);
     position: relative;
     width: 100vw;
+    margin: 0;
     overflow: hidden;
 }
 a:link{
@@ -37,6 +38,7 @@ a:active{
     align-content: center;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .column{
     display: flex;
@@ -58,13 +60,19 @@ a:active{
 
 .wrapper{
     position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
     /* width: 80%; */
 }
 .headline{
+    box-sizing: border-box;
     position: relative;
     padding-bottom: 1rem;
-    width: 100%;;
+    width: calc(100% - 20px);
     margin: 2rem;
+    margin-left: 10px;
+    margin-right: 10px;
     border-bottom: solid black thin;
 }
 
@@ -139,6 +147,7 @@ nav{
 
 .widget-container-wrapper{
     position: absolute;
+    overflow-y: auto;
 }
 
 .widgets-container{
@@ -149,9 +158,15 @@ nav{
 .background-effect-cover{
     height: 200vh;
     position: absolute;
+    position: fixed;
     /* margin-top: -100px; */
     background: rgb(248,248,249);
     background-image: linear-gradient(45deg, rgba(248,248,249,0.5) 0%, rgba(201,201,215,0.5) 25%, rgba(199,204,218,0.5) 50%, rgba(183,239,250,0.5) 100%),
     repeating-linear-gradient(45deg, rgba(248,248,249,0.5) 20px, rgba(49,49,51,0.4) 40px, rgba(41,48,69,1) 60px, rgba(234,240,241,0.75) 80px),
     repeating-linear-gradient(-45deg, rgba(248,248,249,0.5) 20px, rgba(49,49,51,0.4) 40px, rgba(41,48,69,1) 60px, rgba(234,240,241,0.75) 80px);
+}
+
+.background-effect-cover{
+    touch-action: none;
+    overflow: hidden;
 }
