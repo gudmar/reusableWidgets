@@ -24,6 +24,10 @@ class WaterCirclesWaitingCircle extends WaitingCircleGeneralClass{
             --color-dark: blue;
             --color-light: rgb(180, 180, 255) ;
         }
+        .color-theme-red{
+            --color-dark: red;
+            --color-light: rgb(255, 180, 180) ;
+        }
         .color-theme-gray{
             --color-dark: darkGray;
             --color-light: rgb(220, 220, 220) ;

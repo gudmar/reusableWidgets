@@ -31,6 +31,10 @@ class DropWaitingCircle extends WaitingCircleGeneralClass{
             --color-dark: darkGray;
             --color-light: rgb(220, 220, 220) ;
         }
+        .color-theme-red{
+            --color-dark: red;
+            --color-light: rgb(255, 180, 180) ;
+        }
         
         .wrapper {
             position: relative;

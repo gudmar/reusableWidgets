@@ -145,7 +145,7 @@ class SingleElementPresenter extends HTMLElement{
                     color: black;
                 }
                 .dark{
-                    background-color: rgba(0, 0, 0, 0.5);
+                    background-color: rgba(0, 0, 0, 0.7);
                 }
                 .dark>.type-label{
                     color: white;

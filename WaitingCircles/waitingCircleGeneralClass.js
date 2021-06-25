@@ -1,6 +1,6 @@
 class WaitingCircleGeneralClass {
     constructor(){
-       this.supportedThemes = ['gray', 'blue', 'green'];
+       this.supportedThemes = ['gray', 'blue', 'green', 'red'];
     }
 
     startWaitingCircle(size, colorTheme){

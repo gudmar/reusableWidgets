@@ -63,7 +63,7 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
 
     getMenuContentAsStirng(){
         return `
-            <multi-switch id="colorChoserId" data-label-set="blue,green,gray"></multi-switch>
+            <multi-switch id="colorChoserId" data-label-set="blue,green,gray,red"></multi-switch>
             <multi-switch id="sizeChoserId" data-label-set="small,medium,big"></multi-switch>
         `
     }

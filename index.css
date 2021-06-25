@@ -38,7 +38,7 @@ a:active{
     align-content: center;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    
 }
 .column{
     display: flex;
@@ -112,6 +112,7 @@ nav{
 .nav-button{
     font-family: var(--prime-font);
     padding: 0.3rem;
+    text-align: center;
     transition: 0.2s;
 }
 .nav-button:hover{
