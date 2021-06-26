@@ -13,7 +13,8 @@ class CustomButton1 extends HTMLElement{
             'pulse-grow-button': PulseGrowButton,
             'circle-where-clicked-button': CircleWhereClickedButton,
             'pop-button':PopButton,
-            'push-button': PushButton
+            'push-button': PushButton,
+            'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
         this.state = {
