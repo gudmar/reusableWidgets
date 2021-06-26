@@ -265,6 +265,88 @@ class WaitngCircleDetailsDB{
 </pre>`
                 
             },
+
+            'dark-roller-coster-waiting-circle': {
+                innerCode: 
+`
+<b>CSS</b>
+<pre>
+.roller-coster-waiting-circle {
+    position: absolute;
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+  }
+  .roller-coster-waiting-circle div {
+    animation: roller-coster-animation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: calc( var(--circle-radius) * 0.5); 
+  }
+
+  .roller-coster-waiting-circle div {
+      width: calc( var(--circle-radius) * 0.1);
+      height: calc( var(--circle-radius) * 0.1);
+      border-radius: 50%;
+      background-color: var(--color-dark);
+      transform: translateX(calc ( var(--circle-radius) * 0.5));
+      position: absolute;
+  }
+  .roller-coster-waiting-circle div:nth-child(1) {
+    animation-delay: -0.045s;
+  }
+  .roller-coster-waiting-circle div:nth-child(2) {
+    animation-delay: -0.09s;
+  }
+  .roller-coster-waiting-circle div:nth-child(3) {
+    animation-delay: -0.135s;
+  }
+  .roller-coster-waiting-circle div:nth-child(4) {
+    animation-delay: -0.18s;
+  }
+  .roller-coster-waiting-circle div:nth-child(5) {
+    animation-delay: -0.225s;
+  }
+  .roller-coster-waiting-circle div:nth-child(6) {
+    animation-delay: -0.27s;
+  }
+
+  .color-theme-blue>div{
+    box-shadow: 
+        0 0 7px   #0f7,
+        0 0 10px  #0f7,
+        0 0 20px  #0f7,
+        0 0 40px  #0f7,
+        0 0 80px  #0f7,
+        0 0 90px  #0f7,
+        0 0 100px #0f7,
+        0 0 150px #0f7,
+        0 0 170px #0f7,
+        0 0 200px #0f7;
+    z-index: 130;
+}
+
+  @keyframes roller-coster-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="roller-coster-waiting-circle size-small circle">
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+    &lt;div>&lt;/div>
+&lt;/div>
+</pre>`
+                
+            },
     
             'water-circles-waiting-circle': {
                 'innerCode': 
