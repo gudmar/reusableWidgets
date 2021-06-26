@@ -304,13 +304,8 @@ class DarkSampleButton extends CustomButtonGeneral{
 
 
                 .color-theme-inactive{
-                    --button-bg: gray;
-                    --button-fg: DarkGray;
-                    --button-hover-bg: gray;
-                    --button-hover-fg: DarkGray;
-                    --button-active-bg: gray;
-                    --button-active-fg: DarkGray; 
-                    --button-border-color: rgba(0, 0, 0, 0);
+                    --button-border-color: rgba(120, 120, 120, 1);
+                    --button-text-color: rgb(120, 120, 120);
                 }
     
                 .button{
