@@ -10,9 +10,10 @@ class ButtonDetailsDB{
         let beforeCode = details['codeBefore'] == undefined ? '' : details['codeBefore'];
         let innerCode = details['innerCode'] == undefined ? '' : details['innerCode'];
         let afterCode = details['afterCode'] == undefined ? '' : details['afterCode'];
+        let noWrapFlag = details['doNotWrapp']
         return `
             ${beforeCode}
-            ${ButtonDetailsDB.getDescriptorWithCommonCode_buttons(innerCode)}
+            ${noWrapFlag ? innerCode : ButtonDetailsDB.getDescriptorWithCommonCode_buttons(innerCode)}
             ${ButtonDetailsDB.getEndingMessage_buttons()}
             ${afterCode}
         `
@@ -140,7 +141,54 @@ class ButtonDetailsDB{
                     100% {transform: scale(1);}
                 }
                 `
-            },         
+            },       
+
+            'dark-sample-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>This button is based on article showing how to imitate neons with css: 
+                    <a href = "https://css-tricks.com/how-to-create-neon-text-with-css/">link</a>, so for exploanation why there 
+                    are that many shadows needed and why keyframes are used please refer to source article.
+                </p>
+                <pre>
+                .color-theme-blue{
+                    box-shadow:
+                        0 0 10px  white,
+                        0 0 20px  white,
+                        0 0 40px  #ddf,
+                        0 0 80px  #aaf,
+                        0 0 90px  #77f,
+                        0 0 100px #00f,
+                        0 0 150px #00f,
+                        0 0 170px #00f,
+                        0 0 200px #00f,
+                        inset 0 0 10px  white,
+                        inset 0 0 20px  white,
+                        inset 0 0 40px  #ddf,
+                        inset 0 0 80px  #aaf,
+                        inset 0 0 90px  #77f,
+                        inset 0 0 100px #00f,
+                        inset 0 0 150px #00f,
+                        inset 0 0 170px #00f,
+                        inset 0 0 200px #00f;
+                    z-index: 130;
+                }
+                .color-theme-blue{
+                    text-shadow:
+                        0 0 10px  white,
+                        0 0 20px  white,
+                        0 0 40px  #ddf,
+                        0 0 80px  #aaf,
+                        0 0 90px  #77f,
+                        0 0 100px #00f,
+                        0 0 150px #00f,
+                        0 0 170px #00f,
+                        0 0 200px #00f;
+                    z-index: 130;
+                }
+                </pre>
+                `
+            },
 
             'circle-where-clicked-button': {
                 innerCode: `
