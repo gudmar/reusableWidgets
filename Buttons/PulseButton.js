@@ -1,4 +1,4 @@
-class PulseButton extends CustomButtonGeneral{
+class PulseButton extends CircleWhereClickedButton{
     constructor(context){
         super(context);
     }

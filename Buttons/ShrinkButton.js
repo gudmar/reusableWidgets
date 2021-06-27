@@ -1,4 +1,4 @@
-class ShrinkButton extends CustomButtonGeneral {
+class ShrinkButton extends CircleWhereClickedButton {
     constructor(context) {
         super(context);
     }

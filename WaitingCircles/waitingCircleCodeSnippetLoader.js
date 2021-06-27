@@ -269,19 +269,20 @@ class WaitngCircleDetailsDB{
             'dark-roller-coster-waiting-circle': {
                 innerCode: 
 `
+<p>Article how to emulate neon effects with css is available here: <a href = "https://css-tricks.com/how-to-create-neon-text-with-css/">Link</a></p>
 <b>CSS</b>
 <pre>
-.roller-coster-waiting-circle {
+.dark-roller-coster-waiting-circle {
     position: absolute;
     width: var(--circle-radius);
     height: var(--circle-radius);
   }
-  .roller-coster-waiting-circle div {
+  .dark-roller-coster-waiting-circle div {
     animation: roller-coster-animation 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     transform-origin: calc( var(--circle-radius) * 0.5); 
   }
 
-  .roller-coster-waiting-circle div {
+  .dark-roller-coster-waiting-circle div {
       width: calc( var(--circle-radius) * 0.1);
       height: calc( var(--circle-radius) * 0.1);
       border-radius: 50%;
@@ -289,22 +290,22 @@ class WaitngCircleDetailsDB{
       transform: translateX(calc ( var(--circle-radius) * 0.5));
       position: absolute;
   }
-  .roller-coster-waiting-circle div:nth-child(1) {
+  .dark-roller-coster-waiting-circle div:nth-child(1) {
     animation-delay: -0.045s;
   }
-  .roller-coster-waiting-circle div:nth-child(2) {
+  .dark-roller-coster-waiting-circle div:nth-child(2) {
     animation-delay: -0.09s;
   }
-  .roller-coster-waiting-circle div:nth-child(3) {
+  .dark-roller-coster-waiting-circle div:nth-child(3) {
     animation-delay: -0.135s;
   }
-  .roller-coster-waiting-circle div:nth-child(4) {
+  .dark-roller-coster-waiting-circle div:nth-child(4) {
     animation-delay: -0.18s;
   }
-  .roller-coster-waiting-circle div:nth-child(5) {
+  .dark-roller-coster-waiting-circle div:nth-child(5) {
     animation-delay: -0.225s;
   }
-  .roller-coster-waiting-circle div:nth-child(6) {
+  .dark-roller-coster-waiting-circle div:nth-child(6) {
     animation-delay: -0.27s;
   }
 
