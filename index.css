@@ -171,3 +171,14 @@ nav{
     touch-action: none;
     overflow: hidden;
 }
+
+.shout{
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+}

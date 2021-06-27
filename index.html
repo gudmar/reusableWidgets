@@ -26,8 +26,10 @@
     <script src = "Buttons/abstractButtonComponent.js" defer></script>
     <!-- <script src = "Buttons/circleButton.js" defer></script> -->
 
+    
     <script src = "Buttons/CustomButton.js" defer></script>
     <script src = "Buttons/customButtonGeneral.js" defer></script>
+    <script src = "Buttons/CirclsWhereClickedButton.js" defer></script>
     <script src = "Buttons/sampleButton.js" defer></script>
     <script src = "Buttons/darkSampleButton.js" defer></script>
     <script src = "Buttons/GrowButton.js" defer></script>
@@ -36,7 +38,7 @@
     <script src = "Buttons/PulseGrowButton.js" defer></script>
     <script src = "Buttons/PushButton.js" defer></script>
     <script src = "Buttons/PopButton.js" defer></script>
-    <script src = "Buttons/CirclsWhereClickedButton.js" defer></script>
+    
     <script src = "Buttons/buttonCustomWebComponent.js" defer></script>
 
     <script src = "WaitingCircles/waitingCircleCodeSnippetLoader.js" defer></script>
@@ -97,7 +99,11 @@
                     <div class="widgets-container movable column" id = "buttons-container-id">
 
                         <div class="content-headline"><div class="h2 center">Buttons</div></div>
-
+                        <hidable-modal data-before-icon="info" data-visible = "true" id = "warningForMobiles">
+                            <span class = "center" style = "font-size: 1.34rem">Most buttons have a hover effect (mouse over it). In case of mobile davice there is a possibility to emulate a hover effect
+                            by holding a finger on element very long.
+                            </span>
+                        </hidable-modal>
                         <div class="widget-items center">
                             <single-element-presenter data-element-type="custom-button-1" data-element-subtype = "sample-button"></single-element-presenter>
                             <single-element-presenter data-element-type="custom-button-1" data-element-subtype = "grow-button"></single-element-presenter>
