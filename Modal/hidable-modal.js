@@ -194,12 +194,12 @@ class HidableModal extends AbstractComponent{
                 width: 60%;
                 max-width: 800px;
                 height: 60%;
-                background-color: rgb(200,200,200);
+                background-color: rgba(200, 200, 200, 0.7);
                 border-radius: 10px;
                 transition: 250ms;
             }
             .modal-body-shout{
-                background-color: rgb(250, 150, 150);
+                background-color: rgba(250, 150, 150, 0.8);
             }
             .modal-title-bar{
                 display: flex;
