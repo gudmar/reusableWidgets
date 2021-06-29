@@ -14,6 +14,7 @@ class CustomButton1 extends HTMLElement{
             'circle-where-clicked-button': CircleWhereClickedButton,
             'pop-button':PopButton,
             'push-button': PushButton,
+            'bounce-in-button': BounceInButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
