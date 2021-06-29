@@ -150,7 +150,7 @@ class ButtonDetailsDB{
                     transition: 0.5s;
                 }
                 .bounce-in-button:hover {
-                    transform: scale(1.2);
+                    transform: scale(0.8);
                     transition-timing-function: cubic-bezier(0.47, 2, 0.31, -0.36);
                 }
                 `

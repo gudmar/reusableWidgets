@@ -15,6 +15,7 @@ class CustomButton1 extends HTMLElement{
             'pop-button':PopButton,
             'push-button': PushButton,
             'bounce-in-button': BounceInButton,
+            'bounce-out-button': BounceOutButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
