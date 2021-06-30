@@ -1,6 +1,5 @@
 class ButtonDetailsDB{
     constructor(){
-
     }
 
     static getDetailsAbout(widgetDescriptor){
