@@ -208,7 +208,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button rotate-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter">&lt;/div>
                         &lt;span>&lt;/span>
                     &lt;/div>
@@ -216,6 +216,67 @@ class ButtonDetailsDB{
                 </pre>
                 `
             },  
+
+            'rotate-bounce-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .rotate-button:after {
+                    content: "";
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    transform: (-50%, -50%);
+                    z-index: -1;
+                }
+                .rotate-bounce-button {
+                    transition: 0.5s;
+                }
+                .rotate-bounce-button:after {
+                    content: "";
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    transform: (-50%, -50%);
+                    z-index: -1;
+                }
+                .rotate-bounce-button:hover {
+                    transform: rotate(45deg);
+                    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+                }
+                .shutter{
+                    position: absolute;
+                    width: 0px;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transition: 0.3s;
+                }
+                .rotate-bounce-button:active > .shutter{
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(180deg);
+                    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+                    transition: 0.3s;
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button rotate-bounce-button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter">&lt;/div>
+                        &lt;span>&lt;/span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },  
+
 
             'dark-sample-button': {
                 doNotWrapp: true,
