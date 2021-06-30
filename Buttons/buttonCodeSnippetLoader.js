@@ -168,6 +168,55 @@ class ButtonDetailsDB{
                 `
             },  
 
+            'rotate-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .rotate-button {
+                    transition: 0.5s;
+                }
+                .rotate-button:after {
+                    content: "";
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    transform: (-50%, -50%);
+                    z-index: -1;
+                }
+                .rotate-button:hover {
+                    transform: rotate(345deg);
+                }
+                .shutter{
+                    position: absolute;
+                    width: 0px;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transition: 0.3s;
+                }
+                .rotate-button:active > .shutter{
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(180deg);
+                    transition: 0.3s;
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter">&lt;/div>
+                        &lt;span>&lt;/span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },  
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `
