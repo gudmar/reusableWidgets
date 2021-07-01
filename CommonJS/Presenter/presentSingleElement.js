@@ -134,9 +134,11 @@ class SingleElementPresenter extends HTMLElement{
                     position: relative;
                     border-radius: 5px;
                     align-items: center;
+                    
                 }
                 .light{
                     background-color: rgba(255, 255, 255, 0.5);
+                    box-shadow: inset 0px 0px 20px -3px #000000;
                 }
                 .light>.type-label{
                     color: black;
@@ -146,6 +148,7 @@ class SingleElementPresenter extends HTMLElement{
                 }
                 .dark{
                     background-color: rgba(0, 0, 0, 0.7);
+                    box-shadow: inset 0px 0px 10px -3px #ddd;
                 }
                 .dark>.type-label{
                     color: white;
