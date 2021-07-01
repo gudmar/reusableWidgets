@@ -19,6 +19,7 @@ class CustomButton1 extends HTMLElement{
             'rotate-button': RotateButton,
             'rotate-bounce-button': RotateBounceButton,
             'rotate-growth-button': RotateGrowthButton,
+            'float-right-button': FloatRightButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
