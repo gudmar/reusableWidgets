@@ -330,6 +330,52 @@ class ButtonDetailsDB{
             },  
 
 
+            'float-right-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .float-right-button {
+                    transition: 0.5s
+                }
+                .float-right-button:after {
+                  position: absolute;
+                  content:  "";
+                  width: 30px;
+                  height: 70px;
+                  left: -20px;
+                  top: -5px;
+                }
+                .float-right-button:hover {
+                    transform: translate(20px, 0);
+                }
+                
+                .shutter:active >.float-right-button:active:before {
+    
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleX(0);
+                    transition: 0.3s;
+                }
+                .float-right-button:active > .shutter{
+                    transform: scaleX(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }
+                </pre>
+                `
+            },  
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `
