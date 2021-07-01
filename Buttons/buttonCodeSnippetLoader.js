@@ -278,6 +278,58 @@ class ButtonDetailsDB{
             },  
 
 
+            'rotate-growth-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .rotate-growth-button {
+                    transition: 0.17s 0.17s;
+                }
+                
+                .rotate-growth-button:hover {
+                    transform: rotate(40deg) scale(1.4);
+                }
+    
+                .rotate-growth-button:after {
+                    content: "";
+                    position: absolute;
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                    transform: (-50%, -50%);
+                    z-index: -1;
+                }
+                .shutter{
+                    position: absolute;
+                    width: 0px;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transition: 0.3s;
+                }
+                .rotate-growth-button:active > .shutter{
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(180deg);
+                    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button rotate-bounce-button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter">&lt;/div>
+                        &lt;span>&lt;/span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },  
+
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `
