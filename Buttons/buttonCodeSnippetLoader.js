@@ -427,6 +427,165 @@ class ButtonDetailsDB{
                 `
             },  
 
+
+            'bob-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .bob-button {
+                    transition: 0.5s
+                }
+                .bob-button:after {
+                  position: absolute;
+                  content:  "";
+                  width: 100%;
+                  height: 110%;
+                  bottom: -40%;
+                }
+                .bob-button:hover {
+                    animation: bob 0.5s alternate infinite ease-in;
+                }
+    
+                @keyframes  bob {
+                    to {transform: translate(0, -20%);}
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .bob-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },  
+
+
+            'skew-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.</p>
+                <h3>CSS</h3>
+                <pre>
+                .skew-button {
+                    transition: 0.3s;	
+                }
+                .skew-button:hover {
+                    transform: skewX(-30deg);	
+                }
+                .skew-button:hover > shew-button:after{
+                    width: 150%;
+                    height: 150%;
+                }
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .skew-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },
+
+
+
+
+
+                       'bob-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .bob-button {
+                    transition: 0.5s
+                }
+                .bob-button:after {
+                  position: absolute;
+                  content:  "";
+                  width: 100%;
+                  height: 110%;
+                  bottom: -40%;
+                }
+                .bob-button:hover {
+                    animation: bob 0.5s alternate infinite ease-in;
+                }
+    
+                @keyframes  bob {
+                    to {transform: translate(0, -20%);}
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .bob-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `
