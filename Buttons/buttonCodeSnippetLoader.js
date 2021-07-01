@@ -376,6 +376,57 @@ class ButtonDetailsDB{
                 `
             },  
 
+            'sink-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.
+                Moreover there is a pseudo element <code>after</code> added, for antijitter effect.</p>
+                <h3>CSS</h3>
+                <pre>
+                .sink-button {
+                    transition: 0.5s
+                }
+                .sink-button:after {
+                  position: absolute;
+                  content:  "";
+                  width: 30px;
+                  height: 70px;
+                  left: -10%;
+                  top: -20%;
+                }
+                .sink-button:hover {
+                    transform: translate(0, 20%);
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .sink-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },  
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `
