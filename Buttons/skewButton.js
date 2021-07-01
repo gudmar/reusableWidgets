@@ -94,16 +94,11 @@ class SkewButton extends CustomButtonGeneral{
             .skew-button:hover {
                 transform: skewX(-30deg);	
             }
-            .skew-button:after {
-                position: absolute;
-                content:  "";
-                width: 120%;
-                height: 120%;
-              }
-              .skew-button:hover > shew-button:after{
-                  width: 150%;
-                  height: 150%;
-              }
+
+            .skew-button:hover > shew-button:after{
+                width: 150%;
+                height: 150%;
+            }
 
             .shutter{
                 width: 100%;
@@ -119,7 +114,7 @@ class SkewButton extends CustomButtonGeneral{
             }
             .skew-button:active > .shutter{
                 transform: scaleY(1);
-                transition-timing-function: cubic-bezier(.8,2,0,0);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                transition-timing-function: cubic-bezier(.8,2,0,0);
             }
 
             </style>
