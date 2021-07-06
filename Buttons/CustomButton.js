@@ -23,6 +23,7 @@ class CustomButton1 extends HTMLElement{
             'sink-button': SinkButton,
             'bob-button': BobButton,
             'skew-button': SkewButton,
+            'skew-forward-button': SkewForwardButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
