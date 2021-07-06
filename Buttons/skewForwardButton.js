@@ -113,7 +113,7 @@ class SkewForwardButton extends CustomButtonGeneral{
                 transform: scaleY(0);
                 transition: 0.3s;
             }
-            .skew-button:active > .shutter{
+            .skew-forward-button:active > .shutter{
                 transform: scaleY(1);
                 transition-timing-function: cubic-bezier(.8,2,0,0);
             }
