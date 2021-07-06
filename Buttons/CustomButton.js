@@ -24,6 +24,7 @@ class CustomButton1 extends HTMLElement{
             'bob-button': BobButton,
             'skew-button': SkewButton,
             'skew-forward-button': SkewForwardButton,
+            'hang-button': HangButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
