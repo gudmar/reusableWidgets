@@ -579,7 +579,61 @@ class ButtonDetailsDB{
             },
 
 
-
+            'hang-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>Important is creation of <code>.button-wrapper:hover>.hang-button:after</code> pseudoelement. Thanks to it 
+                button will not jitter after being hovered. This selector will create after pseudo element only if .button-wrapper element
+                is hovered, and pseudoelement will be removed as soon as cursor moves out from .button wrapper. Thanks to this sollution
+                button will not animate long before button is hovered.</p>
+                <h3>CSS</h3>
+                .hang-button {
+                    transition: 0.5s;
+                    transform-origin: top left;
+                    transition-timing-function: cubic-bezier(0.01, 1.3, 0.72, 1.46);
+                }
+                .hang-button:hover {
+                    transform: rotate(45deg);	
+                }
+                
+                .button-wrapper:hover>
+                .hang-button:after{
+                    content: '';
+                    position: absolute;
+                    width: 150%;
+                    height: 350%;
+                    z-index: 30;
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .hang-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },
 
                        'bob-button': {
                 doNotWrapp: true,
