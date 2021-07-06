@@ -531,6 +531,55 @@ class ButtonDetailsDB{
 
 
 
+            'skew-forward-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <p>There is a class <code>shutter</code> added to additional div, so when button is in active state it could animate nicely.</p>
+                <h3>CSS</h3>
+                .skew-forward-button {
+                    transition: 0.3s;	
+                    transform-origin: bottom;	
+                }
+                .skew-forward-button:hover {
+                    transform: skewX(-30deg);
+                }
+    
+                .skew-forward-button:hover > shew-forward-button:after{
+                    width: 150%;
+                    height: 150%;
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .skew-forward-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+                &lt;div class = "button-wrapper">
+                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                        &lt;div class = "shutter"></div>
+                            &lt;span></span>
+                    &lt;/div>
+                &lt;/div>
+                </pre>
+                `
+            },
+
+
+
 
                        'bob-button': {
                 doNotWrapp: true,
