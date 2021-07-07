@@ -671,6 +671,8 @@ getElementsToBeLocadetOnCircle(nrOfElements){
                 
                 `
             },
+
+
             'bubbling-circles-waiting-circle': {
                 'innerCode': 
 `
@@ -745,6 +747,230 @@ getElementsToBeLocadetOnCircle(nrOfElements){
 </pre>
 `  
             },
+
+
+            'cube-waiting-circle': {
+                'innerCode': 
+`
+<b>CSS</b>
+<pre>
+*{
+    --border-width: 3px;
+}
+.size-small{
+    --cube-side-size: 40px;
+}
+
+.color-theme-blue{
+    --cube-border-color: blue;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+}
+
+.cube{
+    z-index: 8;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-100px);
+    animation: rotate;
+    width: var(--cube-side-size);
+    height: var(--cube-side-size);
+}
+.rotate{
+    animation: rotate-cube 1.75s infinite linear;
+}
+
+.wall {
+    position: absolute;
+    width: var(--cube-side-size);
+    height: var(--cube-side-size);
+    border: var(--cube-border-color) solid var(--border-width);
+}
+
+.back{
+    transform: translateZ( calc( -1 * calc( var(--cube-side-size) + calc( 2 *var(--border-width) )) ));
+}
+.top {
+    transform: rotateX(-90deg);
+    transform-origin: top;
+}
+.bottom {
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+}
+.left {
+    transform: rotateY(90deg);
+    transform-origin: left;
+}
+.right {
+    transform: rotateY(-90deg);
+    transform-origin: right;
+}
+
+
+@keyframes rotate-cube {
+    from { transform: rotateX(0deg) rotateZ(0deg);}
+    to { transform: rotateX(359deg) rotateZ(359deg);}
+}
+
+@keyframes xrotate-cube {
+    from { transform: rotateX(0deg);}
+    to { transform: rotateX(359deg);}
+}
+
+.placer{
+    position: relative;
+    transform: translateZ(calc( var(--cube-side-size) * 0.5));
+    transform-style: preserve-3d;
+}
+
+
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="wrapper center size-small">
+    &lt;div class="cube rotate circle color-theme-blue">
+        &lt;div class="placer">
+            &lt;div class="wall front">&lt;/div>
+            &lt;div class="wall back">&lt;/div>
+            &lt;div class="wall top">&lt;/div>
+            &lt;div class="wall bottom">&lt;/div>
+            &lt;div class="wall left">&lt;/div>
+            &lt;div class="wall right">&lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+`  
+
+            },
+
+
+            'dark-cube-waiting-circle': {
+                'innerCode': 
+`
+<b>CSS</b>
+<pre>
+*{
+    --border-width: 3px;
+}
+.size-small{
+    --cube-side-size: 40px;
+}
+
+.color-theme-blue{
+    --cube-border-color: rgb(200, 200, 255);
+}
+
+.color-theme-blue>div>div{
+    box-shadow: 
+        0 0 7px   #07f,
+        0 0 10px  #07f,
+        0 0 20px  #07f,
+        0 0 40px  #07f,
+        0 0 80px  #07f,
+        0 0 90px  #07f,
+        inset 0 0 7px   #07f,
+        inset 0 0 10px  #07f,
+        inset 0 0 20px  #07f,
+        inset 0 0 50px  #07f,
+        inset 0 0 40px  #07f;               
+    z-index: 130;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+}
+
+.cube{
+    z-index: 8;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: translateZ(-100px);
+    animation: rotate;
+    width: var(--cube-side-size);
+    height: var(--cube-side-size);
+}
+.rotate{
+    animation: rotate-cube 1.75s infinite linear;
+}
+
+.wall {
+    position: absolute;
+    width: var(--cube-side-size);
+    height: var(--cube-side-size);
+    border: var(--cube-border-color) solid var(--border-width);
+}
+
+.back{
+    transform: translateZ( calc( -1 * calc( var(--cube-side-size) + calc( 2 *var(--border-width) )) ));
+}
+.top {
+    transform: rotateX(-90deg);
+    transform-origin: top;
+}
+.bottom {
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+}
+.left {
+    transform: rotateY(90deg);
+    transform-origin: left;
+}
+.right {
+    transform: rotateY(-90deg);
+    transform-origin: right;
+}
+
+
+@keyframes rotate-cube {
+    from { transform: rotateX(0deg) rotateZ(0deg);}
+    to { transform: rotateX(359deg) rotateZ(359deg);}
+}
+
+@keyframes xrotate-cube {
+    from { transform: rotateX(0deg);}
+    to { transform: rotateX(359deg);}
+}
+
+.placer{
+    position: relative;
+    transform: translateZ(calc( var(--cube-side-size) * 0.5));
+    transform-style: preserve-3d;
+}
+
+
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class="wrapper center size-small">
+    &lt;div class="cube rotate circle color-theme-blue">
+        &lt;div class="placer">
+            &lt;div class="wall front">&lt;/div>
+            &lt;div class="wall back">&lt;/div>
+            &lt;div class="wall top">&lt;/div>
+            &lt;div class="wall bottom">&lt;/div>
+            &lt;div class="wall left">&lt;/div>
+            &lt;div class="wall right">&lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+`  
+
+            },            
 
 
             'growing-ring-SVG-waiting-circle': {
