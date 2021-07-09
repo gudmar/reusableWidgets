@@ -89,19 +89,6 @@ class WobbleTopBottomButton extends CustomButtonGeneral{
             }
 
 
-            .wobble-top-bottom-button:hover {
-                animation: wobble-top 0.7s linear;
-                
-            }
-            @keyframes wobble-top {
-                20% {transform: skewX(30deg);}
-                40% {transform: skewX(-50deg);}
-                60% {transform: skewX(35deg);}
-                80% {transform: skewX(-20deg);}
-                100% {transform: skewX(5deg);}
-            }
-
-
             .wobble-top-bottom-button{
                 transition: 0.5s;
             }
@@ -116,7 +103,17 @@ class WobbleTopBottomButton extends CustomButtonGeneral{
                 z-index: 30;
             }
 
-
+            .wobble-top-bottom-button:hover {
+                animation: wobble-top 0.7s linear;
+                
+            }
+            @keyframes wobble-top {
+                20% {transform: skewX(30deg);}
+                40% {transform: skewX(-50deg);}
+                60% {transform: skewX(35deg);}
+                80% {transform: skewX(-20deg);}
+                100% {transform: skewX(5deg);}
+            }
 
             .shutter{
                 width: 100%;
