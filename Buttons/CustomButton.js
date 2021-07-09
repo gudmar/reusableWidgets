@@ -27,6 +27,7 @@ class CustomButton1 extends HTMLElement{
             'hang-button': HangButton,
             'wobble-horizontal-button': WobbleHorizontalButton,
             'wobble-top-bottom-button': WobbleTopBottomButton,
+            'wobble-top-button': WobbleTopButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
