@@ -692,10 +692,6 @@ class ButtonDetailsDB{
             'wobble-horizontal-button': {
                 doNotWrapp: true,
                 innerCode: `
-                <p>This button is based on article showing how to imitate neons with css: 
-                    <a href = "https://css-tricks.com/how-to-create-neon-text-with-css/">link</a>, so for exploanation why there 
-                    are that many shadows needed and why keyframes are used please refer to source article.
-                </p>
                 <pre>
                 *{
                     position: relative;
@@ -802,6 +798,131 @@ class ButtonDetailsDB{
                 </pre>
                 `
             },
+
+
+            'wobble-top-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .wobble-top-button{
+                    transition: 0.5s;
+                }
+    
+                .button-wrapper:hover>
+                .wobble-top-button:after{
+                    
+                    content: '';
+                    position: absolute;
+                    width: 200%;
+                    height: 150%;
+                    z-index: 30;
+                }
+    
+                .wobble-top-button:hover {
+                    animation: wobble-top 0.7s linear;
+                    transform-origin: bottom;
+                    
+                }
+                @keyframes wobble-top {
+                    20% {transform: skewX(30deg);}
+                    40% {transform: skewX(-50deg);}
+                    60% {transform: skewX(35deg);}
+                    80% {transform: skewX(-20deg);}
+                    100% {transform: skewX(5deg);}
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .wobble-horizontal-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }                
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue position-right-top button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
+            'wobble-top-bottom-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .wobble-top-bottom-button{
+                    transition: 0.5s;
+                }
+    
+                .button-wrapper:hover>
+                .wobble-top-bottom-button:after{
+                    
+                    content: '';
+                    position: absolute;
+                    width: 150%;
+                    height: 150%;
+                    z-index: 30;
+                }
+    
+                .wobble-top-bottom-button:hover {
+                    animation: wobble-top 0.7s linear;
+                    
+                }
+                @keyframes wobble-top {
+                    20% {transform: skewX(30deg);}
+                    40% {transform: skewX(-50deg);}
+                    60% {transform: skewX(35deg);}
+                    80% {transform: skewX(-20deg);}
+                    100% {transform: skewX(5deg);}
+                }
+    
+                .shutter{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    width: 100%;
+                    height: 100%;
+                    margin:0;
+                    background-color: rgba(250, 250, 250, 0.5);
+                    transform: scaleY(0);
+                    transition: 0.3s;
+                }
+                .wobble-horizontal-button:active > .shutter{
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(.8,2,0,0);
+                }                
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue position-right-top button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
 
             'dark-sample-button': {
                 doNotWrapp: true,
