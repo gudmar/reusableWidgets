@@ -12,7 +12,7 @@ class ButtonDetailsDB{
         let noWrapFlag = details['doNotWrapp']
         return `
             ${beforeCode}
-            ${noWrapFlag ? innerCode : ButtonDetailsDB.getDescriptorWithCommonCode_buttons(innerCode)}
+            ${noWrapFlag ? innerCode : ButtonDetailsDB.getDescriptorWithCommonCode_buttons(innerCode, widgetDescriptor)}
             ${ButtonDetailsDB.getEndingMessage_buttons()}
             ${afterCode}
         `
@@ -320,7 +320,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button rotate-bounce-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button rotate-growth-button rotate-bounce-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter">&lt;/div>
                         &lt;span>&lt;/span>
                     &lt;/div>
@@ -418,7 +418,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button sink-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -473,7 +473,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button bob-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -519,7 +519,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button color-theme-blue skew-button position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -569,7 +569,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button skew-forward-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -626,7 +626,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button hang-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -680,7 +680,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button bob-button color-theme-blue position-right-top button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -845,7 +845,7 @@ class ButtonDetailsDB{
                     transform: scaleY(0);
                     transition: 0.3s;
                 }
-                .wobble-horizontal-button:active > .shutter{
+                .wobble-top-button:active > .shutter{
                     transform: scaleY(1);
                     transition-timing-function: cubic-bezier(.8,2,0,0);
                 }                
@@ -853,7 +853,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue position-right-top button-big" >
+    &lt;div class="button wobble-top-button color-theme-blue position-right-top button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -906,7 +906,7 @@ class ButtonDetailsDB{
                     transform: scaleY(0);
                     transition: 0.3s;
                 }
-                .wobble-horizontal-button:active > .shutter{
+                .wobble-top-bottom-button:active > .shutter{
                     transform: scaleY(1);
                     transition-timing-function: cubic-bezier(.8,2,0,0);
                 }                
@@ -1203,7 +1203,7 @@ class ButtonDetailsDB{
         return dbObject[key]
     }
 
-    static getDescriptorWithCommonCode_buttons(differentCodePart){
+    static getDescriptorWithCommonCode_buttons(differentCodePart, buttonType){
         return `
         <b>CSS</b>
         <pre>
@@ -1270,7 +1270,7 @@ class ButtonDetailsDB{
 
         <pre>
         &lt;div class = "button-wrapper">
-            &lt;div class="button center position-right-top" >
+            &lt;div class="button center ${buttonType} position-right-top" >
                 &lt;span>&lt;/span>
             &lt;/div>
         &lt;/div>    
