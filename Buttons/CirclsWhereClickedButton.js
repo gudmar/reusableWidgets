@@ -52,7 +52,7 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
 
     addOnclickAnimation(){
         this.animateOnclickFunctoinInstance = this.animateOnClick.bind(this)
-        this.button.addEventListener('click', this.animateOnclickFunctoinInstance)
+        this.button.addEventListener('mousedown', this.animateOnclickFunctoinInstance)
     }
 
     removeOnclickAnimation(){
