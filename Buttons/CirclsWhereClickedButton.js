@@ -106,19 +106,19 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
         this.setElementPosition(circleInnerText, labelPosition) 
         let interval = setInterval(() => {
             this.setElementInlineSize(circleElement, {
-                width: parseFloat(circleElement.style.width) + 2, 
-                height: parseFloat(circleElement.style.height) + 2
+                width: parseFloat(circleElement.style.width) + 4, 
+                height: parseFloat(circleElement.style.height) + 4
             })
             this.setElementPosition(circleInnerText, {
-                x: parseFloat(circleInnerText.style.left) + 1 + 'px',
-                y: parseFloat(circleInnerText.style.top) + 1 + 'px'
+                x: parseFloat(circleInnerText.style.left) + 2 + 'px',
+                y: parseFloat(circleInnerText.style.top) + 2 + 'px'
             })
             if (parseFloat(circleElement.style.width) > maxRadius) {
                 clearInterval(interval);
                 circleElement.remove();
                 this.wasClickEventTriggered = false;
             }
-        }, 5)
+        }, 1)
     }
 
     getElementPositionRelativeToTargetElement(queredElement, referenceElement){
