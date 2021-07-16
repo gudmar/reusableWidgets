@@ -31,6 +31,7 @@ class CustomButton1 extends HTMLElement{
             'wobble-bottom-button': WobbleBottomButton,
             'buzz-button': BuzzButton,
             'buzz-out-button': BuzzOutButton,
+            'color-pulse-button': ColorPulseButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
@@ -150,8 +151,10 @@ class CustomButton1 extends HTMLElement{
     connectedCallback() {
         // this.implementer.startButton(this.stateProxy);
         // this.changeImplementer(this.stateProxy['elementType']);
+        this.runMeWhenObjectConnected();
     }
 
+    runMeWhenObjectConnected(){}
 
     static get observedAttributes() {
         return ['data-color-theme', 'data-is-active', 'data-element-subtype', 'data-label', 'onclick']
