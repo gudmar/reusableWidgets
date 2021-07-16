@@ -1117,6 +1117,82 @@ class ButtonDetailsDB{
             },
 
 
+            'color-pulse-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+                *{
+                    position: relative;
+                }
+                .circle{
+                    position: absolute;
+                    width: 25px;
+                    height: 25px;
+                    border-radius: 50%;
+                    background-color: yellow;
+                    opacity: 0.5;
+                    transform: translate(-50%, -50%);
+                    mix-blend-mode: difference;
+                    z-index: 40;
+                }
+                .hidden{
+                    visibility: hidden;
+                }
+
+                .button-wrapper{
+                    display: inline-block
+                    overflow: hidden;
+                }
+                .button-big{
+                    --button-font-size: 1.5rem;
+                    --button-padding: 10px;
+                }
+    
+                .color-theme-blue{
+                    --button-bg: blue;
+                    --button-fg: white;
+                    --button-border-color: rgba(0, 0, 0, 0);
+                }
+    
+                .button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                    text-align: center;
+                    color: var(--button-fg);
+                    background-color: var(--button-bg);
+                    font-family: Arial;
+                    border: solid thin var(--button-border-color);
+                    border-radius: 5px;
+                    padding: var(--button-padding);
+                    overflow:hidden;
+                }
+       
+    
+                .color-pulse-button:hover {
+                    animation: color-pulse 0.9s linear alternate infinite;
+                }
+                @keyframes color-pulse {
+                    100% {color: var(--button-bg); background-color: var(--button-fg);}
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue position-right-top button-big" >
+        &lt;div class = "circle hidden">&lt;/div>
+        &lt;span>&lt;/span>
+    &lt;/div>
+&lt;/div>               
+                </pre>
+                `
+                
+            },
+
+
             'dark-sample-button': {
                 doNotWrapp: true,
                 innerCode: `

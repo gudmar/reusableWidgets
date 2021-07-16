@@ -6,40 +6,6 @@ class ColorPulseButton extends CircleWhereClickedButton{
     }
 
     drawACircleInsideElement(event){}
-    // drawACircleInsideElement(event){
-    //     let mouseCords = this.getClickPointInElementRelativeToButton(event)
-    //     let createAndPlaceCircleInsideButton_returnCircle = function(){
-    //         let circle = document.createElement('div');
-    //         circle.classList.add(this.CIRCLE_CLASS);
-    //         this.button.appendChild(circle);
-    //         circle.style.left = mouseCords.x + 'px';
-    //         circle.style.top = mouseCords.y + 'px';    
-    //         return circle;
-    //     }.bind(this)
-    //     let createPlaceLabelToCircle_returnLabel = function (){
-    //         let label = document.createElement('span');
-    //         label.innerText = this.button.querySelector('span').innerText;
-    //         circle.appendChild(label);    
-    //         return label
-    //     }.bind(this)
-    //     let calculateMaxCircleRadius = function(){
-    //         let {width, height} = this.getElementsSize(this.button)
-    //         let sumOfPowers = Math.pow(width, 2) + Math.pow(height, 2);
-    //         return 2 * Math.sqrt(sumOfPowers)
-    //     }.bind(this)
-
-    //     let circle = createAndPlaceCircleInsideButton_returnCircle();
-    //     // let label = createPlaceLabelToCircle_returnLabel();
-    //     // this.growCircleAndDestroyIt(circle, calculateMaxCircleRadius(), this.getElementPosition(label));
-    //     this.destroyCircleAfterAWhile(circle)
-    // }
-
-    // destroyCircleAfterAWhile(circle){
-    //     let interval = setTimeout(()=>{
-    //         circle.remove();
-    //     }, 500)
-    //     this.wasClickEventTriggered = false;
-    // }
 
     startButton({buttonType, labelFromAttrib, colorTheme, isActive, onclick}){
         let getShorterLabel = labelFromAttrib;
@@ -54,24 +20,24 @@ class ColorPulseButton extends CircleWhereClickedButton{
         
         let moveCirclePointer = function(event){
             let mouseCords = this.getClickPointInElementRelativeToButton(event)
-            console.log(mouseCords)
-                circle.style.left = mouseCords.x + 'px';
-                circle.style.top = mouseCords.y + 'px';   
-                circle.classList.remove('hidden')
+            circle.style.left = mouseCords.x + 'px';
+            circle.style.top = mouseCords.y + 'px';   
+            circle.classList.remove('hidden')
         }.bind(this)
         let hideCircle = function(event){
             circle.classList.add('hidden')
         }
-        // debugger
         this.context.shadowRoot.querySelector('.button').addEventListener('mousedown', moveCirclePointer)
         document.querySelector('body').addEventListener('mouseup', hideCircle)
-        // this.changeOnclickFunction(onclick)
     }
     
 
     _getTemplate(){
         return `
             <style>
+            *{
+                position: relative;
+            }
             .circle{
                 position: absolute;
                 width: 25px;
@@ -86,12 +52,7 @@ class ColorPulseButton extends CircleWhereClickedButton{
             .hidden{
                 visibility: hidden;
             }
-            // .button:active>.circle{
-            //     visibility: visible;
-            // }
-            *{
-                position: relative;
-            }
+
             .button-wrapper{
                 display: inline-block
                 overflow: hidden;
@@ -181,22 +142,6 @@ class ColorPulseButton extends CircleWhereClickedButton{
                 100% {color: var(--button-bg); background-color: var(--button-fg);}
             }
 
-            .shutter{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                width: 100%;
-                width: 100%;
-                height: 100%;
-                margin:0;
-                background-color: rgba(250, 250, 250, 0.5);
-                transform: scaleY(0);
-                transition: 0.3s;
-            }
-            .color-pulse-button:active > .shutter{
-                transform: scaleY(1);
-                transition-timing-function: cubic-bezier(.8,2,0,0);
-            }
 
             </style>
 
