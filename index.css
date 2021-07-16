@@ -137,6 +137,7 @@ nav{
     position: relative;
     width: 100%;
     flex-wrap: wrap;
+    overflow-y: auto;
 }
 
 .content-display{
