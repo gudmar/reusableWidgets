@@ -7,6 +7,17 @@ class ColorPulseButton extends CircleWhereClickedButton{
 
     drawACircleInsideElement(event){}
 
+    setButtonToInactiveState({buttonType}){
+        this.changeButtonColorThemeClass('inactive')
+        console.log(buttonType)
+        this.context.shadowRoot.querySelector('.button').classList.remove(buttonType)
+    }
+
+    setButtonToActiveState({colorTheme, buttonType}){
+        this.changeButtonColorThemeClass(colorTheme)
+        this.context.shadowRoot.querySelector('.button').classList.add(buttonType)
+    }
+
     startButton({buttonType, labelFromAttrib, colorTheme, isActive, onclick}){
         let getShorterLabel = labelFromAttrib;
         let labelToDisplay = this.getShorterLabelIfLabelTooLong(labelFromAttrib);
@@ -19,6 +30,7 @@ class ColorPulseButton extends CircleWhereClickedButton{
         let circle = this.context.shadowRoot.querySelector('.circle')
         
         let moveCirclePointer = function(event){
+            if (this.context.state.isActive == false) return null;
             let mouseCords = this.getClickPointInElementRelativeToButton(event)
             circle.style.left = mouseCords.x + 'px';
             circle.style.top = mouseCords.y + 'px';   

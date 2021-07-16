@@ -82,6 +82,7 @@ class CustomButtonGeneral{
 
     setButtonToInactiveState({buttonType}){
         this.changeButtonColorThemeClass('inactive')
+        console.log(buttonType)
         this.context.shadowRoot.querySelector('.button').classList.remove(buttonType)
     }
 
