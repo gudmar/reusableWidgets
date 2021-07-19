@@ -183,3 +183,16 @@ nav{
     font-size: 1.3rem;
     font-weight: bold;
 }
+
+.flex-fix::before, .flex-fix::after{
+    content: '';
+    
+    flex: 1;
+    flex-direction: column;
+}
+
+.flex-fix {
+    flex-direction: column;
+    position: relative;
+    overflow: auto;
+}

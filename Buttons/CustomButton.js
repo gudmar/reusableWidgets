@@ -32,6 +32,7 @@ class CustomButton1 extends HTMLElement{
             'buzz-button': BuzzButton,
             'buzz-out-button': BuzzOutButton,
             'color-pulse-button': ColorPulseButton,
+            'sweep-to-right-button': SweepToRightButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
