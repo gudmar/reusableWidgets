@@ -1167,6 +1167,58 @@ class ButtonDetailsDB{
                 `
             },
 
+            'sweep-to-bottom-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .sweep-to-bottom-button {
+                    transition: 0.3s;
+                    transition-property: color;
+                    position:relative;  /* without this whole screan is animated*/
+                }
+                .sweep-to-bottom-button:before {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transform: scaleY(0);
+                    color: var(--button-color-focus);
+                    background-color: var(--button-fg);
+                    transition-property: transform;
+                    transition-duration: 0.3s;
+                    transform-origin: top;
+                    content: "";
+                    z-index: -1;
+                }
+                .sweep-to-bottom-button:hover, .sweep-to-bottom-button:focus, .sweep-to-bottom-button:active {
+                    color: var(--button-hover-fg);
+                }
+                
+                .sweep-to-bottom-button:hover:before, .sweep-to-bottom-button:focus:before, .sweep-to-bottom-button:active:before {
+                    transform: scaleY(1);
+                }
+                .sweep-to-bottom-button {   
+                    z-index: 1;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue sweep-to-right-button position-right-top button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
+
+
 
             'color-pulse-button': {
                 doNotWrapp: true,
