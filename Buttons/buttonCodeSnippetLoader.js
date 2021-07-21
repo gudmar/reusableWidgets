@@ -208,7 +208,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button rotate-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button rotate-button color-theme-blue   button-big" >
                         &lt;div class = "shutter">&lt;/div>
                         &lt;span>&lt;/span>
                     &lt;/div>
@@ -268,7 +268,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button rotate-bounce-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button rotate-bounce-button color-theme-blue   button-big" >
                         &lt;div class = "shutter">&lt;/div>
                         &lt;span>&lt;/span>
                     &lt;/div>
@@ -320,7 +320,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button rotate-growth-button rotate-bounce-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button rotate-growth-button rotate-bounce-button color-theme-blue   button-big" >
                         &lt;div class = "shutter">&lt;/div>
                         &lt;span>&lt;/span>
                     &lt;/div>
@@ -418,7 +418,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button sink-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button sink-button color-theme-blue   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -473,7 +473,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button bob-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button bob-button color-theme-blue   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -519,7 +519,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button color-theme-blue skew-button position-right-top button-big" >
+                    &lt;div class="button color-theme-blue skew-button   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -569,7 +569,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button skew-forward-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button skew-forward-button color-theme-blue   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -626,7 +626,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button hang-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button hang-button color-theme-blue   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -680,7 +680,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
                 &lt;div class = "button-wrapper">
-                    &lt;div class="button bob-button color-theme-blue position-right-top button-big" >
+                    &lt;div class="button bob-button color-theme-blue   button-big" >
                         &lt;div class = "shutter"></div>
                             &lt;span></span>
                     &lt;/div>
@@ -853,7 +853,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button wobble-top-button color-theme-blue position-right-top button-big" >
+    &lt;div class="button wobble-top-button color-theme-blue   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -914,7 +914,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue position-right-top button-big" >
+    &lt;div class="button color-theme-blue   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -978,7 +978,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue wobble-bottom-button position-right-top button-big" >
+    &lt;div class="button color-theme-blue wobble-bottom-button   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -1041,7 +1041,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue buzz-button position-right-top button-big" >
+    &lt;div class="button color-theme-blue buzz-button   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -1107,7 +1107,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue buzz-out-button position-right-top button-big" >
+    &lt;div class="button color-theme-blue buzz-out-button   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -1125,7 +1125,7 @@ class ButtonDetailsDB{
                 .sweep-to-right-button {
                     transition: 0.3s;
                     transition-property: color;
-                    position:relative;  /* without this whole screan is animated*/
+                    position:relative;
                 }
                 .sweep-to-right-button:before {
                  position: absolute;
@@ -1144,7 +1144,6 @@ class ButtonDetailsDB{
                 }
                 .sweep-to-right-button:hover, .sweep-to-right-button:focus, .sweep-to-right-button:active {
                     color: var(--button-hover-fg);
-                    // background-color: var(--button-hover-bg);
                 }
                 
                 .sweep-to-right-button:hover:before, .sweep-to-right-button:focus:before, .sweep-to-right-button:active:before {
@@ -1158,7 +1157,57 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue sweep-to-right-button position-right-top button-big" >
+    &lt;div class="button color-theme-blue sweep-to-right-button   button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
+            'sweep-to-left-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .sweep-to-left-button {
+                    transition: 0.3s;
+                    transition-property: color;
+                    position:relative;
+                }
+                .sweep-to-left-button:before {
+                 position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transform: scaleX(0);
+                    color: var(--button-color-focus);
+                    background-color: var(--button-fg);
+                    transition-property: transform;
+                    transition-duration: 0.3s;
+                    transform-origin: 0%;
+                    content: "";
+                    z-index: -1;
+                }
+                .sweep-to-left-button:hover, .sweep-to-left-button:focus, .sweep-to-left-button:active {
+                    color: var(--button-hover-fg);
+                }
+                
+                .sweep-to-left-button:hover:before, .sweep-to-left-button:focus:before, .sweep-to-left-button:active:before {
+                    transform: scaleX(1);
+                }
+                .sweep-to-left-button {   
+                    z-index: 1;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue sweep-to-left-button   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -1208,7 +1257,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue sweep-to-right-button position-right-top button-big" >
+    &lt;div class="button color-theme-blue sweep-to-right-button   button-big" >
         &lt;div class = "shutter"></div>
             &lt;span>&lt;/span>
         &lt;/div>
@@ -1285,7 +1334,7 @@ class ButtonDetailsDB{
                 <h3>HTML</h3>
                 <pre>
 &lt;div class = "button-wrapper">
-    &lt;div class="button color-theme-blue position-right-top button-big" >
+    &lt;div class="button color-theme-blue   button-big" >
         &lt;div class = "circle hidden">&lt;/div>
         &lt;span>&lt;/span>
     &lt;/div>
@@ -1578,7 +1627,7 @@ class ButtonDetailsDB{
 
         <pre>
         &lt;div class = "button-wrapper">
-            &lt;div class="button center ${buttonType} position-right-top" >
+            &lt;div class="button center ${buttonType}  " >
                 &lt;span>&lt;/span>
             &lt;/div>
         &lt;/div>    
