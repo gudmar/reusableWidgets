@@ -33,6 +33,7 @@ class CustomButton1 extends HTMLElement{
             'buzz-out-button': BuzzOutButton,
             'color-pulse-button': ColorPulseButton,
             'sweep-to-right-button': SweepToRightButton,
+            'sweep-to-left-button': SweepToLeftButton,
             'sweep-to-bottom-button': SweepToBottomButton,
             'dark-sample-button': DarkSampleButton
         }
