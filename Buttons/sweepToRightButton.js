@@ -150,7 +150,7 @@ class SweepToRightButton extends CircleWhereClickedButton{
             .sweep-to-right-button {
                 transition: 0.3s;
                 transition-property: color;
-                position:relative;  /* without this whole screan is animated*/
+                position:relative;
             }
             .sweep-to-right-button:before {
              position: absolute;
@@ -169,7 +169,6 @@ class SweepToRightButton extends CircleWhereClickedButton{
             }
             .sweep-to-right-button:hover, .sweep-to-right-button:focus, .sweep-to-right-button:active {
                 color: var(--button-hover-fg);
-                // background-color: var(--button-hover-bg);
             }
             
             .sweep-to-right-button:hover:before, .sweep-to-right-button:focus:before, .sweep-to-right-button:active:before {
