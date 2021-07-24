@@ -10,7 +10,7 @@ class SpinningWheelWithModalComponent extends SpinningWheelComponent{
     }
     async _afterSpinCallback({winnerLabel, winnerMessage}){
         let info = this._stringToElement(`<info-modal>Winner is: ${winnerLabel}, message: ${winnerMessage}</info-modal>`);
-        document.querySelector('body').appendChild(info);
+        this.shadowRoot.querySelector('.wrapper').appendChild(info);
         let _resolve;
         let resolveOnClick = function(){
             _resolve(true)
