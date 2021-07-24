@@ -82,6 +82,26 @@
     <script src = "WaitingCircles/cubeWaitingCircle.js" defer></script>
     <script src = "WaitingCircles/cubeWaitingCircle_darkTheme.js" defer></script>
 
+    <script src = "SpinningWheel/abstractCustomWebComponent.js" defer></script>
+    <script src = "SpinningWheel/modal.js" defer></script>
+    <script src = "SpinningWheel/modalContentWatcher.js" defer></script>
+    <script src = "SpinningWheel/colorGenerator.js" defer></script>
+    
+    <script src = "SpinningWheel/stateHandlingAbstractComponent.js" defer></script>
+    <script src = "SpinningWheel/wheelDrawer.js" defer></script>
+    <script src = "SpinningWheel/spinningWheelComponent.js" defer></script>
+    <script src = "SpinningWheel/spinningWheelWithInfoComponent.js" defer></script>
+    <script src = "SpinningWheel/listEditingState.js" defer></script>
+    <!-- <script src = "SpinningWheel/wheelManager.js" defer></script> -->
+    
+    
+    
+
+    
+    
+    <script src = "SpinningWheel/wheelManager.js" defer></script>
+    
+
     <script src = "Gauge/valueTextboxContentManager.js" defer></script>
     <script src = "Gauge/ArcDrawer.js" defer></script>
     <script src = "Gauge/svgArcManagerForGauge.js" defer></script>
@@ -200,9 +220,15 @@
                         </div>
                     </div>
                     <div class="widgets-container movable" id = "others-container-id">
-                        <div class="content-headline"><div class="h2 center">Other</div></div>
-
+                        <div class="content-headline"><div class="h2 center">Spinning wheel</div></div>
                         <div class="widget-items center">
+                            <spinning-wheel>
+                                <ul>
+                                    <li data-label = "1">1 content</li>
+                                    <li data-label = "2">2 content</li>
+                                    <li data-label = "3">3 content</li>
+                                </ul>
+                            </spinning-wheel>
                         </div>
                     </div>
                 </div>
