@@ -37,6 +37,7 @@ class CustomButton1 extends HTMLElement{
             'sweep-to-bottom-button': SweepToBottomButton,
             'sweep-to-top-button': SweepToTopButton,
             'bounce-to-right-button': BounceToRightButton,
+            'bounce-to-left-button': BounceToLeftButton,
             'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
