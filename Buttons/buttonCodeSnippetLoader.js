@@ -1219,6 +1219,59 @@ class ButtonDetailsDB{
                 `
             },
 
+            'bounce-to-left-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .bounce-to-left-button {
+                    transition: 0.3s;
+                    transition-property: color;
+                    position:relative;
+                }
+                .bounce-to-left-button:before {
+                 position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transform: scaleX(0);
+                    color: var(--button-color-focus);
+                    background-color: var(--button-fg);
+                    transition-property: transform;
+                    transition-timing-function: ease-out;
+                    transition-duration: 0.3s;
+                    transform-origin: 100%;
+                    content: "";
+                    z-index: -1;
+                }
+                .bounce-to-left-button:hover, .bounce-to-left-button:focus, .bounce-to-left-button:active {
+                    color: var(--button-hover-fg);
+                }
+                
+                .bounce-to-left-button:hover:before, .bounce-to-left-button:focus:before, .bounce-to-left-button:active:before {
+                    transform: scaleX(1);
+                    transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                }
+                .bounce-to-left-button {   
+                    z-index: 1;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue bounce-to-left-button   button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
+
             'sweep-to-left-button': {
                 doNotWrapp: true,
                 innerCode: `
