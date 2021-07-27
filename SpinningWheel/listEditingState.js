@@ -172,7 +172,7 @@ class ListEditingStateComponent extends StateHandlingAbstractComponent{
                     background-color: rgb(100, 100, 100);
                     color: white;
                     position: sticky;
-                    z-index: 10000;
+                    z-index: 10;
                     top: 0;
 
                 }
@@ -204,6 +204,9 @@ class ListEditingStateComponent extends StateHandlingAbstractComponent{
                 th:nth-child(3),td:nth-child(3){
                     width: 75%;
                     padding: 10px;
+                }
+                td:last-child{
+                    cursor: pointer;
                 }
                 .full-table-cell {
                     box-sizing: initial;

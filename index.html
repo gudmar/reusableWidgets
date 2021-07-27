@@ -227,13 +227,21 @@
                     <div class="widgets-container movable" id = "others-container-id">
                         <div class="content-headline"><div class="h2 center">Spinning wheel</div></div>
                         <div class="widget-items center">
-                            <spinning-wheel-info>
+                            <spinning-wheel-info id = "spinning-wheel">
                                 <ul>
                                     <li data-label = "1">1 content</li>
                                     <li data-label = "2">2 content</li>
                                     <li data-label = "3">3 content</li>
                                 </ul>
                             </spinning-wheel-info>
+                            <editing-wheel-state-list id = "spinning-wheel-editor"><ul></ul></editing-wheel-state-list>
+                            <wheel-alike-components-mediator data-subscribers-ids = "spinning-wheel, spinning-wheel-editor">
+                                <ul>
+                                        <li data-label = "1">1 content</li>
+                                        <li data-label = "2">2 content</li>
+                                        <li data-label = "3">3 content</li>                                        
+                                </ul>
+                            </wheel-alike-components-mdeiator>
                         </div>
                     </div>
                 </div>
