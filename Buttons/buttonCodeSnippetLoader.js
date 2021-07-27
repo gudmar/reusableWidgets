@@ -1219,6 +1219,58 @@ class ButtonDetailsDB{
                 `
             },
 
+            'bounce-down-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .bounce-down-button {
+                    transition: 0.3s;
+                    transition-property: color;
+                    position:relative;
+                }
+                .bounce-down-button:before {
+                 position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    transform: scaleY(0);
+                    color: var(--button-color-focus);
+                    background-color: var(--button-fg);
+                    transition-property: transform;
+                    transition-timing-function: ease-out;
+                    transition-duration: 0.3s;
+                    transform-origin: top;
+                    content: "";
+                    z-index: -1;
+                }
+                .bounce-down-button:hover, .bounce-down-button:focus, .bounce-down-button:active {
+                    color: var(--button-hover-fg);
+                }
+                
+                .bounce-down-button:hover:before, .bounce-down-button:focus:before, .bounce-down-button:active:before {
+                    transform: scaleY(1);
+                    transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);	/* transition after mouse leave is ease-out, on hover cubic-beizer */
+                }
+                .bounce-down-button {   
+                    z-index: 1;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue bounce-down-button   button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
             'bounce-to-left-button': {
                 doNotWrapp: true,
                 innerCode: `
