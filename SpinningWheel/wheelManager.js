@@ -2,6 +2,7 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
     constructor(){
         super();
         this.supportedNodeNames = ['SPINNING-WHEEL', 'SPINNING-WHEEL-INFO', 'EDITING-WHEEL-STATE-LIST', 'WHEEL-ALIKE-COMPONENTS-MEDIATOR']
+        this.localStorageReferenceName = '';
     }
 
     static get observedAttributes() {
@@ -26,7 +27,17 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         if (this.querySelector('ul') == null) return null
         // if (this.querySelector('li') == null) return null
         this._updateEachSubscriberOnThisInnerHtmlChange()
-        this._addEventListenersToEachSubscribent();                
+        this._addEventListenersToEachSubscribent();       
+        this.setLocalStorageReferenceName();         
+        this.fillContentFromLocalStorage();
+
+        this.shadowRoot.querySelector('#saveWaitingCircleButton').addEventListener('click', this.saveContentToLocalStorage.bind(this))
+        console.log(this.shadowRoot.querySelector('#saveWaitingCircleButton'))
+        this.shadowRoot.querySelector('#loadContent').addEventListener('click', this.fillContentFromLocalStorage.bind(this))
+    }
+
+    setLocalStorageReferenceName(){
+        this.localStorageReferenceName = `spinning-wheel-memory-${this.getAttribute('id')}`
     }
 
     disconnectedCallback(){
@@ -62,11 +73,7 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         }.bind(this)
         let currnetState = this._copyArrayOfObjects(this._getState().items)
         let stateFromHtmlAfterChange = getStateCopyAfterChange()
-        console.log(this)
-        console.log(mutationsList)
-
-        console.log(JSON.stringify(currnetState))
-        console.log(stateFromHtmlAfterChange)
+        // debugger;
         if (!Comparator.areStatesEqual(getItemsToCompare(currnetState), getItemsToCompare(stateFromHtmlAfterChange))){
             this._state.items = stateFromHtmlAfterChange
             this._recreateThisComponent();
@@ -222,11 +229,57 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         return `
             <style>
                 :host{
+                    // display: none;
+                }
+                ul {
                     display: none;
                 }
             </style>
+                <custom-button-1 data-label="save wheel content" id="saveWaitingCircleButton" data-element-subtype="grow-button" data-color-theme="blue"></custom-button-1>
+                <custom-button-1 data-label="load content" id="loadContent" data-element-subtype="grow-button" data-color-theme="blue"></custom-button-1>
             <ul></ul>
         `
+    }
+
+    saveContentToLocalStorage(){
+        console.log(this.getCurrentContet())
+        console.log(this.localStorageReferenceName)
+        localStorage.setItem(this.localStorageReferenceName, JSON.stringify(this.getCurrentContet()))
+    }
+
+    getContentFromLocalStorage(){
+        return JSON.parse(localStorage.getItem(this.localStorageReferenceName))
+    }
+
+    fillContentFromLocalStorage(){        
+        let contentFromStorage = this.getContentFromLocalStorage();
+        let innerUl = this.querySelector('ul');
+        let output = '';
+        // debugger;
+        console.log('conent should be filled...')
+        if (contentFromStorage != null && contentFromStorage != undefined){
+            for (let item of contentFromStorage){
+                output = output + `<li data-label = "${item.label}">${item.content}</li>`
+            }
+            innerUl.innerHTML = output;
+        }
+    }
+
+    getCurrentContet(){
+        let output = [];
+        let contentHandlingElements = this.querySelectorAll('li')
+        let getSingleRowContent = function(liDocumentElement){
+            let label = liDocumentElement.getAttribute('data-label');
+            let content = liDocumentElement.innerText;
+            return {
+                label: label,
+                content: content
+            }
+        }
+        contentHandlingElements.forEach((element, index) => {
+            output.push(getSingleRowContent(element))
+        })
+        return output;
     }
 }
 
