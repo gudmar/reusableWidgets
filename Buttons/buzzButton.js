@@ -88,12 +88,12 @@ class BuzzButton extends CustomButtonGeneral{
                 z-index: 70;
             }
 
-            .buzz-out-button{
+            .buzz-button{
                 transform-origin: bottom;
             }
 
             .button-wrapper:hover>
-            .buzz-out-button:after{
+            .buzz-button:after{
                 
                 content: '';
                 position: absolute;
@@ -102,11 +102,11 @@ class BuzzButton extends CustomButtonGeneral{
                 z-index: 30;
             }
 
-            .buzz-out-button:hover {
-                animation: buzz-out 0.5s ease-in;
+            .buzz-button:hover {
+                animation: buzz 0.5s ease-in;
                 
             }
-            @keyframes buzz-out {
+            @keyframes buzz {
                 10% {transform: rotate(-5deg);}
                 20% {transform: rotate(10deg);}
                 30% {transform: rotate(-10deg);}
