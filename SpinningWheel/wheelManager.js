@@ -32,8 +32,8 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         this.fillContentFromLocalStorage();
 
         this.shadowRoot.querySelector('#saveWaitingCircleButton').addEventListener('click', this.saveContentToLocalStorage.bind(this))
-        console.log(this.shadowRoot.querySelector('#saveWaitingCircleButton'))
         this.shadowRoot.querySelector('#loadContent').addEventListener('click', this.fillContentFromLocalStorage.bind(this))
+        this.shadowRoot.querySelector('#clearContent').addEventListener('click', this.clearLocalStorageContent.bind(this))
     }
 
     setLocalStorageReferenceName(){
@@ -151,10 +151,7 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         let updateSingleSubscriber = function(id) {
             let currentElement = document.getElementById(id)
             this._changeTargetElementsUlElement(currentElement, newUlDescriptor)
-            console.log(newUlDescriptor)
         }.bind(this)
-        console.log(this);
-        // console.log(this.subscribersStates)
         Object.keys(this.subscribersStates).forEach((id) => {updateSingleSubscriber(id)})      
     }
 
@@ -164,7 +161,6 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         let newUlDescriptor = this._getTargetsListOfDescriptors(event.target)
         let currentDescriptor = this._getTargetsListOfDescriptors(this)
         if (!Comparator.areStatesEqual(newUlDescriptor, currentDescriptor)){
-            console.log(event.target)
             this._changeTargetElementsUlElement(this, newUlDescriptor)
         }  
     }
@@ -237,6 +233,7 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
             </style>
                 <custom-button-1 data-label="save wheel content" id="saveWaitingCircleButton" data-element-subtype="grow-button" data-color-theme="blue"></custom-button-1>
                 <custom-button-1 data-label="load content" id="loadContent" data-element-subtype="grow-button" data-color-theme="blue"></custom-button-1>
+                <custom-button-1 data-label="clear content" id="clearContent" data-element-subtype="grow-button" data-color-theme="blue"></custom-button-1>
             <ul></ul>
         `
     }
@@ -263,7 +260,12 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
             }
             innerUl.innerHTML = output;
         }
+        this._updateEachSubscriberOnThisInnerHtmlChange()
     }
+    clearLocalStorageContent(){
+        localStorage.clear();
+    }
+
 
     getCurrentContet(){
         let output = [];
