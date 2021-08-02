@@ -1,4 +1,4 @@
-class RadialOutButton extends CircleWhereClickedButton{
+class RectangleOutButton extends CircleWhereClickedButton{
     constructor(context){
         super(context);
         this.context = context
@@ -78,7 +78,7 @@ class RadialOutButton extends CircleWhereClickedButton{
                 --button-padding: 5px;
             }
 
-            .color-theme-blue{
+            .color-theme-blue, .color-theme-blue:before{
                 --button-bg: blue;
                 --button-fg: white;
                 --button-hover-fg: rgb(120, 120, 255);
@@ -88,7 +88,7 @@ class RadialOutButton extends CircleWhereClickedButton{
                 --button-border-color: rgba(0, 0, 0, 0);
             }
 
-            .color-theme-green{
+            .color-theme-green, .color-theme-green:before{
                 --button-bg: GreenYellow;
                 --button-fg: DarkGreen;
                 --button-hover-bg: DarkGreen;
@@ -97,7 +97,7 @@ class RadialOutButton extends CircleWhereClickedButton{
                 --button-active-fg: black;
                 --button-border-color: DarkGreen;
             }
-            .color-theme-red{
+            .color-theme-red, .color-theme-red:before{
                 --button-bg: rgb(220, 0, 0);
                 --button-fg: white;
                 --button-hover-bg: rgb(150, 0, 0);
@@ -146,37 +146,40 @@ class RadialOutButton extends CircleWhereClickedButton{
                 z-index: 70;
             }
 
-            .radial-out-button {
+            .rectangle-out-button {
                 transition: 0.3s;
                 transition-property: color;
-                position:relative;  /* without this whole screan is animated*/
+                position:relative; 
                 overflow: hidden;
             }
-            .radial-out-button:before {
-             position: absolute;
-                top: -15px;
-                bottom: -15px;
-                left: -15px;
-                right: -15px;
-                transform: scaleX(0) scaleY(0);
-                color: var(--button-hover-fg);
-                background-color: var(--button-hover-bg);
+            .button:hover>span {
+                z-index: 2;
+                color: var(--button-bg);
+                background-color: var(--button-fg);
+            }
+            .rectangle-out-button:before {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                transform: scaleX(0) scaleY(0) rotate(45deg);
+                color: var(--button-bg);
+                background-color: var(--button-fg);
                 transition-property: transform;
                 transition-duration: 0.3s;
-                transform-origin: 50% 50%; /*start from left side*/
-                border-radius: 50%;
+                transform-origin: 50% 50%;
                 content: "";
-                z-index: -1;  /* very important to show the caption */
+                z-index: -1;
+                overflow: hidden;
             }
-            .radial-out-button:hover, .radial-out-button:focus, .radial-out-button:active {
-                color: var(--button-hover-fg); /* without this no caption */
+            .rectangle-out-button:hover, .rectangle-out-button:focus, .rectangle-out-button:active {
+                color: var(--button-hover-fg);
             }
             
-            .radial-out-button:hover:before, .radial-out-button:focus:before, .radial-out-button:active:before {
-                transform: scaleX(1) scaleY(1);
+            .rectangle-out-button:hover:before, .rectangle-out-button:focus:before, .rectangle-out-button:active:before {
+                transform: scaleX(1) scaleY(1) rotate(45deg);;
             }
-            .radial-out-button {   
-                z-index: 1; /* very important to show the caption */
+            .rectangle-out-button {   
+                z-index: 1;
             }
             
             </style>
