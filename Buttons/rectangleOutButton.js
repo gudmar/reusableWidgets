@@ -100,8 +100,8 @@ class RectangleOutButton extends CircleWhereClickedButton{
             .color-theme-red, .color-theme-red:before{
                 --button-bg: rgb(220, 0, 0);
                 --button-fg: white;
-                --button-hover-bg: rgb(150, 0, 0);
-                --button-hover-fg: white;
+                --button-hover-fg: rgb(150, 0, 0);
+                --button-hover-bg: white;
                 --button-active-bg: rgb(200, 200, 255);
                 --button-active-fg: black;
                 --button-border-color: rgba(0, 0, 0, 0);
@@ -154,8 +154,8 @@ class RectangleOutButton extends CircleWhereClickedButton{
             }
             .button:hover>span {
                 z-index: 2;
-                color: var(--button-bg);
-                background-color: var(--button-fg);
+                color: var(--button-hover-fg);
+                background-color: var(--button-hover-bg);
             }
             .rectangle-out-button:before {
                 position: absolute;

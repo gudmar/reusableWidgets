@@ -1594,8 +1594,8 @@ class ButtonDetailsDB{
                 }
                 .button:hover>span {
                     z-index: 2;
-                    color: var(--button-bg);
-                    background-color: var(--button-fg);
+                    color: var(--button-hover-fg);
+                    background-color: var(--button-hover-bg);
                 }
                 .rectangle-out-button:before {
                     position: absolute;

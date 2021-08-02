@@ -100,8 +100,8 @@ class RadialOutButton extends CircleWhereClickedButton{
             .color-theme-red{
                 --button-bg: rgb(220, 0, 0);
                 --button-fg: white;
-                --button-hover-bg: rgb(150, 0, 0);
-                --button-hover-fg: white;
+                --button-hover-fg: rgb(150, 0, 0);
+                --button-hover-bg: white;
                 --button-active-bg: rgb(200, 200, 255);
                 --button-active-fg: black;
                 --button-border-color: rgba(0, 0, 0, 0);
@@ -166,17 +166,20 @@ class RadialOutButton extends CircleWhereClickedButton{
                 transform-origin: 50% 50%; /*start from left side*/
                 border-radius: 50%;
                 content: "";
-                z-index: -1;  /* very important to show the caption */
+                z-index: -1;
             }
             .radial-out-button:hover, .radial-out-button:focus, .radial-out-button:active {
-                color: var(--button-hover-fg); /* without this no caption */
+                color: var(--button-hover-fg);
+                background-color: var(-button-hover-bg);
             }
             
             .radial-out-button:hover:before, .radial-out-button:focus:before, .radial-out-button:active:before {
                 transform: scaleX(1) scaleY(1);
+                color: var(--button-hover-fg);
+                background-color: var(--button-hover-bg);
             }
             .radial-out-button {   
-                z-index: 1; /* very important to show the caption */
+                z-index: 1;
             }
             
             </style>
