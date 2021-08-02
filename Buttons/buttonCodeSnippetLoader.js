@@ -1580,6 +1580,61 @@ class ButtonDetailsDB{
                 `
             },
 
+            'rectangle-out-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h3>CSS:</h3>
+                <pre>
+
+                .rectangle-out-button {
+                    transition: 0.3s;
+                    transition-property: color;
+                    position:relative; 
+                    overflow: hidden;
+                }
+                .button:hover>span {
+                    z-index: 2;
+                    color: var(--button-bg);
+                    background-color: var(--button-fg);
+                }
+                .rectangle-out-button:before {
+                    position: absolute;
+                    width: 200px;
+                    height: 200px;
+                    transform: scaleX(0) scaleY(0) rotate(45deg);
+                    color: var(--button-bg);
+                    background-color: var(--button-fg);
+                    transition-property: transform;
+                    transition-duration: 0.3s;
+                    transform-origin: 50% 50%;
+                    content: "";
+                    z-index: -1;
+                    overflow: hidden;
+                }
+                .rectangle-out-button:hover, .rectangle-out-button:focus, .rectangle-out-button:active {
+                    color: var(--button-hover-fg);
+                }
+                
+                .rectangle-out-button:hover:before, .rectangle-out-button:focus:before, .rectangle-out-button:active:before {
+                    transform: scaleX(1) scaleY(1) rotate(45deg);;
+                }
+                .rectangle-out-button {   
+                    z-index: 1;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue rectangle-out-button   button-big" >
+        &lt;div class = "shutter"></div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    &lt;/div>                
+                </pre>
+                `
+            },
+
 
             'color-pulse-button': {
                 doNotWrapp: true,
