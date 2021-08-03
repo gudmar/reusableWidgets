@@ -23,11 +23,6 @@ class SpinningWheelComponent extends StateHandlingAbstractComponent{
         this._addSpinningWheel();
     }
 
-    // connectedCallback(){
-    //     // this._addSpinningWheel();
-    //     console.log("SPINNING WHEEL ADDED")
-    // }
-
     _setNewState() {
         this._state.items = undefined;
         this._getState();

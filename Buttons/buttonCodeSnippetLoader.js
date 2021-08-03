@@ -4,7 +4,6 @@ class ButtonDetailsDB{
 
     static getDetailsAbout(widgetDescriptor){
         let details = ButtonDetailsDB.getButtonSpecificCode(widgetDescriptor);
-        // console.log(Object.keys(ButtonDetailsDB.get))
         if (details == undefined) return null;
         let beforeCode = details['codeBefore'] == undefined ? '' : details['codeBefore'];
         let innerCode = details['innerCode'] == undefined ? '' : details['innerCode'];

@@ -38,7 +38,6 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
 
     setButtonToActiveUnactiveState(value){
         if (!value) {
-            console.log('I am here')
             {this.changeButtonColorThemeClass('inactive')}
             this.context.button.classList.remove(this.buttonType)
             this.removeOnclickAnimation()
@@ -56,7 +55,6 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
     }
 
     removeOnclickAnimation(){
-        console.log('Animation should be rem')
         this.button.removeEventListener('click', this.animateOnclickFunctoinInstance)
     }
 

@@ -12,7 +12,6 @@ class WaitngCircleDetailsDB{
     }
 
     static getSpecificCode(key) {
-        console.log(key)
         let dbObject = {
             'sample-waiting-circle': {
                 innerCode: `
