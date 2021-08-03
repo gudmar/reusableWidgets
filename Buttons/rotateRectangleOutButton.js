@@ -9,7 +9,6 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
 
     setButtonToInactiveState({buttonType}){
         this.changeButtonColorThemeClass('inactive')
-        console.log(buttonType)
         this.context.shadowRoot.querySelector('.button').classList.remove(buttonType)
     }
 
@@ -57,7 +56,7 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
             <style>
             *{
                 position: relative;
-                --animation-time: 0.5s;
+                --animation-time: 3.5s;
             }
             .circle{
                 position: absolute;
@@ -178,11 +177,7 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
                 overflow: hidden;
                 z-index: 20;
             }
-            .shutter>span{
-                position: relative;
-                transition: var(--animation-time);
-            }
-            
+
             .rotate-rectangle-out-button:hover>.shutter {
                 transform: rotate(0deg);
                 transform-origin: 50% 50%;
@@ -197,8 +192,10 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
             }
             .shutter-label{
                 position: relative;
+                position: absolute;
                 display: inline-block;
                 color: var(--button-hover-fg);
+                transition: var(--animation-time);
                 z-index: 30;
             }
             

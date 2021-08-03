@@ -31,7 +31,6 @@ class AbstractComponentWheel extends HTMLElement {
 
     _onInnerHTMLChange() {
             this.content.innerHTML = this.innerHTML
-            console.log('CHANGING WRAPPED CONTENT')
     }
 
     setStateIfNoAttrDefined(attrName, stateKey, cb){
@@ -48,10 +47,6 @@ class AbstractComponentWheel extends HTMLElement {
         return template.content.cloneNode(true)        
     }
     _switchContent(htmlString, destinationElement){
-        // let template = document.createElement('template');
-        // template.innerHTML = htmlString;
-        // destinationElement.innerText = '';
-        // destinationElement.appendChild(template.content.cloneNode(true));
         destinationElement.appendChild(this._stringToElement(htmlString))
     }
     _getUniqueId() {

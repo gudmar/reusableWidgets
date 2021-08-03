@@ -167,7 +167,6 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
 
 
     _changeTargetElementsUlElement(targetElement, newUlDescriptor) {
-        // console.log(this)
         try{
             this._removeElement.call(targetElement, targetElement.querySelector('ul'))
         } catch(e) {
@@ -188,7 +187,6 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
 
 
     _getTargetsListOfDescriptors(element){
-        // console.warn(`${this.constructor.name}: case when this is null not supported / test for ul not nested`)
         let listOfListElements = element.querySelectorAll('li');
         let getLiDescriptor = this._getSingleLiDescriptor.bind(this)
         return Array.from(listOfListElements).map(getLiDescriptor)
@@ -239,8 +237,6 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
     }
 
     saveContentToLocalStorage(){
-        console.log(this.getCurrentContet())
-        console.log(this.localStorageReferenceName)
         localStorage.setItem(this.localStorageReferenceName, JSON.stringify(this.getCurrentContet()))
     }
 
@@ -252,8 +248,6 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
         let contentFromStorage = this.getContentFromLocalStorage();
         let innerUl = this.querySelector('ul');
         let output = '';
-        // debugger;
-        console.log('conent should be filled...')
         if (contentFromStorage != null && contentFromStorage != undefined){
             for (let item of contentFromStorage){
                 output = output + `<li data-label = "${item.label}">${item.content}</li>`

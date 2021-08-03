@@ -31,7 +31,6 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
     static openModalWithContent(elementSubtype){
         let modal = document.createElement('killable-modal');
         let content = new CodePresentationCustomWebElement(WaitngCircleDetailsDB.getDetailsAbout(elementSubtype))
-        console.log(elementSubtype)
         modal.insertElementToKillableModal(content);
         document.querySelector('body').appendChild(modal)
     }

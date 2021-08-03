@@ -189,8 +189,6 @@ class ValueTextboxContentManager{
 
     isLabelTooLong(){
         let convetedFullBoxContent = this.fullValueBoxContent + '';
-        console.log(convetedFullBoxContent.length)
-        console.log(convetedFullBoxContent.length > this.maxLabelLength)
         return convetedFullBoxContent.length > this.maxLabelLength
     }
 

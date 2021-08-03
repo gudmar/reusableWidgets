@@ -105,10 +105,8 @@ class SingleElementPresenter extends HTMLElement{
             this.labelInput.addEventListener('input', this.setLabelChange.bind(this))
         }
         if (this.wrappedElementType == 'line-gauge'){
-            console.log('line-gauge')
             let sizeControllingSlider = this.shadowRoot.querySelector('#size-controlling-slider')
             let valueControllingSlider = this.shadowRoot.querySelector('#value-controlling-slider')
-            // let changeValueControlligSlidersValue = function(e){tihs.changeTart}
             this.acitivatingSwitch.addEventListener('click', this.activateDisactivateButton.bind(this))
             sizeControllingSlider.addEventListener('linear-gauge-changed-value', this.changeWrappedElementWidth.bind(this))
             valueControllingSlider.addEventListener('linear-gauge-changed-value', this.changeWrappedElementValue.bind(this))
