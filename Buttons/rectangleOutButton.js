@@ -49,6 +49,7 @@ class RectangleOutButton extends CircleWhereClickedButton{
             <style>
             *{
                 position: relative;
+                --animation-time: 0.5s;
             }
             .circle{
                 position: absolute;
@@ -147,7 +148,7 @@ class RectangleOutButton extends CircleWhereClickedButton{
             }
 
             .rectangle-out-button {
-                transition: 0.3s;
+                transition: var(--animation-time);
                 transition-property: color;
                 position:relative; 
                 overflow: hidden;
@@ -155,17 +156,17 @@ class RectangleOutButton extends CircleWhereClickedButton{
             .button:hover>span {
                 z-index: 2;
                 color: var(--button-hover-fg);
-                background-color: var(--button-hover-bg);
+                background-color: transparent;
             }
             .rectangle-out-button:before {
                 position: absolute;
-                width: 200px;
-                height: 200px;
+                width: 100px;
+                height: 100px;
                 transform: scaleX(0) scaleY(0) rotate(45deg);
                 color: var(--button-bg);
                 background-color: var(--button-fg);
                 transition-property: transform;
-                transition-duration: 0.3s;
+                transition-duration: var(--animation-time);
                 transform-origin: 50% 50%;
                 content: "";
                 z-index: -1;
@@ -176,7 +177,8 @@ class RectangleOutButton extends CircleWhereClickedButton{
             }
             
             .rectangle-out-button:hover:before, .rectangle-out-button:focus:before, .rectangle-out-button:active:before {
-                transform: scaleX(1) scaleY(1) rotate(45deg);;
+                transform: scaleX(1) scaleY(1) rotate(45deg);
+                transition-duration: var(--animation-time);
             }
             .rectangle-out-button {   
                 z-index: 1;
