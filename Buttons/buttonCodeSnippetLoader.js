@@ -1634,6 +1634,76 @@ class ButtonDetailsDB{
                 `
             },
 
+            'rotate-rectangle-out-button': {
+                doNotWrapp: true,
+                innerCode: `
+                <h2>rotate-rectangle-out-button</h2>
+                Extra shutter element was added to html. It has <code>overflow: hidden</code>, and absolure span with button label inside.
+                Thanks to this solution, when shutter is animating and getting larger, caption inside shutter is of oposite color to caption
+                outside shutter. Unfortunately, due to fact, that shutter is rotating, and span inside has to rotate oposite direction to 
+                emulate effect of statnding still, there is a jitter effect. For now unresolved.
+                <h3>CSS:</h3>
+                <pre>
+                .rotate-rectangle-out-button {
+                    transition-property: color;
+                    position:relative; 
+                    overflow: hidden;
+                    z-index: 1;
+                }
+                
+                .shutter{
+                    display: flex;
+                    justify-content:center;
+                    align-items: center;
+                    position: absolute;
+                    width: 0px;
+                    height: 0px;
+                    transform: rotate(0deg);
+                    transition: var(--animation-time);
+                    background-color: var(--button-hover-bg);
+                    color: var(--button-hober-fg);
+                    overflow: hidden;
+                    z-index: 20;
+                }
+    
+                .rotate-rectangle-out-button:hover>.shutter {
+                    transform: rotate(0deg);
+                    transform-origin: 50% 50%;
+                    transform: rotate(-90deg);
+                    width: 100px;
+                    height: 100px;
+                    transition: var(--animation-time);
+                }
+                .rotate-rectangle-out-button:hover>.shutter>span {
+                    transform: rotate(90deg);
+                    transition: var(--animation-time);
+                }
+                .shutter-label{
+                    position: relative;
+                    position: absolute;
+                    display: inline-block;
+                    color: var(--button-hover-fg);
+                    transition: var(--animation-time);
+                    z-index: 30;
+                }
+    
+                </pre>
+                <h3>HTML</h3>
+                <pre>
+&lt;div class = "button-wrapper">
+    &lt;div class="button color-theme-blue position-right-top button-big" >
+        &lt;div class = "shutter">
+            &lt;span class="shutter-label"></span>
+        &lt;/div>
+        &lt;div class = "circle hidden">&lt;/div>
+        &lt;span class="button-label">&lt;/span>
+    &lt;/div>
+&lt;/div>           
+                </pre>
+                `
+            },
+
+
 
             'color-pulse-button': {
                 doNotWrapp: true,

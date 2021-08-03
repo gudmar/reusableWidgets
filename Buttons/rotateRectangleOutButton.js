@@ -56,7 +56,7 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
             <style>
             *{
                 position: relative;
-                --animation-time: 3.5s;
+                --animation-time: 0.5s;
             }
             .circle{
                 position: absolute;
@@ -155,14 +155,12 @@ class RotateRectangleOutButton extends CircleWhereClickedButton{
             }
 
             .rotate-rectangle-out-button {
-                transition: 0.3s;
                 transition-property: color;
                 position:relative; 
                 overflow: hidden;
-            }
-            .rotate-rectangle-out-button {   
                 z-index: 1;
             }
+            
             .shutter{
                 display: flex;
                 justify-content:center;
