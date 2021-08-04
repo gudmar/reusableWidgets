@@ -56,7 +56,6 @@ class WaitingCircleGeneralClass {
     }
 
     getAllCircleElements() {
-        console.log(this.context.shadowRoot.querySelectorAll('.circle'))
         return this.context.shadowRoot.querySelectorAll('.circle')
     }
 
@@ -80,7 +79,6 @@ class WaitingCircleGeneralClass {
         let oldClass = '';
         let allElementsToChange = this.getAllCircleElements();
         let changeSingleElementsClass = function(element){
-            console.log(element)
                 Array.from(element.classList).forEach((item, index) => {
                 if (item.indexOf(classNamePattern) != -1){oldClass = item}
                 if (oldClass != '') {
