@@ -55,13 +55,18 @@ class WaitingCircleGeneralClass {
         return this.context.shadowRoot.querySelector('.circle')
     }
 
+    getAllCircleElements() {
+        console.log(this.context.shadowRoot.querySelectorAll('.circle'))
+        return this.context.shadowRoot.querySelectorAll('.circle')
+    }
+
 
     checkIfColorThemeIsSupported(colorThemeName){
         return this.supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
     }
 
     changeElementSize(newSize){
-        this.changePartOfClassNameInElement('size-', newSize)
+        this.changePartOfClassNameInElement('size-', newSize);
     }
 
     changeElementsColorThemeClassIfColorSupported(newColorTheme){
@@ -73,11 +78,18 @@ class WaitingCircleGeneralClass {
 
     changePartOfClassNameInElement(classNamePattern, newPartOfClassToBeInserted){
         let oldClass = '';
-        Array.from(this.getElement().classList).forEach((item, index) => {    
-            if (item.indexOf(classNamePattern) != -1){oldClass = item}
-        })
-        if (oldClass != '') {this.getElement().classList.remove(oldClass)}
-        this.getElement().classList.add(classNamePattern + newPartOfClassToBeInserted)
+        let allElementsToChange = this.getAllCircleElements();
+        let changeSingleElementsClass = function(element){
+            console.log(element)
+                Array.from(element.classList).forEach((item, index) => {
+                if (item.indexOf(classNamePattern) != -1){oldClass = item}
+                if (oldClass != '') {
+                    element.classList.remove(oldClass)
+                    element.classList.add(classNamePattern + newPartOfClassToBeInserted)
+                }        
+            })
+        }.bind(this)
+        Array.from(allElementsToChange).forEach(changeSingleElementsClass)
     }
 
     emptyShadowRoot(){

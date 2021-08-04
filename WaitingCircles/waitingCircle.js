@@ -16,6 +16,7 @@ class WaitingCircle extends HTMLElement{
             'blinking-dots-waiting-circle': BlinkingDotsWaitingCircle,
             'bubbling-circles-waiting-circle': BubblingCirclesWaitingCircle,
             'growing-ring-SVG-waiting-circle':GrowingRingSVGWaitingCircle,
+            'rectangle-waiting-circle':RectangleWaitingCircle,
             'cube-waiting-circle':CubeWaitingCircle,
             'dark-cube-waiting-circle':CubeWaitingCircle_DarkTheme
         }
