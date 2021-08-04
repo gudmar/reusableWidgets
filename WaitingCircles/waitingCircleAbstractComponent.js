@@ -28,6 +28,7 @@ class AbstractWaitingCircle extends AbstractComponent{
                 }
                 if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
                 obj[prop] = value;
+                debugger;
                 return true;
             }.bind(this),
             get: function(obj, prop, receiver){
