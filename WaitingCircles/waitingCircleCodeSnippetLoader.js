@@ -1068,6 +1068,103 @@ and effect will work. Have fun &#128526;
 
             },            
 
+            
+
+
+            'galaxy-waiting-circle': {
+                'innerCode': 
+`
+This work is inspired by <a href="https://codepen.io/IndependentSw/" target="_blank">this code pen</a>.
+It was explored by me at begining of my learning path. Idea seemed proper for a waiting circle.
+Important not to forget <code>transform-style: preserve-3d</code>
+<b>CSS</b>
+<pre>
+*{
+    --year-duration: 1.3s;
+}
+.size-small{ 
+    --circle-radius: 60px; 
+    --orbit-size: 60px;
+    --star-size: 18px;
+    --planet-size: 8px;
+}
+.color-theme-blue{
+    --color-dark: blue;
+    --color-light: rgb(180, 180, 255) ;
+}
+
+.wrapper {
+    position: relative;
+    width: var(--circle-radius);
+    height: var(--circle-radius);
+    transform: rotateX(60deg);
+    transform-style: preserve-3d;
+}
+
+.orbit {
+    
+    position: relative;
+    width: var(--orbit-size);
+    height: var(--orbit-size);
+    border-radius: 50%;
+    border: solid var(--color-light) thin;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    
+    transform-style: preserve-3d;
+    overflow: visible;
+    animation: rotate-orbit var(--year-duration) linear infinite;
+}
+.star {
+    position: absolute;
+    width: var(--star-size);
+    height: var(--star-size);
+    top: calc( 50% - 0.5*var(--star-size) );
+    left: calc( 50% - 0.5*var(--star-size) );
+    border-radius: 50%;
+    background-color: var(--color-dark);
+    transform-style: preserve-3d;
+    animation: counter-orbit-rotation var(--year-duration) linear infinite;
+    z-index: 100;
+}
+.planet {
+    position: absolute;
+    top: 0;
+    width: var(--planet-size);
+    height: var(--planet-size);
+    background-color: var(--color-dark);
+    border-radius: 50%;
+    top: calc( 0.5 * var(--planet-size));
+    left: calc( 0.5 * var(--planet-size));
+    transform-style: preserve-3d;
+    animation: counter-orbit-rotation var(--year-duration) linear infinite;
+    z-index: 100;
+}
+@keyframes rotate-orbit{
+    0% {transform: rotateZ(0deg);}
+    100% {transform: rotateZ(360deg);}
+}
+@keyframes counter-orbit-rotation{
+    0% {transform:  rotateX(90deg) rotateY(0deg) rotateZ(0deg); }
+    100% {transform:  rotateX(90deg) rotateY(-360deg) rotateZ(0deg); }
+}
+
+</style>
+</pre>
+<b>HTML</b>
+<pre>
+&lt;div class = "wrapper circle size-small center">
+    &lt;div class = "circle orbit size-small galaxy-waiting-circle rotate color-theme-blue">
+        &lt;div class = "circle size-small planet color-theme-blue">&lt;/div>
+        &lt;div class = "circle size-small star color-theme-blue">&lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+`  
+
+            },                        
+
 
             'growing-ring-SVG-waiting-circle': {
                 'innerCode': 
