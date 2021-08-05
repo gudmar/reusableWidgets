@@ -1068,7 +1068,7 @@ and effect will work. Have fun &#128526;
 
             },            
 
-            
+
 
 
             'galaxy-waiting-circle': {
@@ -1153,6 +1153,122 @@ Important not to forget <code>transform-style: preserve-3d</code>
 </style>
 </pre>
 <b>HTML</b>
+<pre>
+&lt;div class = "wrapper circle size-small center">
+    &lt;div class = "circle orbit size-small galaxy-waiting-circle rotate color-theme-blue">
+        &lt;div class = "circle size-small planet color-theme-blue">&lt;/div>
+        &lt;div class = "circle size-small star color-theme-blue">&lt;/div>
+    &lt;/div>
+&lt;/div>
+</pre>
+`  
+
+            },                        
+
+            
+
+
+            'galaxy-waiting-circle-dark-theme': {
+                'innerCode': 
+`
+This work is inspired by <a href="https://codepen.io/IndependentSw/" target="_blank">this code pen</a> and 
+<a href = "https://css-tricks.com/how-to-create-neon-text-with-css/" target="_blank">this</a> article.
+After remembering about <code>transform-style: preserve-3d</code> it is important to notice, that setting too small
+sizes of elements that have shadows attached to, gives poor result. So planet of size 4px gave no visible shadow.</br>
+Hope this scss works, as I have still learning css preprocesors ahead. In original code JS was used to loop through shadows &#128521;
+<h3>SCSS</h3>
+<pre>
+
+$year-duration: 1.3s;
+$circle-radius: 60px; 
+$orbit-size: 60px;
+$star-size: 20px;
+$planet-size: 12px;
+$color-dark: blue;
+$color-light: rgb(180, 180, 255) ;
+
+.wrapper {
+    position: relative;
+    width: $circle-radius;
+    height: $circle-radius;
+    transform: rotateX(60deg);
+    transform-style: preserve-3d;
+}
+
+.orbit {
+    
+    position: relative;
+    width: $orbit-size;
+    height: $orbit-size;
+    border-radius: 50%;
+    border: solid $color-light thin;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    
+    transform-style: preserve-3d;
+    overflow: visible;
+    animation: rotate-orbit $year-duration linear infinite;
+}
+.star {
+    position: absolute;
+    width: $star-size;
+    height: $star-size);
+    top: (50% - 0.5*$star-size);
+    left: (50% - 0.5*$star-size);
+    border-radius: 50%;
+    background-color: $color-dark);
+    transform-style: preserve-3d;
+    animation: counter-orbit-rotation $year-duration) linear infinite;
+    z-index: 100;
+}
+.planet {
+    position: absolute;
+    top: 0;
+    width: $planet-size;
+    height: $planet-size;
+    background-color: $color-dark;
+    border-radius: 50%;
+    top: (0.5 * $planet-size);
+    left: (0.5 * $planet-size);
+    transform-style: preserve-3d;
+    animation: counter-orbit-rotation $year-duration linear infinite;
+    z-index: 100;
+}
+
+@function makeShadow($color){
+    $val: 0px 0px $color;
+    $grade: 10;
+    @for $i from 1 through 20 {
+        $val: #{$val}, 0px 0px #{$i*$grade}px #{color};
+    }
+    return $val
+}
+
+@mixin getshadow($color) {
+    box-shadow: makeShadow($color);
+}
+
+$grade = 10;
+.color-theme-blue>.planet{
+    @include getshadow(#5af);
+}
+.color-theme-blue>.star{
+    @include getshadow(#5af);
+}
+
+@keyframes rotate-orbit{
+    0% {transform: rotateZ(0deg);}
+    100% {transform: rotateZ(360deg);}
+}
+@keyframes counter-orbit-rotation{
+    0% {transform:  rotateX(90deg) rotateY(0deg) rotateZ(0deg); }
+    100% {transform:  rotateX(90deg) rotateY(-360deg) rotateZ(0deg); }
+}
+
+</style>
+</pre>
+<h3>HTML</h3>
 <pre>
 &lt;div class = "wrapper circle size-small center">
     &lt;div class = "circle orbit size-small galaxy-waiting-circle rotate color-theme-blue">
