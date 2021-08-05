@@ -19,6 +19,7 @@ class WaitingCircle extends HTMLElement{
             'rectangle-waiting-circle':RectangleWaitingCircle,
             'cube-waiting-circle':CubeWaitingCircle,
             'galaxy-waiting-circle':GalaxyWaitingCircle,
+            'galaxy-waiting-circle-dark-theme':GalaxyWaitingCircleDarkTheme,
             'dark-cube-waiting-circle':CubeWaitingCircle_DarkTheme
         }
         
