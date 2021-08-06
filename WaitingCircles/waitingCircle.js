@@ -14,6 +14,7 @@ class WaitingCircle extends HTMLElement{
             'water-circles-waiting-circle': WaterCirclesWaitingCircle,
             'growing-ring-waiting-circle': GrowingRingWaitingCircle,
             'blinking-dots-waiting-circle': BlinkingDotsWaitingCircle,
+            'flower-waiting-circle': FlowerWaitingCircle,
             'bubbling-circles-waiting-circle': BubblingCirclesWaitingCircle,
             'growing-ring-SVG-waiting-circle':GrowingRingSVGWaitingCircle,
             'rectangle-waiting-circle':RectangleWaitingCircle,
