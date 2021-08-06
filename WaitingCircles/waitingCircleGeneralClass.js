@@ -36,7 +36,7 @@ class WaitingCircleGeneralClass {
         for (let i = 0; i < nrOfElements; i++){
             output = output + `
             .element-located-on-circle-${i} {
-                transform: translate(-50%, -50%) rotate(${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(-${angleBetweenElements * 1}deg); 
+                transform: translate(-50%, -50%) rotate(${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(${angleBetweenElements * -4}deg); 
                 animation-delay: ${animationDelayDelta * i}ms;
             } `
         }
