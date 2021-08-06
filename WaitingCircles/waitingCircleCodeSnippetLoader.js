@@ -973,6 +973,149 @@ getElementsToBeLocadetOnCircle(nrOfElements){
 
 
 
+            'flower-waiting-circle': {
+                'innerCode': 
+`
+Idea is to create a circle out of div, set its overflow to hidden, and color only upper part of this div with another div.
+Tirangle part of each figure is made out of borders of next div element.
+I hope SCSS works, as learning it is stil ahead of me, and original code for styling loops is in JS.
+<h3>SCSS</h3>
+<pre>
+
+$circle-diameter: 50px;
+$color-dark: blue;
+$color-light: rgb(180, 180, 255) ;
+$nr-of-elements: 16;
+
+
+.wrapper {
+    position: relative;
+    width: $circle-diameter;
+    height: $circle-diameter;
+    transform: translate(-50%, -50%);
+}
+
+.circle{
+    position: absolute;
+    border-radius: 50%;
+    width: $circle-diameter;
+    height: $circle-diameter;
+    z-index: 25;
+}
+
+.element-located-on-circle {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    &>*{
+        animation: infinite-blinking 1.6s linear infinite;    
+    }
+
+    
+}
+
+.circle-part{
+    position: relative;
+    width: 0.2 * $circle-diameter;
+    height: 0.2 * $circle-diameter;
+    border-radius: 50%;
+    background-color: transparent;
+    overflow: hidden;
+    border: none;
+}
+
+.circle-part-color{
+    position: relative;
+    width: 0.2 * $circle-diameter;
+    height: 0.2 * $circle-diameter;
+    background-color: $color-dark;
+    transform: translate(0, 100%);
+    outline: none;
+    border: none;
+    
+}
+.triangle-part{
+
+
+    border-bottom: solid var(--color-dark) calc( var(--circle-diameter) * 0.7);
+    border-left: solid transparent $circle-diameter * 0.1;
+    border-right: solid transparent $circle-diameter * 0.1;
+    border-top: soid transparent 0px;
+    position: relative;
+    width: 0px;
+    height: 0px;
+    top: 0.1 * $circle-diameter;
+}
+
+$count = 0;
+$angle-between-elements = 360 / $nr-of-elements
+@while $count < $nr-of-elements {
+    .element-located-on-circle-#{$count} {
+        transform: translate(-50%, -50%) rotate($angle-between-elements * $count + deg) translate(0.5 $circle-diameter)) rotate(($angleBetweenElements*-4) + deg));
+        &>*{
+            animation-delay: $animationDelayDelta * count + ms;    
+        }
+}
+
+
+@keyframes infinite-blinking{
+    0% {
+        opacity: 1; 
+    }
+    10% {
+        opacity: 0.9; 
+    }
+    20% {
+        opacity: 0.8; 
+    }
+    30% {
+        opacity: 0.7;            
+    }
+    50% {
+        opacity: 0.6;         
+
+    }
+    60% {opacity: 0.5;}
+    70% {opacity: 0.4;}
+    80% {opacity: 0.35;}
+    90% {opacity: 0.3;}
+    100% {opacity: 0.25;}
+}
+
+</style>
+</pre>
+<h3>HTML</h3>
+<pre>
+&lt;div class = "wrapper circle size-\${this.size} center">
+    &lt;div class = "circle  rotate color-theme-\${this.colorTheme}">
+        \${this.getFlowerPetals(this.nrOfElementsOnCirlce)}
+    &lt;/div>
+&lt;/div>
+</pre>
+where 
+<h3>JS</h3>
+<pre>
+getFlowerPetals(nrOfElements){
+    let output = '';
+    for (let i = 0; i < nrOfElements; i++){
+        output = output + \`&lt;div class = 'element-located-on-circle element-located-on-circle-$\{i}'>
+                            &lt;div class = "triangle-part">\`&lt;/div>
+                               &lt;div class = "circle-part">
+                                    &lt;div class = "circle-part-color">\`&lt;/div>
+                                &lt;/div>
+                            &lt;/div>\`
+    }
+    return output;
+}
+</pre>
+`  
+
+            }, 
+
+
+
             'rectangle-waiting-circle': {
                 'innerCode': 
 `
