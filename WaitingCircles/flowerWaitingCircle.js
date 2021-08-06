@@ -43,7 +43,7 @@ class FlowerWaitingCircle extends WaitingCircleGeneralClass{
             align-items: center;
             justify-content: center;
         }
-        .size-small{ --circle-diameter: 50px; }
+        .size-small{ --circle-diameter: 20px; }
         .size-medium{ --circle-diameter: 30px; }
         .size-big{ --circle-diameter: 50px; }
         .color-theme-green{
