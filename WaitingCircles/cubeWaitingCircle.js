@@ -112,7 +112,7 @@ class CubeWaitingCircle extends WaitingCircleGeneralClass{
         
         </style>
         
-        <div class="wrapper center size-${this.size}">
+        <div class="circle wrapper center size-${this.size}">
             <div class="cube rotate circle color-theme-${this.colorTheme}">
                 <div class="placer">
                     <div class="wall center front"></div>

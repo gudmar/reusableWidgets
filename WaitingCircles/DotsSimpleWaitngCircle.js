@@ -47,6 +47,7 @@ class DotsSimpleWaitnigCirlce extends WaitingCircleGeneralClass{
             width: var(--circle-radius);
             height: var(--circle-radius);
             z-index: 25;
+            transform: translate(-50%, -50%);
         }
         .size-small{ --circle-dots-radius: 20px; }
         .size-medium{ --circle-dots-radius: 30px; }
@@ -86,7 +87,7 @@ class DotsSimpleWaitnigCirlce extends WaitingCircleGeneralClass{
         }
 
         </style>
-        <div class = "wrapper size-${this.size} center">
+        <div class = "circle wrapper size-${this.size} center">
             <div class = "circle  rotate color-theme-${this.colorTheme}">
                 <div class = "dot deg0"></div>
                 <div class = "dot deg30"></div>
