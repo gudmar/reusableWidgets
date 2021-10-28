@@ -11,7 +11,7 @@ setOnclick(stringToCall){
 }
 
 addWrappedElement(id = 'wrapped-element-id'){
-    this.context.shadowRoot.appendChild(this.stringToElement(this.getElementSpecyficStyling()));
+    // this.context.shadowRoot.appendChild(this.stringToElement(this.getElementSpecyficStyling()));
     let elementToAdd = this.stringToElement(this.getElementSpecyficTemplate(id))
     this.context.addWrappedElement(elementToAdd)
     this.addMenuToContext();

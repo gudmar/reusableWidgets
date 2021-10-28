@@ -16,9 +16,7 @@ class ArcGaugeWrapper extends PresenterMethodProvider{
 
     getElementSpecyficStyling(){
         return`
-            <styling>
 
-            </styling>
         `
     }
     getElementSpecyficTemplate(){
