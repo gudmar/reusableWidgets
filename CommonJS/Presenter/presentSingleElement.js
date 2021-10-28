@@ -118,6 +118,37 @@ class SingleElementPresenter extends HTMLElement{
     _getTemplate(){
         return `
             <style>
+              ::-webkit-scrollbar {
+                width: 5px;
+              }
+              
+              /* Track */
+              ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25); 
+                border-radius: 20px 0 0 20px;
+              }
+               
+              /* Handle */
+              ::-webkit-scrollbar-thumb {
+                background: rgba(150, 150, 150, 0.5); 
+                box-shadow: inset 0px 0px 5px -4px black; 
+                -webkit-box-shadow: inset 0px 0px 5px -4px black; 
+                border-radius: 3px 0 0 3px;
+              }
+              
+              /* Handle on hover */
+              ::-webkit-scrollbar-thumb:hover {
+                background:rgba(100, 100, 100, 0.5); 
+                box-shadow: inset 0px 0px 15px -4px black;
+                // -webkit-box-shadow: inset 0px 0px 15px -4px black; 
+                // border-radius: 20px;
+              }
+
+              multi-switch{
+                  margin-left: 20px;
+              }
+
+
                 .center{
                     display: flex;
                     align-items: center;
@@ -173,13 +204,10 @@ class SingleElementPresenter extends HTMLElement{
                     flex-direction: column;
                     position: absolute;
                     background-color: rgba(240, 240, 240, 0.9);
-                    padding: 1rem;
-                    padding-top: 0;
-                    padding-right: 0;
                     border-radius: 5px;
                     box-shadow: 7px 10px 6px 0px rgba(0,0,0,0.71);             
                     z-index: 100;
-                    top: -5rem;
+                    top: -4rem;
                     height: 20rem;
                     
                 }
@@ -235,6 +263,8 @@ class SingleElementPresenter extends HTMLElement{
                     border-radius: 0.75rem;
                     background: white;
                     padding: 5px;
+                    margin-left: 10px;
+                    margin-right: 10px;
                 }
                 input:focus{
                     outline: none;

@@ -44,7 +44,8 @@ class SampleWaitingCircle extends WaitingCircleGeneralClass{
             border-radius: 50%;
             width: var(--circle-radius);
             height: var(--circle-radius);
-            z-index: 25
+            z-index: 25;
+            transform: translate(-50%, -50%);
 
         }
 
@@ -52,7 +53,6 @@ class SampleWaitingCircle extends WaitingCircleGeneralClass{
             border: solid thick var(--color-light);
             border-top: solid thick var(--color-dark);
             border-width: calc( var(--circle-radius) * 0.1 );
-
         }
         .circle-drop{
             border: solid;
@@ -78,7 +78,7 @@ class SampleWaitingCircle extends WaitingCircleGeneralClass{
         }
 
         </style>
-        <div class = "wrapper size-${this.size} center">
+        <div class = "circle wrapper size-${this.size} center">
             <div class = "circle sample-waiting-circle rotate color-theme-${this.colorTheme}"></div>
         </div>
         
