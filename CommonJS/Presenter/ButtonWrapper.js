@@ -49,9 +49,7 @@ class ButtonWrapper extends PresenterMethodProvider{
 
     getElementSpecyficStyling(){
         return `
-            <styling>
 
-            </styling>
         `
     }
     getElementSpecyficTemplate(id){

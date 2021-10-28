@@ -128,6 +128,7 @@
     <script src = "CommonJS/Presenter/ButtonWrapper.js" defer></script>
     <script src = "CommonJS/Presenter/LineGaugeWrapper.js" defer></script>
     <script src = "CommonJS/Presenter/WaitingCircleWrapper.js" defer></script>
+    <script src = "CommonJS/Presenter/MultiSwitchWrapper.js" defer></script>
     <script src = "CommonJS/Presenter/presentSingleElement.js" defer></script>
     <!-- <script src = "CommonJS/menuNavigator.js" defer></script> -->
     <script src = "CommonJS/navMenuStyleApplier.js" defer></script>
@@ -227,7 +228,8 @@
                     </div>
                     <div class="widgets-container movable" id = "switches-container-id">
                         <div class="content-headline"><div class="h2 center">Switches</div></div>
-
+                            <single-element-presenter data-element-type = "switch" data-element-subtype = "multi-switch"></single-element-presenter>
+                            <single-element-presenter data-element-type = "switch" data-element-subtype = "toggle-switch"></single-element-presenter>
                         <div class="widget-items center">
                         </div>
                     </div>
