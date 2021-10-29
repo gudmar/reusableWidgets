@@ -29,6 +29,8 @@ class NavigatorStyleApplier {
         `
     }
 
+
+
     getAllMovableClasses(){
         let output = '';
         for (let i = 0; i < this.nrOfScreans; i++){

@@ -52,6 +52,7 @@ class Navigator{
 
     changeNavigationClassForBackground(newClassName){
         this.changeNavigationClass(this.backgroundCanvas, newClassName, 'movable-background-')
+        console.error('Uncomment this to make bg work')
     }
 
     changeNavigationClass(targetElement, newClassName, pattern){
