@@ -1,4 +1,4 @@
-class PopButton extends CustomButtonGeneral{
+class PopButton extends CircleWhereClickedButton{
     constructor(context){
         super(context);
     }

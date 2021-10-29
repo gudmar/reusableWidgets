@@ -13,7 +13,37 @@ class CustomButton1 extends HTMLElement{
             'pulse-grow-button': PulseGrowButton,
             'circle-where-clicked-button': CircleWhereClickedButton,
             'pop-button':PopButton,
-            'push-button': PushButton
+            'push-button': PushButton,
+            'bounce-in-button': BounceInButton,
+            'bounce-out-button': BounceOutButton,
+            'rotate-button': RotateButton,
+            'rotate-bounce-button': RotateBounceButton,
+            'rotate-growth-button': RotateGrowthButton,
+            'float-right-button': FloatRightButton,
+            'sink-button': SinkButton,
+            'bob-button': BobButton,
+            'skew-button': SkewButton,
+            'skew-forward-button': SkewForwardButton,
+            'hang-button': HangButton,
+            'wobble-horizontal-button': WobbleHorizontalButton,
+            'wobble-top-bottom-button': WobbleTopBottomButton,
+            'wobble-top-button': WobbleTopButton,
+            'wobble-bottom-button': WobbleBottomButton,
+            'buzz-button': BuzzButton,
+            'buzz-out-button': BuzzOutButton,
+            'color-pulse-button': ColorPulseButton,
+            'sweep-to-right-button': SweepToRightButton,
+            'sweep-to-left-button': SweepToLeftButton,
+            'sweep-to-bottom-button': SweepToBottomButton,
+            'sweep-to-top-button': SweepToTopButton,
+            'bounce-to-right-button': BounceToRightButton,
+            'bounce-to-left-button': BounceToLeftButton,
+            'bounce-down-button': BounceDownButton,
+            'bounce-top-button': BounceTopButton,
+            'radial-out-button': RadialOutButton,
+            'rectangle-out-button': RectangleOutButton,
+            'rotate-rectangle-out-button': RotateRectangleOutButton,
+            'dark-sample-button': DarkSampleButton
         }
         this.maxLabelLenght = 10;
         this.state = {
@@ -132,8 +162,10 @@ class CustomButton1 extends HTMLElement{
     connectedCallback() {
         // this.implementer.startButton(this.stateProxy);
         // this.changeImplementer(this.stateProxy['elementType']);
+        this.runMeWhenObjectConnected();
     }
 
+    runMeWhenObjectConnected(){}
 
     static get observedAttributes() {
         return ['data-color-theme', 'data-is-active', 'data-element-subtype', 'data-label', 'onclick']

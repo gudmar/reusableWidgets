@@ -91,10 +91,7 @@ class SvgArcManager extends ArcDrawer {
 
     alterArc(value){
         this.value = value;
-        // debugger
-        console.log(this.managedElement)
         this.managedElement.querySelector(`#${this.svgArcId}`).setAttribute('stroke', this.getAlertWarnInfoColor());
-        console.log(this.managedElement)
         this.setArcAngle(this.valueToAngle_overwritable(this.value))
     }
 

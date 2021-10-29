@@ -28,6 +28,7 @@ class AbstractWaitingCircle extends AbstractComponent{
                 }
                 if (prop == 'elementSize') {this.implementer.changeElementSize(value)}
                 obj[prop] = value;
+                debugger;
                 return true;
             }.bind(this),
             get: function(obj, prop, receiver){
@@ -56,7 +57,6 @@ class AbstractWaitingCircle extends AbstractComponent{
         this.setStateIfNoAttrDefined('data-size', 'elementSize', this.implementer.changeElementSize.bind(this, 'small'))
         this.setStateIfNoAttrDefined('data-color', 'elementColor', this.impletenter.changeElementsColorThemeClass.bind(this, 'blue'))
         this.setStateIfNoAttrDefined('data-type', 'elementType', (value)=> {this.stateProxy['elementType'] = value})
-        console.log(this.state)
     }
 
 

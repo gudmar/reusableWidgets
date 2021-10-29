@@ -97,7 +97,6 @@ class CubeLogo extends AbstractComponent{
             </span>
             `
         }.bind(this)
-        console.log(wordsArray)
         for (let word of wordsArray){
             output = output + getSingleWord(word)
         }

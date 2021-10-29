@@ -16,16 +16,14 @@ class ArcGaugeWrapper extends PresenterMethodProvider{
 
     getElementSpecyficStyling(){
         return`
-            <styling>
 
-            </styling>
         `
     }
     getElementSpecyficTemplate(){
         if (this.elementSubtype == 'degree-gauge'){
             return `
-                <degree-gauge id = "wrapped-element-id"  data-label = "angle-gauge" data-approximate='1'></degree-gauge>
-                <line-gauge id = "wrapped-element-controller-id" data-label = "Gauge controller" data-size= "150" data-color-theme = "blue" data-min-val = "0", data-max-val = "360", data-value = "1"></line-gauge>
+                <degree-gauge id = "wrapped-element-id" data-value="185" data-label = "angle-gauge" data-approximate='1'></degree-gauge>
+                <line-gauge id = "wrapped-element-controller-id" data-label = "Gauge controller" data-size= "150" data-color-theme = "blue" data-min-val = "0", data-max-val = "360", data-value = "185"></line-gauge>
             `
         }
         if (this.elementSubtype == 'percentage-gauge'){

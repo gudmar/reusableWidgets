@@ -31,7 +31,6 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
     static openModalWithContent(elementSubtype){
         let modal = document.createElement('killable-modal');
         let content = new CodePresentationCustomWebElement(WaitngCircleDetailsDB.getDetailsAbout(elementSubtype))
-        console.log(elementSubtype)
         modal.insertElementToKillableModal(content);
         document.querySelector('body').appendChild(modal)
     }
@@ -63,7 +62,7 @@ class WaitnigCircleWrapper extends PresenterMethodProvider{
 
     getMenuContentAsStirng(){
         return `
-            <multi-switch id="colorChoserId" data-label-set="blue,green,gray"></multi-switch>
+            <multi-switch id="colorChoserId" data-label-set="blue,green,gray,red"></multi-switch>
             <multi-switch id="sizeChoserId" data-label-set="small,medium,big"></multi-switch>
         `
     }

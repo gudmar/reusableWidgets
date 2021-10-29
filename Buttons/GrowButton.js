@@ -1,4 +1,4 @@
-class GrowButton extends CustomButtonGeneral {
+class GrowButton extends CircleWhereClickedButton {
     constructor(context) {
         super(context);
     }

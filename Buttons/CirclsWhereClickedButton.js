@@ -38,7 +38,6 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
 
     setButtonToActiveUnactiveState(value){
         if (!value) {
-            console.log('I am here')
             {this.changeButtonColorThemeClass('inactive')}
             this.context.button.classList.remove(this.buttonType)
             this.removeOnclickAnimation()
@@ -52,11 +51,10 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
 
     addOnclickAnimation(){
         this.animateOnclickFunctoinInstance = this.animateOnClick.bind(this)
-        this.button.addEventListener('click', this.animateOnclickFunctoinInstance)
+        this.button.addEventListener('mousedown', this.animateOnclickFunctoinInstance)
     }
 
     removeOnclickAnimation(){
-        console.log('Animation should be rem')
         this.button.removeEventListener('click', this.animateOnclickFunctoinInstance)
     }
 
@@ -106,19 +104,19 @@ class CircleWhereClickedButton extends CustomButtonGeneral{
         this.setElementPosition(circleInnerText, labelPosition) 
         let interval = setInterval(() => {
             this.setElementInlineSize(circleElement, {
-                width: parseFloat(circleElement.style.width) + 2, 
-                height: parseFloat(circleElement.style.height) + 2
+                width: parseFloat(circleElement.style.width) + 4, 
+                height: parseFloat(circleElement.style.height) + 4
             })
             this.setElementPosition(circleInnerText, {
-                x: parseFloat(circleInnerText.style.left) + 1 + 'px',
-                y: parseFloat(circleInnerText.style.top) + 1 + 'px'
+                x: parseFloat(circleInnerText.style.left) + 2 + 'px',
+                y: parseFloat(circleInnerText.style.top) + 2 + 'px'
             })
             if (parseFloat(circleElement.style.width) > maxRadius) {
                 clearInterval(interval);
                 circleElement.remove();
                 this.wasClickEventTriggered = false;
             }
-        }, 5)
+        }, 1)
     }
 
     getElementPositionRelativeToTargetElement(queredElement, referenceElement){

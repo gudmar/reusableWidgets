@@ -31,6 +31,10 @@ class DropWaitingCircle extends WaitingCircleGeneralClass{
             --color-dark: darkGray;
             --color-light: rgb(220, 220, 220) ;
         }
+        .color-theme-red{
+            --color-dark: red;
+            --color-light: rgb(255, 180, 180) ;
+        }
         
         .wrapper {
             position: relative;
@@ -43,8 +47,8 @@ class DropWaitingCircle extends WaitingCircleGeneralClass{
             border-radius: 50%;
             width: var(--circle-radius);
             height: var(--circle-radius);
-            z-index: 25
-
+            z-index: 25;
+            transform: translate(-50%, -50%);
         }
 
         .sample-waiting-circle {
@@ -76,7 +80,7 @@ class DropWaitingCircle extends WaitingCircleGeneralClass{
         }
 
         </style>
-        <div class = "wrapper size-${this.size} center">
+        <div class = "circle wrapper size-${this.size} center">
             <div class = "circle rotate circle-drop color-theme-${this.colorTheme}"></div>
         </div>
         

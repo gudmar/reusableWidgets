@@ -4,6 +4,7 @@ class SingleElementPresenter extends HTMLElement{
         this.wrappedElementType = this.getAttributeOrDefault('data-element-type', 'custom-button');
         this.wrappedElementSubtype = this.getAttributeOrDefault('data-element-subtype', 'sample-button')
         this.presenterDarkLightTheme = this.getAttributeOrDefault('data-presenter-light-dark-theme', 'light')
+      console.log(this.wrappedElementType)
         this.addTemplate();
         this.presenterWrapper = this.shadowRoot.querySelector('.wrapper')
         this.content = this.shadowRoot.querySelector('.content')
@@ -20,8 +21,10 @@ class SingleElementPresenter extends HTMLElement{
 
         // let implementerConstructor = this.getWrappedElementImplementer(this.wrappedElementType, this.wrappedElementSubtype)
         // this.wrappedElementImplementer = new this.getWrappedElementImplementer(this.wrappedElementType, this.wrappedElementSubtype)
+
+
         this.wrappedElementImplementer = this.getWrappedElementImplementer(this.wrappedElementType, this.wrappedElementSubtype)
-        // debugger
+        
         // this.setSubtypeToWrappedElement();
     }
 
@@ -34,9 +37,8 @@ class SingleElementPresenter extends HTMLElement{
             return arr.indexOf(element) == -1 ? false : true;
         }
         if (type == 'custom-button' || type == 'custom-button-1') return new ButtonWrapper(this, subtype);
-        console.log(subtype)
         if (type == 'waiting-circle') return new WaitnigCircleWrapper(this, subtype)
-        
+        if (type == 'switch') return new MultiSwitchWrapper(this,subtype)
         if (type == 'line-gauge') return new LineGalugeWrapper(this)
         if (isInArray(type, ['degree-gauge', 'percentage-gauge', 'speed-gauge'])) return new ArcGaugeWrapper(this, type)
         throw new Error(`${this.constructor.name} : ${this.wrappedElementType} is not supported.`)
@@ -119,6 +121,37 @@ class SingleElementPresenter extends HTMLElement{
     _getTemplate(){
         return `
             <style>
+              ::-webkit-scrollbar {
+                width: 5px;
+              }
+              
+              /* Track */
+              ::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.25); 
+                border-radius: 20px 0 0 20px;
+              }
+               
+              /* Handle */
+              ::-webkit-scrollbar-thumb {
+                background: rgba(150, 150, 150, 0.5); 
+                box-shadow: inset 0px 0px 5px -4px black; 
+                -webkit-box-shadow: inset 0px 0px 5px -4px black; 
+                border-radius: 3px 0 0 3px;
+              }
+              
+              /* Handle on hover */
+              ::-webkit-scrollbar-thumb:hover {
+                background:rgba(100, 100, 100, 0.5); 
+                box-shadow: inset 0px 0px 15px -4px black;
+                // -webkit-box-shadow: inset 0px 0px 15px -4px black; 
+                // border-radius: 20px;
+              }
+
+              multi-switch{
+                  margin-left: 20px;
+              }
+
+
                 .center{
                     display: flex;
                     align-items: center;
@@ -134,9 +167,11 @@ class SingleElementPresenter extends HTMLElement{
                     position: relative;
                     border-radius: 5px;
                     align-items: center;
+                    
                 }
                 .light{
                     background-color: rgba(255, 255, 255, 0.5);
+                    box-shadow: inset 0px 0px 20px -3px #000000;
                 }
                 .light>.type-label{
                     color: black;
@@ -145,7 +180,8 @@ class SingleElementPresenter extends HTMLElement{
                     color: black;
                 }
                 .dark{
-                    background-color: rgba(0, 0, 0, 0.5);
+                    background-color: rgba(0, 0, 0, 0.7);
+                    box-shadow: inset 0px 0px 10px -3px #ddd;
                 }
                 .dark>.type-label{
                     color: white;
@@ -165,19 +201,20 @@ class SingleElementPresenter extends HTMLElement{
                     width: 200px;
                     height: 200px;
                 }
+                .size-vBig{
+                    width: 200px;
+                    height: 420px;                    
+                }
 
 
                 .options{
                     flex-direction: column;
                     position: absolute;
                     background-color: rgba(240, 240, 240, 0.9);
-                    padding: 1rem;
-                    padding-top: 0;
-                    padding-right: 0;
                     border-radius: 5px;
                     box-shadow: 7px 10px 6px 0px rgba(0,0,0,0.71);             
                     z-index: 100;
-                    top: -5rem;
+                    top: -4rem;
                     height: 20rem;
                     
                 }
@@ -233,6 +270,8 @@ class SingleElementPresenter extends HTMLElement{
                     border-radius: 0.75rem;
                     background: white;
                     padding: 5px;
+                    margin-left: 10px;
+                    margin-right: 10px;
                 }
                 input:focus{
                     outline: none;
@@ -273,6 +312,16 @@ class SingleElementPresenter extends HTMLElement{
                     transform: scale(2);
                     transition: 200ms;
                 }
+                .controlled-element{
+                    position: relative;
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 80% 20% 70% 30% / 30% 30% 70% 70%;
+                    -webkit-box-shadow: inset 0px 0px 100px -22px rgba(8, 8, 8, 1);
+                    -moz-box-shadow: inset 0px 0px 100px -22px rgba(8, 8, 8, 1);
+                    box-shadow: inset 0px 0px 100px -22px rgba(8, 8, 8, 1);
+                    cursor:default;
+                }
                 @keyframes infinite-rotation{
                     0% {transform: rotate(0);}
                     100% {transform: rotate(360deg);}
@@ -306,9 +355,10 @@ class SingleElementPresenter extends HTMLElement{
                 ${this.wrappedElementType == 'speed-gauge' ? '.menu-oppener-button {display: none;}':''}
                 ${this.wrappedElementType == 'percentage-gauge' ? '.menu-oppener-button {display: none;}':''}
                 ${this.wrappedElementType == 'degree-gauge' ? '.menu-oppener-button {display: none;}':''}
+                ${this.wrappedElementType == 'multi-switch' ? '.menu-oppener-button {display: none;}':''}
             </style>
 
-            <div class = "wrapper size-small ${this.presenterDarkLightTheme}">
+            <div class = "wrapper ${this.getWrapperSizeClass()} ${this.presenterDarkLightTheme}">
                 <div class = "center menu-oppener-button  endless-rotate">&#9881</div>
                 <div class = "content center">
                     
@@ -316,6 +366,12 @@ class SingleElementPresenter extends HTMLElement{
                 <div class = "type-label"></div>
             </div>
             `
+    }
+
+    getWrapperSizeClass(){
+        if (this.wrappedElementSubtype == 'multi-switch') return 'size-vBig';
+        if (this.wrappedElementSubtype == 'toggle-switch') return 'size-big';
+        return 'size-small'
     }
 
     addMenu(element){

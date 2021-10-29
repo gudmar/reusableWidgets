@@ -32,6 +32,14 @@ class HidableModal extends AbstractComponent{
                             this.show()
                         }
                         break;
+                    case 'beforeIcon':
+                        if (val == "shout"){
+                            this.showShoutBeforeIcon();
+                        } else if (val == "info"){
+                            this.showInfoBeforeIcon();
+                        } else {
+                            this.hideAllBeforeIcons();
+                        }
                     default:
                             obj[key] = val;
                 }
@@ -40,8 +48,30 @@ class HidableModal extends AbstractComponent{
         }
     }
 
+    showShoutBeforeIcon(){
+        this.shadowRoot.querySelector('.modal-body').classList.add('modal-body-shout');
+        this.shadowRoot.querySelector('#info').style.display = 'none';
+        this.shadowRoot.querySelector('#shout').style.display = 'flex';    
+    }
+    showInfoBeforeIcon(){
+        this.shadowRoot.querySelector('.modal-body').classList.remove('modal-body-shout');
+        this.shadowRoot.querySelector('#shout').style.display = 'none';
+        this.shadowRoot.querySelector('#info').style.display = 'flex';
+    }
+    hideAllBeforeIcons(){
+        this.shadowRoot.querySelector('.modal-body').classList.remove('modal-body-shout');
+        this.shadowRoot.querySelector('#shout').style.display = 'none';
+        this.shadowRoot.querySelector('#info').style.display = 'none';
+    }
+
     setInitialState(){
         this.setStateIfNoAttrDefined.call(this, 'data-visible', 'visible', this._shouldBeVisible.bind(this))
+        this.setStateIfNoAttrDefined.call(this, 'data-before-icon', 'beforeIcon', this._setBeforeIconState.bind(this))
+        
+    }
+
+    _setBeforeIconState(attrValue){
+        this.state.beforeIcon = attrValue;
     }
 
     nestChidElement(element){
@@ -49,20 +79,30 @@ class HidableModal extends AbstractComponent{
     }
 
     static get observedAttributes() {
-        return ['data-visible']
+        return ['data-visible', 'data-before-icon']
     }
 
     connectedCallback(){
         this.closeButton = this.shadowRoot.querySelector('.modal-shut-button');
         this.closeButton.addEventListener('click', this._shouldBeVisible.bind(this, false))
         this._initialShowHide();
+        this._initialBeforeIcon();
     }
 
     _initialShowHide(){
+        
         if (this._state.visible) {
             this.show()
         } else {
             this._hide()
+        }
+    }
+
+    _initialBeforeIcon(){
+        switch (this._state.beforeIcon){
+            case 'shout': this.showShoutBeforeIcon(); break;
+            case 'info' : this.showInfoBeforeIcon(); break;
+            default: this.hideAllBeforeIcons();
         }
     }
 
@@ -71,6 +111,11 @@ class HidableModal extends AbstractComponent{
             newVal = this._stringOrBooleanToBoolean(newVal)
             if (this.state.visible != newVal){
                 this.state.visible = newVal
+            }
+        }
+        if (attrName == 'data-before-icon'){
+            if (this.state.beforeIcon != newVal){
+                this.state.beforeIcon = newVal;
             }
         }
     }
@@ -149,9 +194,12 @@ class HidableModal extends AbstractComponent{
                 width: 60%;
                 max-width: 800px;
                 height: 60%;
-                background-color: rgb(200,200,200);
+                background-color: rgba(200, 200, 200, 0.7);
                 border-radius: 10px;
                 transition: 250ms;
+            }
+            .modal-body-shout{
+                background-color: rgba(250, 150, 150, 0.8);
             }
             .modal-title-bar{
                 display: flex;
@@ -210,6 +258,27 @@ class HidableModal extends AbstractComponent{
             .hidden{
                 display: none;
             }
+            .before-icon{
+                display: none;
+                position: relative;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+                color: white;
+                font-size: 2rem;
+                font-weight: bold;                
+                margin: auto;
+                margin-bottom: 1rem;
+            }
+            .shout{
+                background-color: red;
+                border: solid medium white;
+            }
+            .info{
+                background-color: blue;
+                font-family: times;
+                font-style: italic;
+            }
             @media (max-width: 750px){
                 .modal-body {
                     width: 90%;
@@ -221,7 +290,7 @@ class HidableModal extends AbstractComponent{
                     font-size: 0.8rem;
                 }
                 .modal-title-bar {
-                    height: 6rem;
+                    height: 4rem;
                 }
                 .modal-content{
                     height: calc(100% - 9rem);
@@ -233,6 +302,8 @@ class HidableModal extends AbstractComponent{
                 <div class = "modal-title-bar">
                     <div class="quick-button modal-shut-button center">&times;</div>
                 </div>
+                <div class="before-icon info center" id="info">i</div>
+                <div class="before-icon shout center" id="shout">!</div>
                 <div class = "modal-content">
                     ${this.innerHTML}
                 </div>

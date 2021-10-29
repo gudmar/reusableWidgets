@@ -46,7 +46,6 @@ class Navigator{
             let contentContainerWidth = parseFloat(this.controlledElement.getBoundingClientRect().width);
             let bgCanvasWidth = (1 + (nrOfMenuSections - 1) * this.bgScaleFactor);
             this.backgroundCanvas.style.width = contentContainerWidth * 1.5 + 'px';    /// 1.5 - number unacceptable. Name it
-            console.log(contentContainerWidth * this.bgScaleFactor + 'px')
         }.bind(this)
         resizeBgCanvas();
         window.addEventListener('resize', resizeBgCanvas);
@@ -85,7 +84,6 @@ class Navigator{
         let targetElementPosition = this.getElementsPositionRelativeToDisplayWindow(bindedElement)
         let targetBackgroundPosition = 
             this.multiplyPositionByScalar((this.substractPositions(targetElementPosition, currentControlledElementPosition)), this.bgScaleFactor);
-        console.log(targetBackgroundPosition)
         this.backgroundCanvas.style.left = -targetBackgroundPosition.x + 'px'
         this.removeClickedClassFromEachNavButton();
         clickedButton.classList.add('nav-button-clicked')
@@ -114,13 +112,11 @@ class Navigator{
     }
 
     getCurrentControlledElementPosition(){
-        console.log(this.getElementsPositionRelativeToDisplayWindow(this.controlledElement))
         return this.getElementsPositionRelativeToDisplayWindow(this.controlledElement)
     }
 
     getCurrentBackgroundPosition() {
         if (this.backgroundCanvas == null) return null;
-        console.log(this.getElementsPositionRelativeToDisplayWindow(this.backgroundCanvas))
         return this.getElementsPositionRelativeToDisplayWindow(this.backgroundCanvas)
     }
 

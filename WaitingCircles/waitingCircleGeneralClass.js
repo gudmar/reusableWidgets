@@ -1,6 +1,6 @@
 class WaitingCircleGeneralClass {
     constructor(){
-       this.supportedThemes = ['gray', 'blue', 'green'];
+       this.supportedThemes = ['gray', 'blue', 'green', 'red'];
     }
 
     startWaitingCircle(size, colorTheme){
@@ -36,7 +36,7 @@ class WaitingCircleGeneralClass {
         for (let i = 0; i < nrOfElements; i++){
             output = output + `
             .element-located-on-circle-${i} {
-                transform: translate(-50%, -50%) rotate(${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(-${angleBetweenElements * 1}deg); 
+                transform: translate(-50%, -50%) rotate(${angleBetweenElements * i}deg) translate(calc( 0.5 * var(--circle-diameter))) rotate(${angleBetweenElements * -4}deg); 
                 animation-delay: ${animationDelayDelta * i}ms;
             } `
         }
@@ -55,13 +55,17 @@ class WaitingCircleGeneralClass {
         return this.context.shadowRoot.querySelector('.circle')
     }
 
+    getAllCircleElements() {
+        return this.context.shadowRoot.querySelectorAll('.circle')
+    }
+
 
     checkIfColorThemeIsSupported(colorThemeName){
         return this.supportedThemes.indexOf(colorThemeName) == -1 ? false : true;
     }
 
     changeElementSize(newSize){
-        this.changePartOfClassNameInElement('size-', newSize)
+        this.changePartOfClassNameInElement('size-', newSize);
     }
 
     changeElementsColorThemeClassIfColorSupported(newColorTheme){
@@ -73,11 +77,17 @@ class WaitingCircleGeneralClass {
 
     changePartOfClassNameInElement(classNamePattern, newPartOfClassToBeInserted){
         let oldClass = '';
-        Array.from(this.getElement().classList).forEach((item, index) => {    
-            if (item.indexOf(classNamePattern) != -1){oldClass = item}
-        })
-        if (oldClass != '') {this.getElement().classList.remove(oldClass)}
-        this.getElement().classList.add(classNamePattern + newPartOfClassToBeInserted)
+        let allElementsToChange = this.getAllCircleElements();
+        let changeSingleElementsClass = function(element){
+                Array.from(element.classList).forEach((item, index) => {
+                if (item.indexOf(classNamePattern) != -1){oldClass = item}
+                if (oldClass != '') {
+                    element.classList.remove(oldClass)
+                    element.classList.add(classNamePattern + newPartOfClassToBeInserted)
+                }        
+            })
+        }.bind(this)
+        Array.from(allElementsToChange).forEach(changeSingleElementsClass)
     }
 
     emptyShadowRoot(){

@@ -30,6 +30,10 @@ class BlinkingDotsWaitingCircle extends WaitingCircleGeneralClass{
             --color-dark: darkGray;
             --color-light: rgb(220, 220, 220) ;
         }
+        .color-theme-red{
+            --color-dark: red;
+            --color-light: rgb(255, 180, 180) ;
+        }
         
         .wrapper {
             position: relative;
@@ -43,6 +47,7 @@ class BlinkingDotsWaitingCircle extends WaitingCircleGeneralClass{
             width: var(--circle-diameter);
             height: var(--circle-diameter);
             z-index: 25;
+            transform: translate(-25%, -25%);
         }
         .size-small{ --circle-dots-diameter: 20px; }
         .size-medium{ --circle-dots-diameter: 30px; }
@@ -99,7 +104,7 @@ class BlinkingDotsWaitingCircle extends WaitingCircleGeneralClass{
         }
 
         </style>
-        <div class = "wrapper size-${this.size} center">
+        <div class = "circle wrapper size-${this.size} center">
             <div class = "circle  rotate color-theme-${this.colorTheme}">
                 ${this.getElementsToBeLocadetOnCircle(this.nrOfElementsOnCirlce)}
             </div>
