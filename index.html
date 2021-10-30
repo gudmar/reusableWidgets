@@ -142,15 +142,17 @@
             <div class="headline center column">
                 <head-line>Widgets</head-line>
                 <div class="inline">
-                    <div class="h3">Inspired by</div>
+                    <span>
+                    <span class="h3">Inspired by</span>
                     <a href="https://ianlunn.github.io/Hover" target="_blank" class="links"><i>https://ianlunn.github.io/Hover/</i></a>
+                </span>
                 </div>
                 <nav>
-                    <div class="nav-button center" data-bind-with-id = 'buttons-container-id'>Buttons</div>
-                    <div class="nav-button center" data-bind-with-id = 'waiting-circle-container-id'>Waiting-circles</div>
+                    <div class="nav-button center nav-button-clicked" data-bind-with-id = 'buttons-container-id'>Buttons</div>
+                    <div class="nav-button center" data-bind-with-id = 'waiting-circle-container-id'>Waiting-spinners</div>
                     <div class="nav-button center" data-bind-with-id = 'switches-container-id'>Switches</div>
                     <div class="nav-button center" data-bind-with-id = 'gauge-container-id'>Gauge</div>
-                    <div class="nav-button center" data-bind-with-id = 'others-container-id'>Other</div>
+                    <div class="nav-button center" data-bind-with-id = 'others-container-id'>Lottery</div>
                 </nav>
             </div>
 
@@ -230,9 +232,9 @@
                     </div>
                     <div class="widgets-container movable" id = "switches-container-id">
                         <div class="content-headline"><div class="h2 center">Switches</div></div>
-                            <single-element-presenter data-element-type = "switch" data-element-subtype = "multi-switch"></single-element-presenter>
-                            <single-element-presenter data-element-type = "switch" data-element-subtype = "toggle-switch"></single-element-presenter>
                         <div class="widget-items center">
+                            <single-element-presenter data-element-type = "switch" data-element-subtype = "multi-switch"></single-element-presenter>
+                            <single-element-presenter data-element-type = "switch" data-element-subtype = "toggle-switch"></single-element-presenter>    
                         </div>
                     </div>
                     <div class="widgets-container movable" id = "gauge-container-id">
@@ -246,7 +248,7 @@
                     </div>
                     <div class="widgets-container movable" id = "others-container-id">
                         <div class="content-headline"><div class="h2 center">Lottery wheel</div></div>
-                        <div class="widget-items center">
+                        <div class="widget-items center column">
                             <spinning-wheel-info id = "spinning-wheel">
                                 <ul>
                                     <li data-label = "1">1 content</li>

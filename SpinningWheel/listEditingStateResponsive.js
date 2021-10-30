@@ -200,6 +200,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 min-width: 500px;
                 border-collapse: separate;
                 border-spacing: 3px;
+                max-width: 1000px;
             }
             .table-head{
                 display: table-header-group;
@@ -250,6 +251,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
             .td:nth-child(3){
                 overflow-y:auto;
                 line-height: var(--font-size);
+                
             }
             
             .button{
@@ -315,6 +317,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 .th:nth-child(3),.td:nth-child(3){
                     width: 75%;
                     padding: 10px;
+                    max-width: 600px;
                 }
                 .td:last-child{
                     cursor: pointer;
