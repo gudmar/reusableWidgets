@@ -165,7 +165,10 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 box-sizing: border-box;
                 font-family: Arial;
                 font-size: 1.4rem;
-
+                --font-size-small: 0.9rem;
+                --border-color:#d0d7de;
+                --header-color:f7f6fa;
+                --font-color:#24292f;
             }
             .center{
                 display: flex;
@@ -176,6 +179,10 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
             .wrapper{
                 width: 100%;
                 position: relative;
+                padding-top:1rem;
+                padding-bottom:1rem;
+                border-radius: 7px;
+                background-color: rgba(240,240,240,0.5);
             }
             .center-start{
                 display: flex;
@@ -190,6 +197,8 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 table-layout: fixed;
                 width: 94%;
                 min-width: 500px;
+                border-collapse: separate;
+                border-spacing: 3px;
             }
             .table-head{
                 display: table-header-group;
@@ -208,12 +217,15 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 border-radius: var(--cell-border-radius);
             }
             .th{
-                background-color: rgb(100, 100, 100);
-                color: white;
+                background-color: var(--header-color);
+                border:solid thin var(--border-color);
+                color: var(font-color);
                 position: sticky;
                 z-index: 10;
                 top: 0;
                 display: table-cell;
+
+
             }
             .tr{
                 background-color: rgb(230, 230, 230);
@@ -221,11 +233,22 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 width: 100%;
                 display:table-row;
             }
-            .td,th {
+            .td,.th {
                 height: var(--cellHeight);
                 border-radius: var(--cell-border-radius);
                 display: table-cell;
+                border-collapse: separate;
+                border-radius: 5px;
+                word-break: break-word;
+            }
+            .td{background-color: white;}
+            .td:nth-child(4){
+                font-size: var(--font-size-small);
                 
+            }
+            .td:nth-child(3){
+                overflow-y:auto;
+                line-height: var(--font-size);
             }
             
             .button{
@@ -240,17 +263,17 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 position: absolute;
                 content: attr(data-label);
                 background-color: white;
-                opacity: 1;
                 color: black;
                 border-radius: 5px;
                 top:16px;
                 width: 70px;
+                z-index:10;
             }
             .button:hover {
                 cursor: pointer;
-                opacity: 0.9;
                 transform: scale(1.1);
                 transition: 0.2s;
+                z-index: 5;
             }
             .button:active {
                 background-color: rgb(200, 200, 255);
@@ -303,6 +326,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                     flex-direction:column;
                     justify-content: center;
                     min-width: 450px;
+
                 }
                 .tr{
                     display:flex;
@@ -321,7 +345,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                     line-height: var(--cell-height);
                     border: solid thin #f3f4f5;
                     border-radius: 7px;
-                    overflow:hidden;
+                    display: inline-block;
                 }
                 .td:nth-child(3):before{
                     height: calc( var(--cell-height) * 4);
@@ -340,6 +364,8 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                     border-radius: 7px;
                     background-color: rgba(150, 130,100,0.8);
                     color:white;
+                    font-size: 1.1rem;
+                    z-index: 10;
                 }
             }
 
@@ -349,9 +375,10 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 }
             }
 
-            @media only screen and (max-width: 410px){
+            @media only screen and (max-width: 420px){
                 .table{
                     min-width: 300px;
+                    font-size: var(--font-size-small);
                 }
             }
 
@@ -380,6 +407,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
 
 
     _getBodyRowTemplate(wheelPartLabel, relatedMessage, isHidden){
+        
         let booleanIsHiddenConverter = function() {return isHidden?'Hidden':"Visible"}.bind(this)
         let isHiddenToBgColorClassConverter = function() {return isHidden?'x-bg-color':'ok-bg-color'}.bind(this)
         let firstRowContent = `
@@ -388,6 +416,7 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
             </div>
             `
         let isHiddenContent = `${booleanIsHiddenConverter()}`
+        console.log(isHiddenToBgColorClassConverter())
         return `${this._getRowTemplate(
             [firstRowContent, wheelPartLabel, relatedMessage, isHiddenContent], 
             'td', 
@@ -395,18 +424,29 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 0: 'data-label = "+/-"',
                 1: 'contenteditable=true data-label="Label"', 
                 2: 'contenteditable = true data-label="Message"', 
-                3: `class = ${isHiddenToBgColorClassConverter()} data-label="Visibility"`
+                3: `data-label="Visibility"`
+            },{
+                3: `${isHiddenToBgColorClassConverter()}`
             }
         )}`
     }
 
-    _getRowTemplate(listOfColumnContent, tdOrTh, additionalAttributesAsObj = {}) {
+    _getRowTemplate(listOfColumnContent, tdOrTh, additionalAttributesAsObj = {}, additionalClassesAsObj={}) {
         let additionalAttribs = function(index) {
-            return Object.keys(additionalAttributesAsObj).includes(index.toString())?additionalAttributesAsObj[index.toString()]:'';
+            return additionalItems(index, additionalAttributesAsObj);
+        }
+        let additionalClasses = function(index) {
+            return additionalItems(index, additionalClassesAsObj);
+        }
+        let additionalItems = function(index, additionalItems) {
+            return Object.keys(additionalItems).includes(index.toString())?additionalItems[index.toString()]:'';
         }
         let convertToTd = function(item, index) { 
-                return `<div class="${tdOrTh}" ${additionalAttribs(index)}>${item}</div>`
+            return `
+                    <div class="${tdOrTh} ${additionalClasses(index)}" ${additionalAttribs(index)}>${item}</div>
+                   `
         }.bind(this)
+        console.log(`<div class="tr">${this._listToHtmlString(listOfColumnContent, convertToTd)}</div>`)
         return `<div class="tr">${this._listToHtmlString(listOfColumnContent, convertToTd)}</div>`
     }
 
