@@ -17,7 +17,6 @@ class CubeLogo extends AbstractComponent{
                 .cube-logo-word{
                     display: flex;
                     flex-direction: row;       
-                    margin-right: 2rem;  
                     margin-bottom: 2rem;                               
                 }
                 .cube-logo-symbol{
