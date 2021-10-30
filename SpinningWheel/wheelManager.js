@@ -1,7 +1,14 @@
 class WheelControlWrapper extends StateHandlingAbstractComponent {
     constructor(){
         super();
-        this.supportedNodeNames = ['SPINNING-WHEEL', 'SPINNING-WHEEL-INFO', 'EDITING-WHEEL-STATE-LIST', 'WHEEL-ALIKE-COMPONENTS-MEDIATOR']
+        this.supportedNodeNames = [
+            'SPINNING-WHEEL', 
+            'SPINNING-WHEEL-INFO', 
+            'EDITING-WHEEL-STATE-LIST', 
+            'EDITING-WHEEL-STATE-LIST-RESPONSIVE', 
+            'WHEEL-ALIKE-COMPONENTS-MEDIATOR',
+
+        ]
         this.localStorageReferenceName = '';
     }
 
@@ -130,6 +137,9 @@ class WheelControlWrapper extends StateHandlingAbstractComponent {
             }
             if (this.supportedNodeNames.includes(currentElement.nodeName)) {
                 validSubscribers[id] = (this._getSubscriberDescriptor(currentElement))
+                console.log(`${currentElement.nodeName} is supported`)
+            } else {
+                console.warn(`Element ${currentElement.noteName} not supported by ${this.constructor.name}`)
             }
         }.bind(this)
         this._getListOfSubscriberIds().forEach((id) => fillSubscribers(id));
