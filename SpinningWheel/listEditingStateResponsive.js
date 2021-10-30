@@ -41,7 +41,6 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 this.shadowRoot.querySelector('.table-body').appendChild(createSilgleRow(item))
             })
         } catch (e) {
-            console.log(e)
             console.warn(`${this.constructor.name}: table to edit states cannot be created. Perhaps there were no data passed...`)
         }
     }
@@ -183,6 +182,8 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                 padding-bottom:1rem;
                 border-radius: 7px;
                 background-color: rgba(240,240,240,0.5);
+                margin-top: 1rem;
+                margin-bottom: 1rem;
             }
             .center-start{
                 display: flex;
@@ -368,6 +369,11 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                     z-index: 10;
                 }
             }
+            @media only screen and (max-width: 650px){
+                .th{
+                    font-size: 1rem;
+                }
+            }
 
             @media only screen and (max-width: 460px){
                 .table{
@@ -416,7 +422,6 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
             </div>
             `
         let isHiddenContent = `${booleanIsHiddenConverter()}`
-        console.log(isHiddenToBgColorClassConverter())
         return `${this._getRowTemplate(
             [firstRowContent, wheelPartLabel, relatedMessage, isHiddenContent], 
             'td', 
@@ -446,7 +451,6 @@ class ListEditingStateResponsiveComponent extends StateHandlingAbstractComponent
                     <div class="${tdOrTh} ${additionalClasses(index)}" ${additionalAttribs(index)}>${item}</div>
                    `
         }.bind(this)
-        console.log(`<div class="tr">${this._listToHtmlString(listOfColumnContent, convertToTd)}</div>`)
         return `<div class="tr">${this._listToHtmlString(listOfColumnContent, convertToTd)}</div>`
     }
 
