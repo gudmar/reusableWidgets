@@ -1,4 +1,4 @@
-class ArcGaugeAbstractComponent extends HTMLElement {
+class DegreeGaugeComponent extends HTMLElement {
     constructor(){
         super();
         let nrOfDigitsDisplayedInValueBox = 3;
@@ -272,4 +272,4 @@ class ArcGaugeAbstractComponent extends HTMLElement {
     }
 }
 
-window.customElements.define('degree-gauge', ArcGaugeAbstractComponent)
+window.customElements.define('degree-gauge', DegreeGaugeComponent)

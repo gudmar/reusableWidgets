@@ -1,4 +1,4 @@
-class SpeedGaugeComponent extends ArcGaugeAbstractComponent{
+class SpeedGaugeComponent extends DegreeGaugeComponent{
     constructor(){
         super()
     }
