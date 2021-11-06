@@ -1,4 +1,4 @@
-class PercentageGauge extends ArcGaugeAbstractComponent{
+class PercentageGauge extends DegreeGaugeComponent{
     constructor(){
         super()
     }
